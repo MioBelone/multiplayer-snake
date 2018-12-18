@@ -1,3 +1,3 @@
-Schul Projekt
+Schulprojekt
 
 # Multiplayer Snake
