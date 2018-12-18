@@ -7,6 +7,7 @@ Eine Multiplayerversion von Snake für bis zu 8 Personen in einem loaklen Netzwe
 ## Aktueller Stand
 
 Pflichtenheft erstellt
+
 Projekt (-struktur) erstellt
 
 ## Built With
