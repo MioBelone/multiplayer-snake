@@ -1,1 +1,3 @@
-# multiplayer-snake
+Schul Projekt
+
+# Multiplayer Snake
