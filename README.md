@@ -4,10 +4,11 @@ Schulprojekt
 
 Eine Multiplayerversion von Snake für bis zu 8 Personen in einem loaklen Netzwerk.
 
-## Aktueller Stand
+## Fortschritt
 
 * Pflichtenheft erstellt
 * Projekt (-struktur) erstellt
+* Einfacher Server multiple Client Chat eingebaut
 
 ## Built With
 
