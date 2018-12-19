@@ -8,7 +8,7 @@ Eine Multiplayerversion von Snake für bis zu 8 Personen in einem loaklen Netzwe
 
 * Pflichtenheft erstellt
 * Projekt (-struktur) erstellt
-* Einfacher Server multiple Client Chat
+* Einfacher Server multiple Client Chat eingebaut
 
 ## Built With
 
