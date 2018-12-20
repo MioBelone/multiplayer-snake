@@ -22,8 +22,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        //Initialising the first model which needs to be used for the start screen of the program
         InitialModel initialModel = new InitialModel();
 
+        //Initialising the start presenter which handles the view and the model
         InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
         initialViewPresenter.show();
     }

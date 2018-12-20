@@ -27,10 +27,10 @@ public class Server {
 
     public void start() {
         try {
-            //Eigenen ServerSocket initialisieren
+            //Initialise serversocket
             serverS = new ServerSocket(port);
 
-            //Mit Clients verbinden und an Thread übergeben
+            //Allow clients to connect and handle them in their own thread
             while(true) {
                 Socket clientS = serverS.accept();
                 System.out.println("A new model.client is connected: " + clientS);

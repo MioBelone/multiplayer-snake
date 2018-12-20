@@ -54,6 +54,6 @@ public class Client {
     }
 
     private void writeMsgToGUI(String msg) {
-        //Übergebenen String in GUI schreiben
+        //msg must be passed to the presenter
     }
 }

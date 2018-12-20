@@ -36,7 +36,7 @@ public class ClientHandler extends Thread {
                 server.sendToAllHandler(msg);
             }
 
-            //Input-/OutputStream müssen geschlossen werden
+            //Closing input-/outputstream after disconnecting
             din.close();
             dout.close();
         } catch (IOException e) {

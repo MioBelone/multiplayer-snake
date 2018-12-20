@@ -1,5 +1,7 @@
 package presenter;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import view.InitialView;
 import javafx.stage.Stage;
 import model.InitialModel;
@@ -19,6 +21,10 @@ public class InitialViewPresenter {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
         this.view = new InitialView();
+
+        //Handlers for events on view
+        //view.getBtnHostLobby().setOnAction(new Btn1EventHandler());
+        //view.getBtnJoinLobby().setOnAction(new Btn2EventHandler());
     }
 
     /**
@@ -26,5 +32,25 @@ public class InitialViewPresenter {
      */
     public void show() {
         view.show(primaryStage);
+    }
+
+    //**********************************************************************
+    // Events
+    //**********************************************************************
+
+    class Btn1EventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Host Lobby");
+        }
+    }
+
+    class Btn2EventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Join Lobby");
+        }
     }
 }

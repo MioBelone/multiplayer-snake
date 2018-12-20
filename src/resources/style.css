@@ -1,0 +1,45 @@
+/*
+    CSS-Stylesheet for Dark-Theme
+
+    Author: Maximilian Gräfe
+*/
+
+* {
+    -fx-primary : #2A2E37;
+    -fx-secondary : #353945;
+    -fx-tertiary : #424756;
+    -fx-contrast : #808080;
+    -fx-primarytext : #D5D1C8;
+    -fx-focustext : RED;
+}
+
+.grid-pane-root {
+    -fx-background-color: -fx-primary;
+}
+
+.brand-box {
+    -fx-background-color: -fx-tertiary;
+}
+
+.tab-header-background {
+    -fx-background-color: -fx-contrast;
+    -fx-background-insets: 100%;
+}
+
+.tab {
+    -fx-background-color: -fx-secondary;
+    -fx-focus-color: transparent;
+}
+
+.tab:selected {
+    -fx-background-color: -fx-primary;
+}
+
+.tab-label {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-weight: BOLD;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: -fx-focustext;
+}
