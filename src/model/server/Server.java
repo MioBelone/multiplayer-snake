@@ -1,4 +1,4 @@
-package server;
+package model.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,7 +33,7 @@ public class Server {
             //Mit Clients verbinden und an Thread übergeben
             while(true) {
                 Socket clientS = serverS.accept();
-                System.out.println("A new client is connected: " + clientS);
+                System.out.println("A new model.client is connected: " + clientS);
 
                 din = new DataInputStream(clientS.getInputStream());
                 dout = new DataOutputStream(clientS.getOutputStream());
