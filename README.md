@@ -2,7 +2,7 @@ Schulprojekt
 
 # Multiplayer-Snake
 
-Eine Multiplayerversion von Snake für bis zu 8 Personen in einem loaklen Netzwerk.
+Eine Multiplayerversion von "Snake" für bis zu 8 Personen in einem loaklen Netzwerk.
 
 ## Fortschritt
 
