@@ -143,7 +143,8 @@ public class InitialView {
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
-        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und eventuell noch Verlinkungen zu hilfreichen Webseiten.");
+        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
+                "eventuell noch Verlinkungen zu hilfreichen Webseiten.");
         lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
         lblBrandInfo.setWrapText(true);
         vboxBrand.getChildren().add(lblBrandInfo);

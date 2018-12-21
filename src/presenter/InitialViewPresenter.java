@@ -7,7 +7,8 @@ import javafx.stage.Stage;
 import model.InitialModel;
 
 /**
- * This class is the connection between the view and the model. It handles user input and prepares data to be shown in the view.
+ * This class is the connection between the view and the model. It handles user input and prepares data to be shown
+ * in the view.
  *
  * @author Maximilian Gräfe
  */
