@@ -10,7 +10,7 @@
     -fx-tertiary : #424756;
     -fx-contrast : #808080;
     -fx-primarytext : #D5D1C8;
-    -fx-focustext : RED;
+    -fx-focustext : #9BD9FD;
 }
 
 .grid-pane-root {
@@ -19,6 +19,7 @@
 
 .brand-box {
     -fx-background-color: -fx-tertiary;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0)
 }
 
 .tab-header-background {
@@ -42,4 +43,43 @@
 
 .tab:selected .tab-label {
     -fx-text-fill: -fx-focustext;
+}
+
+.label {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size: 16px;
+}
+
+.label-head {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size: 22px;
+    -fx-font-weight: BOLD;
+}
+
+.text-field {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size: 16px;
+    -fx-background-color: -fx-tertiary, -fx-primary;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focustext, -fx-primary;
+}
+
+.button {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-size: 16px;
+    -fx-background-color: -fx-tertiary, -fx-secondary;
+    -fx-background-insets: 0, 1 1 1 1;
+    -fx-background-radius: 0;
+}
+
+.button:focused {
+    -fx-background-color: -fx-focustext, -fx-secondary;
+}
+
+.button:pressed {
+    -fx-background-color: -fx-focustext, -fx-primary;
 }

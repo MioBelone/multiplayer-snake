@@ -1,11 +1,11 @@
 package view;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -19,10 +19,20 @@ public class InitialView {
 
     private GridPane grid;
     private TabPane tabPane;
-    private VBox vbox;
+    private BorderPane bPaneHost;
+    private BorderPane bPaneJoin;
+    private VBox vboxBrand;
+    private VBox vBoxHostContent;
+    private VBox vBoxJoinContent;
 
     private Tab tabHost;
     private Tab tabJoin;
+
+    private Label lblHostHead;
+    private Label lblJoinHead;
+    private Label lblBrandLogo;
+    private Label lblBrandText;
+    private Label lblBrandInfo;
 
     private Button btnHostLobby;
     private Button btnJoinLobby;
@@ -34,6 +44,8 @@ public class InitialView {
     private TextField tfIpJoin;
 
     public InitialView() {
+
+        //Main container as GridPane
         grid = new GridPane();
         grid.getStyleClass().add("grid-pane-root");
 
@@ -47,6 +59,7 @@ public class InitialView {
         row1.setPercentHeight(100);
         grid.getRowConstraints().add(row1);
 
+        //TabPane and Tabs
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         grid.add(tabPane, 1, 0);
@@ -57,10 +70,85 @@ public class InitialView {
         tabJoin = new Tab("Lobby beitreten");
         tabPane.getTabs().add(tabJoin);
 
-        vbox = new VBox();
-        vbox.getStyleClass().add("brand-box");
-        grid.add(vbox, 0, 0);
+        //Main container in tabs
+        bPaneHost = new BorderPane();
+        bPaneHost.setPadding(new Insets(20));
+        tabHost.setContent(bPaneHost);
 
+        bPaneJoin = new BorderPane();
+        bPaneJoin.setPadding(new Insets(20));
+        tabJoin.setContent(bPaneJoin);
+
+        //Container for specific content
+        vBoxHostContent = new VBox();
+        vBoxHostContent.setPadding(new Insets(40));
+        vBoxHostContent.setSpacing(40);
+        bPaneHost.setCenter(vBoxHostContent);
+
+        vBoxJoinContent = new VBox();
+        vBoxJoinContent.setPadding(new Insets(40));
+        vBoxJoinContent.setSpacing(40);
+        bPaneJoin.setCenter(vBoxJoinContent);
+
+        //Content for HostTab
+        lblHostHead = new Label("Lobby erstellen:");
+        lblHostHead.getStyleClass().add("label-head");
+        bPaneHost.setTop(lblHostHead);
+
+        tfUserNameHost = new TextField();
+        tfUserNameHost.setPromptText("Benutzername");
+        vBoxHostContent.getChildren().add(tfUserNameHost);
+
+        tfPortHost = new TextField();
+        tfPortHost.setPromptText("Port (0000-9999)");
+        vBoxHostContent.getChildren().add(tfPortHost);
+
+        btnHostLobby = new Button("Erstellen");
+        bPaneHost.setBottom(btnHostLobby);
+
+        //Content for JoinTab
+        lblJoinHead = new Label("Offener Lobby beitreten:");
+        lblJoinHead.getStyleClass().add("label-head");
+        bPaneJoin.setTop(lblJoinHead);
+
+        tfUserNameJoin = new TextField();
+        tfUserNameJoin.setPromptText("Benutzername");
+        vBoxJoinContent.getChildren().add(tfUserNameJoin);
+
+        tfPortJoin = new TextField();
+        tfPortJoin.setPromptText("Port (0000-9999)");
+        vBoxJoinContent.getChildren().add(tfPortJoin);
+
+        tfIpJoin = new TextField();
+        tfIpJoin.setPromptText("IP-Adresse");
+        vBoxJoinContent.getChildren().add(tfIpJoin);
+
+        btnJoinLobby = new Button("Beitreten");
+        bPaneJoin.setBottom(btnJoinLobby);
+
+        //BrandBox for logo and short info text
+        vboxBrand = new VBox();
+        vboxBrand.getStyleClass().add("brand-box");
+        vboxBrand.setAlignment(Pos.TOP_CENTER);
+        vboxBrand.setPadding(new Insets(20));
+        vboxBrand.setSpacing(40);
+        grid.add(vboxBrand, 0, 0);
+
+        //Content for BrandBox
+        lblBrandLogo = new Label("<Ihr Logo>");
+        lblBrandLogo.getStyleClass().add("label-head");
+        vboxBrand.getChildren().add(lblBrandLogo);
+
+        lblBrandText = new Label("MPSnake");
+        lblBrandText.getStyleClass().add("label-head");
+        vboxBrand.getChildren().add(lblBrandText);
+
+        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und eventuell noch Verlinkungen zu hilfreichen Webseiten.");
+        lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
+        lblBrandInfo.setWrapText(true);
+        vboxBrand.getChildren().add(lblBrandInfo);
+
+        //Inititalising scene
         scene = new Scene(grid, 1000, 600);
         scene.getStylesheets().add("/resources/style.css");
     }
@@ -92,14 +180,5 @@ public class InitialView {
      */
     public Button getBtnJoinLobby() {
         return btnJoinLobby;
-    }
-
-    /**
-     * Getter
-     *
-     * @return the grid in the methods name.
-     */
-    public GridPane getGridPane() {
-        return grid;
     }
 }

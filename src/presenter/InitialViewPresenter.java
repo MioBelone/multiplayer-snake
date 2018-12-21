@@ -23,8 +23,8 @@ public class InitialViewPresenter {
         this.view = new InitialView();
 
         //Handlers for events on view
-        //view.getBtnHostLobby().setOnAction(new Btn1EventHandler());
-        //view.getBtnJoinLobby().setOnAction(new Btn2EventHandler());
+        view.getBtnHostLobby().setOnAction(new BtnHostLobbyEventHandler());
+        view.getBtnJoinLobby().setOnAction(new BtnJoinLobbyEventHandler());
     }
 
     /**
@@ -38,19 +38,19 @@ public class InitialViewPresenter {
     // Events
     //**********************************************************************
 
-    class Btn1EventHandler implements EventHandler<ActionEvent> {
+    class BtnHostLobbyEventHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Host Lobby");
+            initialModel.hostGame("", 0);
         }
     }
 
-    class Btn2EventHandler implements EventHandler<ActionEvent> {
+    class BtnJoinLobbyEventHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Join Lobby");
+            initialModel.joinGame("", 0, "");
         }
     }
 }
