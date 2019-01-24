@@ -139,7 +139,7 @@ public class InitialView {
         lblBrandLogo.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandLogo);
 
-        lblBrandText = new Label("MPSnake");
+        lblBrandText = new Label("SnakeBasket");
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
@@ -160,7 +160,7 @@ public class InitialView {
      * @param stage
      */
     public void show(Stage stage) {
-        stage.setTitle("Initial View");
+        stage.setTitle("SnakeBasket");
         stage.setScene(scene);
         stage.show();
     }
