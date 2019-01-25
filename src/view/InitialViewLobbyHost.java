@@ -1,5 +1,7 @@
 package view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import presenter.InitialViewPresenter;
 
 /**
  * This class is the view which the user can see after the .show method is called.
@@ -17,6 +20,8 @@ public class InitialViewLobbyHost {
 
     private Scene scene;
 
+    InitialViewPresenter presenter = new InitialViewPresenter();
+
     private GridPane grid;
     private TabPane tabPane;
     private BorderPane bPaneHost;
@@ -26,13 +31,14 @@ public class InitialViewLobbyHost {
     private VBox vBoxJoinContent;
 
     private Tab tabHost;
-    private Tab tabJoin;
+    private Tab tabSettings;
 
     private Label lblHostHead;
     private Label lblJoinHead;
     private Label lblBrandLogo;
     private Label lblBrandText;
     private Label lblBrandInfo;
+    private Label lblBrandInfoHead;
 
     private Button btnHostLobby;
     private Button btnJoinLobby;
@@ -42,6 +48,9 @@ public class InitialViewLobbyHost {
     private TextField tfUserNameJoin;
     private TextField tfPortJoin;
     private TextField tfIpJoin;
+
+    private ListView playerList = new ListView();
+
 
     public InitialViewLobbyHost() {
 
@@ -64,11 +73,11 @@ public class InitialViewLobbyHost {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         grid.add(tabPane, 1, 0);
 
-        tabHost = new Tab("Lobby erstellen");
+        tabHost = new Tab("Lobby");
         tabPane.getTabs().add(tabHost);
 
-        tabJoin = new Tab("Lobby beitreten");
-        tabPane.getTabs().add(tabJoin);
+        tabSettings = new Tab("Spieleinstellungen");
+        tabPane.getTabs().add(tabSettings);
 
         //Main container in tabs
         bPaneHost = new BorderPane();
@@ -77,7 +86,7 @@ public class InitialViewLobbyHost {
 
         bPaneJoin = new BorderPane();
         bPaneJoin.setPadding(new Insets(20));
-        tabJoin.setContent(bPaneJoin);
+        tabSettings.setContent(bPaneJoin);
 
         //Container for specific content
         vBoxHostContent = new VBox();
@@ -91,7 +100,7 @@ public class InitialViewLobbyHost {
         bPaneJoin.setCenter(vBoxJoinContent);
 
         //Content for HostTab
-        lblHostHead = new Label("Lobby erstellen:");
+        lblHostHead = new Label("Verbunden als Host");
         lblHostHead.getStyleClass().add("label-head");
         bPaneHost.setTop(lblHostHead);
 
@@ -107,7 +116,7 @@ public class InitialViewLobbyHost {
         bPaneHost.setBottom(btnHostLobby);
 
         //Content for JoinTab
-        lblJoinHead = new Label("Offener Lobby beitreten:");
+        lblJoinHead = new Label("Einstellungen");
         lblJoinHead.getStyleClass().add("label-head");
         bPaneJoin.setTop(lblJoinHead);
 
@@ -143,11 +152,21 @@ public class InitialViewLobbyHost {
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
-        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
+        lblBrandInfoHead = new Label("Verbundene\nSpieler");
+        lblBrandInfoHead.getStyleClass().add("label-head");
+        vboxBrand.getChildren().add(lblBrandInfoHead);
+
+       /* lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
                 "eventuell noch Verlinkungen zu hilfreichen Webseiten.");
         lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
         lblBrandInfo.setWrapText(true);
-        vboxBrand.getChildren().add(lblBrandInfo);
+        vboxBrand.getChildren().add(lblBrandInfo);*/
+
+        playerList.setItems(presenter.fillList());
+        playerList.setMouseTransparent(true);
+        playerList.setFocusTraversable(false);
+        vboxBrand.getChildren().add(playerList);
+
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 600);
