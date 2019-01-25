@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import presenter.InitialViewLobbyPlayerPresenter;
 
 /**
  * This class is the view which the user can see after the .show method is called.
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 public class InitialViewLobbyPlayer {
 
     private Scene scene;
+
+    InitialViewLobbyPlayerPresenter presenter = new InitialViewLobbyPlayerPresenter();
 
     private GridPane grid;
     private TabPane tabPane;
@@ -33,15 +36,17 @@ public class InitialViewLobbyPlayer {
     private Label lblBrandLogo;
     private Label lblBrandText;
     private Label lblBrandInfo;
+    private Label lblBrandInfoHead;
 
-    private Button btnHostLobby;
-    private Button btnJoinLobby;
+    private Button btnStart;
 
     private TextField tfUserNameHost;
     private TextField tfPortHost;
     private TextField tfUserNameJoin;
     private TextField tfPortJoin;
     private TextField tfIpJoin;
+
+    private ListView playerList = new ListView();
 
     public InitialViewLobbyPlayer() {
 
@@ -64,10 +69,10 @@ public class InitialViewLobbyPlayer {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         grid.add(tabPane, 1, 0);
 
-        tabHost = new Tab("Lobby erstellen");
+        tabHost = new Tab("Lobby");
         tabPane.getTabs().add(tabHost);
 
-        tabJoin = new Tab("Lobby beitreten");
+        tabJoin = new Tab("Einstellungen");
         tabPane.getTabs().add(tabJoin);
 
         //Main container in tabs
@@ -91,7 +96,7 @@ public class InitialViewLobbyPlayer {
         bPaneJoin.setCenter(vBoxJoinContent);
 
         //Content for HostTab
-        lblHostHead = new Label("Lobby erstellen:");
+        lblHostHead = new Label("Verbunden als Spieler");
         lblHostHead.getStyleClass().add("label-head");
         bPaneHost.setTop(lblHostHead);
 
@@ -103,8 +108,8 @@ public class InitialViewLobbyPlayer {
         tfPortHost.setPromptText("Port (0000-9999)");
         vBoxHostContent.getChildren().add(tfPortHost);
 
-        btnHostLobby = new Button("Erstellen");
-        bPaneHost.setBottom(btnHostLobby);
+        btnStart = new Button("Spiel starten");
+        bPaneHost.setBottom(btnStart);
 
         //Content for JoinTab
         lblJoinHead = new Label("Offener Lobby beitreten:");
@@ -123,9 +128,6 @@ public class InitialViewLobbyPlayer {
         tfIpJoin.setPromptText("IP-Adresse");
         vBoxJoinContent.getChildren().add(tfIpJoin);
 
-        btnJoinLobby = new Button("Beitreten");
-        bPaneJoin.setBottom(btnJoinLobby);
-
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
         vboxBrand.getStyleClass().add("brand-box");
@@ -143,14 +145,17 @@ public class InitialViewLobbyPlayer {
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
-        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
-                "eventuell noch Verlinkungen zu hilfreichen Webseiten.");
-        lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
-        lblBrandInfo.setWrapText(true);
-        vboxBrand.getChildren().add(lblBrandInfo);
+        lblBrandInfoHead = new Label("Verbundene\nSpieler");
+        lblBrandInfoHead.getStyleClass().add("label-head");
+        vboxBrand.getChildren().add(lblBrandInfoHead);
+
+        playerList.setItems(presenter.fillList());
+        playerList.setMouseTransparent(true);
+        playerList.setFocusTraversable(false);
+        vboxBrand.getChildren().add(playerList);
 
         //Inititalising scene
-        scene = new Scene(grid, 1000, 600);
+        scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 
@@ -170,16 +175,7 @@ public class InitialViewLobbyPlayer {
      *
      * @return the button in the methods name.
      */
-    public Button getBtnHostLobby() {
-        return btnHostLobby;
-    }
-
-    /**
-     * Getter
-     *
-     * @return the button in the methods name.
-     */
-    public Button getBtnJoinLobby() {
-        return btnJoinLobby;
+    public Button getBtnStart() {
+        return btnStart;
     }
 }

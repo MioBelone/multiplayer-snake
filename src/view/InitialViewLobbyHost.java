@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import presenter.InitialViewLobbyHostPresenter;
 import presenter.InitialViewPresenter;
 
 /**
@@ -20,7 +21,7 @@ public class InitialViewLobbyHost {
 
     private Scene scene;
 
-    InitialViewPresenter presenter = new InitialViewPresenter();
+    InitialViewLobbyHostPresenter presenter = new InitialViewLobbyHostPresenter();
 
     private GridPane grid;
     private TabPane tabPane;
@@ -40,7 +41,7 @@ public class InitialViewLobbyHost {
     private Label lblBrandInfo;
     private Label lblBrandInfoHead;
 
-    private Button btnHostLobby;
+    private Button btnStart;
     private Button btnJoinLobby;
 
     private TextField tfUserNameHost;
@@ -112,8 +113,8 @@ public class InitialViewLobbyHost {
         tfPortHost.setPromptText("Port (0000-9999)");
         vBoxHostContent.getChildren().add(tfPortHost);
 
-        btnHostLobby = new Button("Erstellen");
-        bPaneHost.setBottom(btnHostLobby);
+        btnStart = new Button("Spiel starten");
+        bPaneHost.setBottom(btnStart);
 
         //Content for JoinTab
         lblJoinHead = new Label("Einstellungen");
@@ -156,12 +157,6 @@ public class InitialViewLobbyHost {
         lblBrandInfoHead.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
-       /* lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
-                "eventuell noch Verlinkungen zu hilfreichen Webseiten.");
-        lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
-        lblBrandInfo.setWrapText(true);
-        vboxBrand.getChildren().add(lblBrandInfo);*/
-
         playerList.setItems(presenter.fillList());
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
@@ -169,7 +164,7 @@ public class InitialViewLobbyHost {
 
 
         //Inititalising scene
-        scene = new Scene(grid, 1000, 600);
+        scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 
@@ -189,16 +184,7 @@ public class InitialViewLobbyHost {
      *
      * @return the button in the methods name.
      */
-    public Button getBtnHostLobby() {
-        return btnHostLobby;
-    }
-
-    /**
-     * Getter
-     *
-     * @return the button in the methods name.
-     */
-    public Button getBtnJoinLobby() {
-        return btnJoinLobby;
+    public Button getBtnStart() {
+        return btnStart;
     }
 }

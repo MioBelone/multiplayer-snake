@@ -150,7 +150,7 @@ public class InitialViewJoin {
         vboxBrand.getChildren().add(lblBrandInfo);
 
         //Inititalising scene
-        scene = new Scene(grid, 1000, 600);
+        scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 

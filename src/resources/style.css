@@ -86,6 +86,7 @@
 
 .list-view{
 -fx-border-width: 0px;
+-fx-background-color: #424756;
 }
 
 .list-view .list-cell:even {
