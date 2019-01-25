@@ -8,13 +8,22 @@ import java.net.Socket;
 public class Client {
 
     private Socket clientS;
+    private String name;
     private DataInputStream din;
     private DataOutputStream dout;
 
+    public Client(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static void main(String[] args) {
-        Client c = new Client();
+        Client c = new Client("Testclient");
         c.connect("localhost", 5065);
-        c.sendMsgToServer("Testnachricht");
+        c.sendMsgToServer("Testnachricht 123");
     }
 
     public void connect(String ip, int port) {

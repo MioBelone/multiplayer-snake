@@ -26,14 +26,16 @@ public class Server {
     }
 
     public void start() {
+        System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°START°°°°°°°°°°°°°°°°°°°°°°°°°°°");
+        System.out.println("Server starting...");
         try {
             //Initialise serversocket
             serverS = new ServerSocket(port);
-
+            System.out.println("Server started!");
             //Allow clients to connect and handle them in their own thread
             while(true) {
                 Socket clientS = serverS.accept();
-                System.out.println("A new model.client is connected: " + clientS);
+                System.out.println("A new client is connected: " + clientS);
 
                 din = new DataInputStream(clientS.getInputStream());
                 dout = new DataOutputStream(clientS.getOutputStream());
@@ -49,19 +51,24 @@ public class Server {
             }
         } catch(IOException e) {
             e.printStackTrace();
+            System.out.println("Server starting failed!");
         }
     }
 
-    public void stop() {
+    public void close() {
+        System.out.println("Server closing...");
         try {
             serverS.close();
+            System.out.println("Server closed!");
+            System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°END°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Server closing failed!");
         }
     }
 
     public void sendToAllHandler(String msg) {
-        System.out.println("Recieved message: " + msg);
+        System.out.println("Received message: " + msg);
         for(int i = 0; i < clientList.size(); i++) {
             clientList.get(i).sendToClient(msg);
         }
