@@ -8,7 +8,7 @@ public class Food {
 
     private int x;
     private int y;
-    //private static Color color = Color.RED;
+    private Random random = new Random();
 
     public Food(int x, int y) {
 
@@ -19,8 +19,8 @@ public class Food {
 
     public void reset() {
 
-        this.x = (random.nextInt(15) + 1)*Draw.getAbstand();
-        this.y = (random.nextInt(15) + 1)*Draw.getAbstand();
+        this.x = (random.nextInt(100) + 1);
+        this.y = (random.nextInt(100) + 1);
     }
 
 

@@ -4,11 +4,16 @@ import java.util.ArrayList;
 
 public class Snake {
 
-    private static SnakeHead snakeHead = new SnakeHead();
+    private static SnakeHead snakeHead = new SnakeHead(1,1);
     private static ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
 
 
-    public void addSnakeTail() {
+    /**
+     * Methode, um der Snake einen Body hinzuzufügen
+     * Sollte noch kein Body vorhanden sein, wird der erste auf die Koordinaten des Head gesetzt,
+     *  ansonsten auf die des letzten Body
+     */
+    public void addSnakeBody() {
         if (snakeBodies.size() < 1) {
             snakeBodies.add(new SnakeBody(snakeHead.getX(), snakeHead.getY()));
         } else {
@@ -17,8 +22,14 @@ public class Snake {
 
     }
 
+    /**
+     * Methode zum Bewegen einer Snake, die bei jedem Tick aufgerufen wird.
+     * Zuerst wird jeder Body (bis auf den ersten) auf die Position des vorherigen Bodys gesetzt.
+     * Anschließend der erste Body auf die Position des Heads.
+     * Zuletzt wird der Head bewegt.
+     */
     public void move() {
-        //Move Tails
+        //Move Bodies
         if (snakeBodies.size() >= 2) {
             for (int i = snakeBodies.size() - 1; i >= 1; i--) {
 
@@ -28,7 +39,7 @@ public class Snake {
             }
         }
 
-        //Move first Tail to Head
+        //Move first Body to Head
         if (snakeBodies.size() >= 1) {
 
             snakeBodies.get(0).setX(snakeHead.getX());
@@ -39,16 +50,16 @@ public class Snake {
         //Move Head
         switch (snakeHead.getDir()) {
             case RIGHT:
-                snakeHead.setX(snakeHead.getX() + draw.getAbstand());
+                snakeHead.setX(snakeHead.getX() +1);
                 break;
             case UP:
-                snakeHead.setY(snakeHead.getY() - draw.getAbstand());
+                snakeHead.setY(snakeHead.getY() - 1);
                 break;
             case LEFT:
-                snakeHead.setX(snakeHead.getX() - draw.getAbstand());
+                snakeHead.setX(snakeHead.getX() - 1);
                 break;
             case DOWN:
-                snakeHead.setY(snakeHead.getY() + draw.getAbstand());
+                snakeHead.setY(snakeHead.getY() + 1);
                 break;
         }
     }
@@ -62,11 +73,11 @@ public class Snake {
         Snake.snakeHead = snakeHead;
     }
 
-    public static ArrayList<SnakeBody> getSnakeTails() {
+    public static ArrayList<SnakeBody> getSnakeBodies() {
         return snakeBodies;
     }
 
-    public static void setSnakeTails(ArrayList<SnakeBody> snakeTails) {
-        Snake.snakeBodies = snakeTails;
+    public static void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
+        Snake.snakeBodies = snakeBodies;
     }
 }
