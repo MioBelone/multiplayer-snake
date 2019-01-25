@@ -2,7 +2,7 @@ package presenter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import view.InitialView;
+import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
 
@@ -14,14 +14,14 @@ import model.InitialModel;
  */
 public class InitialViewPresenter {
 
-    private InitialView view;
+    private InitialViewJoin view;
     private InitialModel initialModel;
     private Stage primaryStage;
 
     public InitialViewPresenter(Stage primaryStage, InitialModel initialModel) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.view = new InitialView();
+        this.view = new InitialViewJoin();
 
         //Handlers for events on view
         view.getBtnHostLobby().setOnAction(new BtnHostLobbyEventHandler());

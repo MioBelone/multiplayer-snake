@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  *
  * @author Maximilian Gräfe
  */
-public class InitialView {
+public class InitialViewJoin {
 
     private Scene scene;
 
@@ -43,7 +43,7 @@ public class InitialView {
     private TextField tfPortJoin;
     private TextField tfIpJoin;
 
-    public InitialView() {
+    public InitialViewJoin() {
 
         //Main container as GridPane
         grid = new GridPane();
