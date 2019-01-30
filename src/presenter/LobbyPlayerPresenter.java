@@ -17,9 +17,9 @@ import java.util.List;
  *
  * @author Fabian Haese
  */
-public class InitialViewLobbyPlayerPresenter {
+public class LobbyPlayerPresenter {
 
-    private InitialViewLobbyPlayer view;
+    private LobbyPlayer view;
     private InitialModel initialModel;
     private Stage primaryStage;
 
@@ -27,16 +27,16 @@ public class InitialViewLobbyPlayerPresenter {
 
     public static final ObservableList<String> oPlayer = FXCollections.observableArrayList();
 
-    public InitialViewLobbyPlayerPresenter(Stage primaryStage, InitialModel initialModel) {
+    public LobbyPlayerPresenter(Stage primaryStage, InitialModel initialModel) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.view = new InitialViewLobbyPlayer();
+        this.view = new LobbyPlayer();
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
     }
 
-    public InitialViewLobbyPlayerPresenter() {
+    public LobbyPlayerPresenter() {
     }
 
     /**

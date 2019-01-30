@@ -50,7 +50,7 @@ public class InitialViewPresenter {
             initialModel.hostGame("", 0);
 
             //Initialising the LobbyHost presenter which handles the view and the model
-            InitialViewLobbyHostPresenter initialViewPresenter = new InitialViewLobbyHostPresenter(primaryStage, initialModel);
+            LobbyHostPresenter initialViewPresenter = new LobbyHostPresenter(primaryStage, initialModel);
             initialViewPresenter.show();
         }
     }
@@ -62,7 +62,7 @@ public class InitialViewPresenter {
             initialModel.joinGame("", 0, "");
 
             //Initialising the LobbyPlayer presenter which handles the view and the model
-            InitialViewLobbyPlayerPresenter initialViewPresenter = new InitialViewLobbyPlayerPresenter(primaryStage, initialModel);
+            LobbyPlayerPresenter initialViewPresenter = new LobbyPlayerPresenter(primaryStage, initialModel);
             initialViewPresenter.show();
         }
     }

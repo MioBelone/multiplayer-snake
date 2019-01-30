@@ -5,20 +5,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import presenter.InitialViewLobbyPlayerPresenter;
+import presenter.LobbyPlayerPresenter;
 
 /**
  * This class is the view which the user can see after the .show method is called.
  *
  * @author Fabian Haese
  */
-public class InitialViewLobbyPlayer {
+public class LobbyPlayer {
 
     private Scene scene;
 
-    InitialViewLobbyPlayerPresenter presenter = new InitialViewLobbyPlayerPresenter();
+    LobbyPlayerPresenter presenter = new LobbyPlayerPresenter();
 
     private GridPane grid;
     private TabPane tabPane;
@@ -28,27 +27,22 @@ public class InitialViewLobbyPlayer {
     private VBox vBoxHostContent;
     private VBox vBoxJoinContent;
 
-    private Tab tabHost;
-    private Tab tabJoin;
+    private Tab  tabPlayer;
+    private Tab tabSettings;
 
-    private Label lblHostHead;
-    private Label lblJoinHead;
+    private Label lblPlayerHead;
     private Label lblBrandLogo;
     private Label lblBrandText;
-    private Label lblBrandInfo;
     private Label lblBrandInfoHead;
+    private Label lblChat;
+
+    private Label lblSettingsHead;
 
     private Button btnStart;
 
-    private TextField tfUserNameHost;
-    private TextField tfPortHost;
-    private TextField tfUserNameJoin;
-    private TextField tfPortJoin;
-    private TextField tfIpJoin;
-
     private ListView playerList = new ListView();
 
-    public InitialViewLobbyPlayer() {
+    public LobbyPlayer() {
 
         //Main container as GridPane
         grid = new GridPane();
@@ -69,20 +63,20 @@ public class InitialViewLobbyPlayer {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         grid.add(tabPane, 1, 0);
 
-        tabHost = new Tab("Lobby");
-        tabPane.getTabs().add(tabHost);
+        tabPlayer = new Tab("Lobby");
+        tabPane.getTabs().add(tabPlayer);
 
-        tabJoin = new Tab("Einstellungen");
-        tabPane.getTabs().add(tabJoin);
+        tabSettings = new Tab("Einstellungen");
+        tabPane.getTabs().add(tabSettings);
 
         //Main container in tabs
         bPaneHost = new BorderPane();
         bPaneHost.setPadding(new Insets(20));
-        tabHost.setContent(bPaneHost);
+        tabPlayer.setContent(bPaneHost);
 
         bPaneJoin = new BorderPane();
         bPaneJoin.setPadding(new Insets(20));
-        tabJoin.setContent(bPaneJoin);
+        tabSettings.setContent(bPaneJoin);
 
         //Container for specific content
         vBoxHostContent = new VBox();
@@ -96,37 +90,21 @@ public class InitialViewLobbyPlayer {
         bPaneJoin.setCenter(vBoxJoinContent);
 
         //Content for HostTab
-        lblHostHead = new Label("Verbunden als Spieler");
-        lblHostHead.getStyleClass().add("label-head");
-        bPaneHost.setTop(lblHostHead);
-
-        tfUserNameHost = new TextField();
-        tfUserNameHost.setPromptText("Benutzername");
-        vBoxHostContent.getChildren().add(tfUserNameHost);
-
-        tfPortHost = new TextField();
-        tfPortHost.setPromptText("Port (0000-9999)");
-        vBoxHostContent.getChildren().add(tfPortHost);
+        lblPlayerHead = new Label("Spieler");
+        lblPlayerHead.getStyleClass().add("label-head");
+        bPaneHost.setTop(lblPlayerHead);
 
         btnStart = new Button("Spiel starten");
         bPaneHost.setBottom(btnStart);
 
+        lblChat = new Label("<Chat>");
+        lblChat.getStyleClass().add("label-head");
+        bPaneHost.setCenter(lblChat);
+
         //Content for JoinTab
-        lblJoinHead = new Label("Offener Lobby beitreten:");
-        lblJoinHead.getStyleClass().add("label-head");
-        bPaneJoin.setTop(lblJoinHead);
-
-        tfUserNameJoin = new TextField();
-        tfUserNameJoin.setPromptText("Benutzername");
-        vBoxJoinContent.getChildren().add(tfUserNameJoin);
-
-        tfPortJoin = new TextField();
-        tfPortJoin.setPromptText("Port (0000-9999)");
-        vBoxJoinContent.getChildren().add(tfPortJoin);
-
-        tfIpJoin = new TextField();
-        tfIpJoin.setPromptText("IP-Adresse");
-        vBoxJoinContent.getChildren().add(tfIpJoin);
+        lblSettingsHead = new Label("Einstellungen");
+        lblSettingsHead.getStyleClass().add("label-head");
+        bPaneJoin.setTop(lblSettingsHead);
 
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
@@ -145,7 +123,7 @@ public class InitialViewLobbyPlayer {
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
-        lblBrandInfoHead = new Label("Verbundene\nSpieler");
+        lblBrandInfoHead = new Label("Spieler");
         lblBrandInfoHead.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
