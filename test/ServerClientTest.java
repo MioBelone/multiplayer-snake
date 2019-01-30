@@ -1,17 +1,20 @@
 import model.client.Client;
+import model.server.ClientHandler;
 import org.junit.jupiter.api.*;
 
 import model.server.Server;
 
 import java.io.IOException;
+import java.util.List;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ServerClientTest {
 
     Server server;
     Thread serverRunning;
     int port = 5065;
 
-    @BeforeEach
+    @BeforeAll
     public void initServer() {
         server = new Server(port);
 
@@ -25,10 +28,9 @@ public class ServerClientTest {
     }
 
     @Test
-    public void testSingleClientSendMsg() {
+    public void testSingleClientDisconnect() {
         Client client = new Client("Client");
         client.connect("localhost", port);
-        client.sendMsgToServer("Testnachricht 456");
     }
 
     @Test
@@ -43,13 +45,25 @@ public class ServerClientTest {
     }
 
     @Test
-    public void getNameOfClient() {
-        Client client = new Client("MioBelone");
-        client.connect("localhost", port);
-        Assertions.assertEquals("MioBelone", client.getName());
+    public void testGetNameOfClient() {
+        Client client3 = new Client("MioBelone");
+        client3.connect("localhost", port);
+        client3.sendMsgToServer("Testnachricht");
+
+        //The Thread needs to wait for the client to connect completely
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<ClientHandler> clientList = server.getClientList();
+        String name = clientList.get(3).getNameOfClient();
+
+        Assertions.assertEquals("MioBelone", name);
     }
 
-    @AfterEach
+    @AfterAll
     public void endServer() {
         server.close();
         serverRunning.stop();

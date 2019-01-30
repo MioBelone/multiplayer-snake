@@ -16,10 +16,6 @@ public class Client {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public static void main(String[] args) {
         Client c = new Client("Testclient");
         c.connect("localhost", 5065);
@@ -49,6 +45,9 @@ public class Client {
                 }
             };
             msgReading.start();
+
+            //Send name of Client to Server
+            sendMsgToServer("/sysinf clientName:" + name);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,6 +59,10 @@ public class Client {
         } catch (IOException e) {
                 e.printStackTrace();
         }
+    }
+
+    public void sendDirectionToServer(String dir) {
+        sendMsgToServer("/sysinf dir:" + dir);
     }
 
     private void writeMsgToGUI(String msg) {
