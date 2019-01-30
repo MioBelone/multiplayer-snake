@@ -20,6 +20,10 @@ public class Server {
         clientList = new ArrayList<>();
     }
 
+    public List<ClientHandler> getClientList() {
+        return clientList;
+    }
+
     public static void main(String[] args) {
         Server s = new Server(5065);
         s.start();
@@ -69,8 +73,13 @@ public class Server {
 
     public void sendToAllHandler(String msg) {
         System.out.println("Received message: " + msg);
-        for(int i = 0; i < clientList.size(); i++) {
-            clientList.get(i).sendToClient(msg);
+
+        if(msg.contains("/sysinf dir:")) {
+            //TODO: Save direction and send to every player
+        }else {
+            for(int i = 0; i < clientList.size(); i++) {
+                clientList.get(i).sendToClient(msg);
+            }
         }
     }
 }
