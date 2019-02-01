@@ -7,6 +7,12 @@ public class SnakeGame {
     //private Server server = new Server();
     //private Food allFoods[] = new Food[server.getClients.size()];
     private static ArrayList<Food> foods = new ArrayList<>();
+    private static ArrayList<Snake> snakes = new ArrayList<>();
+    //private int clientSize=server.getClients.size(();
+    private int clientSize = 2;
+    private int breite = 100;
+    private int quotient;
+    private int sidespace = breite / 4;
 
     /*
     public SnakeGame() {
@@ -20,14 +26,35 @@ public class SnakeGame {
 
     public SnakeGame() {
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < clientSize; i++) {
             foods.add(new Food());
+        }
 
+        if (clientSize % 2 == 0) {
+            quotient = breite / (clientSize / 2);
+
+            for (int i = 0; i < clientSize / 2; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
+            }
+        }
+
+        if (clientSize % 2 != 0) {
+            quotient = breite / (int) ((clientSize / 2) + 0.5);
+
+            for (int i = 0; i < clientSize / 2 + 0.5; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+            }
+
+            for (int i = 0; i < clientSize / 2 - 0.5; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+            }
         }
     }
 
     /**
      * Checks if the foods in a list have the same coordinates
+     *
      * @param foods
      * @param length
      */

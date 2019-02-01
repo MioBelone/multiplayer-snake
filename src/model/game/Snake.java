@@ -4,8 +4,15 @@ import java.util.ArrayList;
 
 public class Snake {
 
-    private static SnakeHead snakeHead = new SnakeHead(1,1);
-    private static ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
+    private SnakeHead snakeHead;
+    private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
+
+    public Snake(int x,int y){
+
+        this.snakeHead = new SnakeHead(x,y);
+    }
+
+
 
 
     /**
@@ -65,19 +72,19 @@ public class Snake {
     }
 
 
-    public static SnakeHead getSnakeHead() {
+    public  SnakeHead getSnakeHead() {
         return snakeHead;
     }
 
-    public static void setSnakeHead(SnakeHead snakeHead) {
-        Snake.snakeHead = snakeHead;
+    public  void setSnakeHead(SnakeHead snakeHead) {
+        snakeHead = snakeHead;
     }
 
-    public static ArrayList<SnakeBody> getSnakeBodies() {
+    public  ArrayList<SnakeBody> getSnakeBodies() {
         return snakeBodies;
     }
 
-    public static void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
-        Snake.snakeBodies = snakeBodies;
+    public  void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
+        snakeBodies = snakeBodies;
     }
 }
