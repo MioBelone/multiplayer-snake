@@ -182,4 +182,20 @@ public class InitialViewJoin {
     public Button getBtnJoinLobby() {
         return btnJoinLobby;
     }
+
+    public TextField getTfUserNameHost() {
+        return tfUserNameHost;
+    }
+
+    public TextField getTfPortHost() {
+        return tfPortHost;
+    }
+
+    public TextField getTfUserNameJoin() {
+        return tfUserNameJoin;
+    }
+
+    public TextField getTfPortJoin() {
+        return tfPortJoin;
+    }
 }

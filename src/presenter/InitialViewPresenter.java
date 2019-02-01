@@ -2,6 +2,7 @@ package presenter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import model.server.Server;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
@@ -47,10 +48,10 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            initialModel.hostGame("", 0);
+           Server server = initialModel.hostGame(view.getTfUserNameHost().getText(), Integer.parseInt(view.getTfPortHost().getText()));
 
             //Initialising the LobbyHost presenter which handles the view and the model
-            LobbyHostPresenter initialViewPresenter = new LobbyHostPresenter(primaryStage, initialModel);
+            LobbyHostPresenter initialViewPresenter = new LobbyHostPresenter(primaryStage, initialModel, server);
             initialViewPresenter.show();
         }
     }
@@ -59,7 +60,7 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            initialModel.joinGame("", 0, "");
+            initialModel.joinGame(view.getTfUserNameJoin().getText(), Integer.parseInt(view.getTfPortJoin().getText()), "localhost");
 
             //Initialising the LobbyPlayer presenter which handles the view and the model
             LobbyPlayerPresenter initialViewPresenter = new LobbyPlayerPresenter(primaryStage, initialModel);

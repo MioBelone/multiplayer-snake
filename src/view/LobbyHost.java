@@ -39,7 +39,7 @@ public class LobbyHost {
 
     private Button btnStart;
 
-    private ListView playerList = new ListView();
+    private ListView playerList;
 
 
     public LobbyHost() {
@@ -124,11 +124,12 @@ public class LobbyHost {
         lblBrandInfoHead.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
-        playerList.setItems(presenter.fillList());
+        playerList = new ListView();
+        playerList.setItems(presenter.initiateList());
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
         vboxBrand.getChildren().add(playerList);
-
+        //Edit cellFactory of listView
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
