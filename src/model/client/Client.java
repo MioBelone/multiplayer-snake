@@ -32,12 +32,35 @@ public class Client {
             Thread msgReading = new Thread() {
                 @Override
                 public void run() {
-                    while(true) {
+                    while (true) {
                         try {
                             String msg;
                             msg = din.readUTF();
                             System.out.println(msg);
-                            writeMsgToGUI(msg);
+
+                            if (msg.contains("/gameCmd")) {
+
+                                switch (msg.split(" ")[1]) {
+                                    case "move":
+                                        //If the message is a systemcommand it will be handled
+                                        String[] parts = msg.split(" ");
+
+                                        //Save player and its direction
+                                        String dir = parts[2].split(":")[1];
+                                        String player = parts[3].split(":")[1];
+
+                                        //TODO: Call method of game to do move in given direction
+                                        break;
+
+                                    default:
+                                        System.out.println("Command wurde nicht erkannt");
+                                        break;
+                                }
+
+                            } else {
+                                //If the message isn't a systemcommand it will be displayed in the chat
+                                writeMsgToGUI(msg);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -47,7 +70,7 @@ public class Client {
             msgReading.start();
 
             //Send name of Client to Server
-            sendMsgToServer("/sysinf clientName:" + name);
+            sendMsgToServer("/clientInf clientName:" + name);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,15 +80,15 @@ public class Client {
         try {
             dout.writeUTF(msg);
         } catch (IOException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
     public void sendDirectionToServer(String dir) {
-        sendMsgToServer("/sysinf dir:" + dir);
+        sendMsgToServer("/gameCmd move dir:" + dir);
     }
 
     private void writeMsgToGUI(String msg) {
-        //msg must be passed to the presenter
+        //TODO: Msg must be passed to the presenter
     }
 }

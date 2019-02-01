@@ -37,7 +37,7 @@ public class Server {
             serverS = new ServerSocket(port);
             System.out.println("Server started!");
             //Allow clients to connect and handle them in their own thread
-            while(true) {
+            while (true) {
                 Socket clientS = serverS.accept();
                 System.out.println("A new client is connected: " + clientS);
 
@@ -49,11 +49,11 @@ public class Server {
 
                 clientT.start();
 
-                if(clientList.size() >= 8) {
+                if (clientList.size() >= 8) {
                     break;
                 }
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Server starting failed!");
         }
@@ -74,12 +74,8 @@ public class Server {
     public void sendToAllHandler(String msg) {
         System.out.println("Received message: " + msg);
 
-        if(msg.contains("/sysinf dir:")) {
-            //TODO: Save direction and send to every player
-        }else {
-            for(int i = 0; i < clientList.size(); i++) {
-                clientList.get(i).sendToClient(msg);
-            }
+        for (int i = 0; i < clientList.size(); i++) {
+            clientList.get(i).sendToClient(msg);
         }
     }
 }

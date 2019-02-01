@@ -38,10 +38,14 @@ public class ClientHandler extends Thread {
                     clientS.close();
                     System.out.println("Client " + clientS + " is disconnected!");
                     break;
-                } else if(msg.contains("/sysinf clientName")) {
+                } else if(msg.contains("/clientInf clientName")) {
                     String name = msg.split(":")[1];
                     this.name = name;
                 } else {
+                    if(msg.contains("/gameCmd move")) {
+                        msg = msg + " player:" + name;
+                    }
+
                     server.sendToAllHandler(msg);
                 }
             }
