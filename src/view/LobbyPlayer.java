@@ -27,12 +27,11 @@ public class LobbyPlayer {
     private VBox vBoxHostContent;
     private VBox vBoxJoinContent;
 
-    private Tab  tabPlayer;
+    private Tab tabPlayer;
     private Tab tabSettings;
 
     private Label lblPlayerHead;
     private Label lblBrandLogo;
-    private Label lblBrandText;
     private Label lblBrandInfoHead;
     private Label lblChat;
 
@@ -118,10 +117,6 @@ public class LobbyPlayer {
         lblBrandLogo = new Label("<Ihr Logo>");
         lblBrandLogo.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandLogo);
-
-        lblBrandText = new Label("SnakeBasket");
-        lblBrandText.getStyleClass().add("label-head");
-        vboxBrand.getChildren().add(lblBrandText);
 
         lblBrandInfoHead = new Label("Spieler");
         lblBrandInfoHead.getStyleClass().add("label-head");

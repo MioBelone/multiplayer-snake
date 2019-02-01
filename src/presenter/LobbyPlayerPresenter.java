@@ -54,6 +54,8 @@ public class LobbyPlayerPresenter {
 
         @Override
         public void handle(ActionEvent event) {
+            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage);
+            playgroundPresenter.show();
         }
     }
 
