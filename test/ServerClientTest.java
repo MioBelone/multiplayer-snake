@@ -46,9 +46,9 @@ public class ServerClientTest {
 
     @Test
     public void testGetNameOfClient() {
-        Client client3 = new Client("MioBelone");
-        client3.connect("localhost", port);
-        client3.sendMsgToServer("Testnachricht");
+        Client client = new Client("MioBelone");
+        client.connect("localhost", port);
+        client.sendMsgToServer("Testnachricht");
 
         //The Thread needs to wait for the client to connect completely
         try {
@@ -61,6 +61,21 @@ public class ServerClientTest {
         String name = clientList.get(3).getNameOfClient();
 
         Assertions.assertEquals("MioBelone", name);
+    }
+
+    @Test
+    public void testSendDirOfClient() {
+        Client client = new Client("Klaus");
+        client.connect("localhost", port);
+
+        //The Thread needs to wait for the client to connect completely
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        client.sendDirectionToServer("DOWN");
     }
 
     @AfterAll
