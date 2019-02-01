@@ -1,7 +1,10 @@
+import model.game.Food;
 import presenter.InitialViewPresenter;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.InitialModel;
+
+import java.util.Random;
 
 /**
  * This class initialises the program and displays the first view to the User.
@@ -28,5 +31,5 @@ public class Main extends Application {
         //Initialising the start presenter which handles the view and the model
         InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
         initialViewPresenter.show();
-    }
+}
 }

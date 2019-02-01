@@ -9,7 +9,6 @@ public class Food {
 
     private int x;
     private int y;
-    //private static int[] usedCoords=new int[16];
     private Random random = new Random();
 
     public Food() {
@@ -25,25 +24,6 @@ public class Food {
         this.y = (random.nextInt(100) + 1);
     }
 
-
-    /*
-    public Array<int> randomCoordWithException(Random random, int fieldsize, int... exception){
-       Array<int> back = new Array<int>;
-       for(int i =0; i <= fieldsize; i++){
-
-       }
-
-
-        int c = start + random.nextInt(end - start + 1 - exception.length);
-        for (int ex : exception) {
-            if (c < ex) {
-                break;
-            }
-            c++;
-        }
-        return c;
-    }
-    */
 
     public int getX() {
         return x;
