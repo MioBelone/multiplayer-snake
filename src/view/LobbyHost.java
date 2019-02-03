@@ -5,17 +5,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import presenter.LobbyHostPresenter;
 
 /**
  * This class is the view which the user can see after the .show method is called.
  *
- * @author Maximilian Gräfe
+ * @author Fabian Haese
  */
-public class InitialView {
+public class LobbyHost {
 
     private Scene scene;
+
+    LobbyHostPresenter presenter = new LobbyHostPresenter();
 
     private GridPane grid;
     private TabPane tabPane;
@@ -26,24 +28,21 @@ public class InitialView {
     private VBox vBoxJoinContent;
 
     private Tab tabHost;
-    private Tab tabJoin;
+    private Tab tabSettings;
 
     private Label lblHostHead;
-    private Label lblJoinHead;
     private Label lblBrandLogo;
-    private Label lblBrandText;
-    private Label lblBrandInfo;
+    private Label lblBrandInfoHead;
+    private Label lblChat;
 
-    private Button btnHostLobby;
-    private Button btnJoinLobby;
+    private Label lblSettingsHead;
 
-    private TextField tfUserNameHost;
-    private TextField tfPortHost;
-    private TextField tfUserNameJoin;
-    private TextField tfPortJoin;
-    private TextField tfIpJoin;
+    private Button btnStart;
 
-    public InitialView() {
+    private ListView playerList;
+
+
+    public LobbyHost() {
 
         //Main container as GridPane
         grid = new GridPane();
@@ -64,11 +63,11 @@ public class InitialView {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         grid.add(tabPane, 1, 0);
 
-        tabHost = new Tab("Lobby erstellen");
+        tabHost = new Tab("Lobby");
         tabPane.getTabs().add(tabHost);
 
-        tabJoin = new Tab("Lobby beitreten");
-        tabPane.getTabs().add(tabJoin);
+        tabSettings = new Tab("Spieleinstellungen");
+        tabPane.getTabs().add(tabSettings);
 
         //Main container in tabs
         bPaneHost = new BorderPane();
@@ -77,7 +76,7 @@ public class InitialView {
 
         bPaneJoin = new BorderPane();
         bPaneJoin.setPadding(new Insets(20));
-        tabJoin.setContent(bPaneJoin);
+        tabSettings.setContent(bPaneJoin);
 
         //Container for specific content
         vBoxHostContent = new VBox();
@@ -91,40 +90,22 @@ public class InitialView {
         bPaneJoin.setCenter(vBoxJoinContent);
 
         //Content for HostTab
-        lblHostHead = new Label("Lobby erstellen:");
+        lblHostHead = new Label("Host");
         lblHostHead.getStyleClass().add("label-head");
         bPaneHost.setTop(lblHostHead);
 
-        tfUserNameHost = new TextField();
-        tfUserNameHost.setPromptText("Benutzername");
-        vBoxHostContent.getChildren().add(tfUserNameHost);
+        btnStart = new Button("Spiel starten");
+        bPaneHost.setBottom(btnStart);
 
-        tfPortHost = new TextField();
-        tfPortHost.setPromptText("Port (0000-9999)");
-        vBoxHostContent.getChildren().add(tfPortHost);
+        lblChat = new Label("<Chat>");
+        lblChat.getStyleClass().add("label-head");
+        bPaneHost.setCenter(lblChat);
 
-        btnHostLobby = new Button("Erstellen");
-        bPaneHost.setBottom(btnHostLobby);
 
         //Content for JoinTab
-        lblJoinHead = new Label("Offener Lobby beitreten:");
-        lblJoinHead.getStyleClass().add("label-head");
-        bPaneJoin.setTop(lblJoinHead);
-
-        tfUserNameJoin = new TextField();
-        tfUserNameJoin.setPromptText("Benutzername");
-        vBoxJoinContent.getChildren().add(tfUserNameJoin);
-
-        tfPortJoin = new TextField();
-        tfPortJoin.setPromptText("Port (0000-9999)");
-        vBoxJoinContent.getChildren().add(tfPortJoin);
-
-        tfIpJoin = new TextField();
-        tfIpJoin.setPromptText("IP-Adresse");
-        vBoxJoinContent.getChildren().add(tfIpJoin);
-
-        btnJoinLobby = new Button("Beitreten");
-        bPaneJoin.setBottom(btnJoinLobby);
+        lblSettingsHead = new Label("Einstellungen");
+        lblSettingsHead.getStyleClass().add("label-head");
+        bPaneJoin.setTop(lblSettingsHead);
 
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
@@ -139,18 +120,19 @@ public class InitialView {
         lblBrandLogo.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandLogo);
 
-        lblBrandText = new Label("MPSnake");
-        lblBrandText.getStyleClass().add("label-head");
-        vboxBrand.getChildren().add(lblBrandText);
+        lblBrandInfoHead = new Label("Spieler");
+        lblBrandInfoHead.getStyleClass().add("label-head");
+        vboxBrand.getChildren().add(lblBrandInfoHead);
 
-        lblBrandInfo = new Label("Hier wird ein Text stehen der kurze Infos über das Spiel enthält und " +
-                "eventuell noch Verlinkungen zu hilfreichen Webseiten.");
-        lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
-        lblBrandInfo.setWrapText(true);
-        vboxBrand.getChildren().add(lblBrandInfo);
+        playerList = new ListView();
+        playerList.setItems(presenter.initiateList());
+        playerList.setMouseTransparent(true);
+        playerList.setFocusTraversable(false);
+        vboxBrand.getChildren().add(playerList);
+        //Edit cellFactory of listView
 
         //Inititalising scene
-        scene = new Scene(grid, 1000, 600);
+        scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 
@@ -160,7 +142,7 @@ public class InitialView {
      * @param stage
      */
     public void show(Stage stage) {
-        stage.setTitle("Initial View");
+        stage.setTitle("SnakeBasket");
         stage.setScene(scene);
         stage.show();
     }
@@ -170,16 +152,7 @@ public class InitialView {
      *
      * @return the button in the methods name.
      */
-    public Button getBtnHostLobby() {
-        return btnHostLobby;
-    }
-
-    /**
-     * Getter
-     *
-     * @return the button in the methods name.
-     */
-    public Button getBtnJoinLobby() {
-        return btnJoinLobby;
+    public Button getBtnStart() {
+        return btnStart;
     }
 }

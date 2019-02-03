@@ -2,30 +2,35 @@ package presenter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import view.InitialView;
+import model.server.Server;
+import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
+
 
 /**
  * This class is the connection between the view and the model. It handles user input and prepares data to be shown
  * in the view.
  *
- * @author Maximilian Gräfe
+ * @author Maximilian Gräfe, Fabian Haese
  */
 public class InitialViewPresenter {
 
-    private InitialView view;
+    private InitialViewJoin view;
     private InitialModel initialModel;
     private Stage primaryStage;
 
     public InitialViewPresenter(Stage primaryStage, InitialModel initialModel) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.view = new InitialView();
+        this.view = new InitialViewJoin();
 
         //Handlers for events on view
         view.getBtnHostLobby().setOnAction(new BtnHostLobbyEventHandler());
         view.getBtnJoinLobby().setOnAction(new BtnJoinLobbyEventHandler());
+    }
+
+    public InitialViewPresenter() {
     }
 
     /**
@@ -43,7 +48,11 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            initialModel.hostGame("", 0);
+           Server server = initialModel.hostGame(view.getTfUserNameHost().getText(), Integer.parseInt(view.getTfPortHost().getText()));
+
+            //Initialising the LobbyHost presenter which handles the view and the model
+            LobbyHostPresenter initialViewPresenter = new LobbyHostPresenter(primaryStage, initialModel, server);
+            initialViewPresenter.show();
         }
     }
 
@@ -51,7 +60,11 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            initialModel.joinGame("", 0, "");
+            initialModel.joinGame(view.getTfUserNameJoin().getText(), Integer.parseInt(view.getTfPortJoin().getText()), "localhost");
+
+            //Initialising the LobbyPlayer presenter which handles the view and the model
+            LobbyPlayerPresenter initialViewPresenter = new LobbyPlayerPresenter(primaryStage, initialModel);
+            initialViewPresenter.show();
         }
     }
 }

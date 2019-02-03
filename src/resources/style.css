@@ -83,3 +83,18 @@
 .button:pressed {
     -fx-background-color: -fx-focustext, -fx-primary;
 }
+
+.list-view{
+-fx-border-width: 0px;
+-fx-background-color: #424756;
+}
+
+.list-view .list-cell:even {
+-fx-background-color: #424756;
+-fx-text-fill: white;
+}
+
+.list-view .list-cell:odd {
+-fx-background-color: #424756;
+-fx-text-fill: white;
+}

@@ -1,5 +1,8 @@
 package model;
 
+import model.client.Client;
+import model.server.Server;
+
 /**
  * This class saves and works with the data received from the users input on the specific view.
  *
@@ -18,9 +21,23 @@ public class InitialModel {
      * @param username
      * @param port
      */
-    public void hostGame(String username, int port) {
-        //Code um Lobby zu hosten
-        System.out.println("Host Lobby");
+    public Server hostGame(String username, int port) {
+        //Start server
+        Server server = new Server(port);
+        Thread serverRunning = new Thread() {
+            @Override
+            public void run() {
+                server.start();
+            }
+        };
+        serverRunning.start();
+        System.out.println(port);
+        //Create client
+        Client client = new Client(username);
+        client.connect("localhost", port);
+
+        return server;
+
     }
 
     /**
@@ -32,7 +49,8 @@ public class InitialModel {
      * @param ip
      */
     public void joinGame(String username, int port, String ip) {
-        //Code um Lobby beizutreten
-        System.out.println("Join Lobby");
+        Client client = new Client(username);
+        client.connect("localhost", port);
+
     }
 }
