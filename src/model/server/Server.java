@@ -49,6 +49,8 @@ public class Server {
 
                 clientT.start();
 
+                sendToAllHandler("/sysCmd getClientNames");
+
                 if (clientList.size() >= 8) {
                     break;
                 }

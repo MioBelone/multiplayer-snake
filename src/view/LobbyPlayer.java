@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.server.ClientHandler;
 import presenter.LobbyPlayerPresenter;
 
 /**
@@ -122,7 +123,7 @@ public class LobbyPlayer {
         lblBrandInfoHead.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
-        playerList.setItems(presenter.fillList());
+        playerList.setItems(presenter.initiateList());
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
         vboxBrand.getChildren().add(playerList);

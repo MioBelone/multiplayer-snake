@@ -31,13 +31,11 @@ public class InitialModel {
             }
         };
         serverRunning.start();
-        System.out.println(port);
         //Create client
         Client client = new Client(username);
         client.connect("localhost", port);
 
         return server;
-
     }
 
     /**
@@ -48,9 +46,10 @@ public class InitialModel {
      * @param port
      * @param ip
      */
-    public void joinGame(String username, int port, String ip) {
+    public Client joinGame(String username, int port, String ip) {
         Client client = new Client(username);
         client.connect("localhost", port);
 
+        return client;
     }
 }

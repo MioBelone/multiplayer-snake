@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.server.ClientHandler;
 import presenter.LobbyHostPresenter;
 
 /**
@@ -128,6 +129,18 @@ public class LobbyHost {
         playerList.setItems(presenter.initiateList());
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
+        playerList.setCellFactory(param -> new ListCell<ClientHandler>() {
+            @Override
+            protected void updateItem(ClientHandler client, boolean empty) {
+                super.updateItem(client, empty);
+
+                if (empty || client == null) {
+                    setText(null);
+                } else {
+                    setText(client.getNameOfClient());
+                }
+            }
+        });
         vboxBrand.getChildren().add(playerList);
         //Edit cellFactory of listView
 

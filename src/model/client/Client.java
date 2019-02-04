@@ -1,9 +1,13 @@
 package model.client;
 
+import javafx.collections.ObservableList;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
@@ -11,9 +15,11 @@ public class Client {
     private String name;
     private DataInputStream din;
     private DataOutputStream dout;
+    private ArrayList<String> clientNames;
 
     public Client(String name) {
         this.name = name;
+        clientNames = new ArrayList<>();
     }
 
     public static void main(String[] args) {
@@ -57,6 +63,16 @@ public class Client {
                                         break;
                                 }
 
+                            } else if(msg.contains("/sysCmd clientNames")) {
+                                //Saves the names from the server in its list.
+                                clientNames.clear();
+
+                                String nameString = msg.split("\\{")[1].split("}")[0];
+
+                                for(String name:nameString.split(";")) {
+                                    clientNames.add(name);
+                                }
+
                             } else {
                                 //If the message isn't a systemcommand it will be displayed in the chat
                                 writeMsgToGUI(msg);
@@ -86,6 +102,14 @@ public class Client {
 
     public void sendDirectionToServer(String dir) {
         sendMsgToServer("/gameCmd move dir:" + dir);
+    }
+
+    public void updateClientNameList() {
+        sendMsgToServer("/sysCmd getClientNames");
+    }
+
+    public ArrayList<String> getClientNameList() {
+        return clientNames;
     }
 
     private void writeMsgToGUI(String msg) {

@@ -72,6 +72,11 @@ public class LobbyHostPresenter {
     }
 
     public void updateList(){
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         oPlayer.addAll(server.getClientList());
     }
 }

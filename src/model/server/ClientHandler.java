@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 public class ClientHandler extends Thread {
 
@@ -34,18 +35,36 @@ public class ClientHandler extends Thread {
             while(true) {
                 msg = din.readUTF();
 
-                if(msg.equals("/disconnect")) {
-                    clientS.close();
-                    System.out.println("Client " + clientS + " is disconnected!");
-                    break;
-                } else if(msg.contains("/clientInf clientName")) {
-                    String name = msg.split(":")[1];
-                    this.name = name;
-                } else {
+                if(msg.substring(0, 1).equals("/")) {
+                    if(msg.equals("/disconnect")) {
+                        clientS.close();
+                        System.out.println("Client " + clientS + " is disconnected!");
+                        break;
+                    }
+
+                    if(msg.contains("/clientInf clientName")) {
+                        String name = msg.split(":")[1];
+                        this.name = name;
+                    }
+
                     if(msg.contains("/gameCmd move")) {
                         msg = msg + " player:" + name;
                     }
 
+                    if(msg.contains("/sysCmd getClientNames")) {
+                        String clientNames = "";
+
+                        List<ClientHandler> clientList = server.getClientList();
+
+                        for(ClientHandler client:clientList) {
+                            clientNames += client.getNameOfClient() + ";";
+                        }
+
+                        clientNames = "/sysCmd clientNames names:{" + clientNames + "}";
+
+                        sendToClient(clientNames);
+                    }
+                } else {
                     server.sendToAllHandler(msg);
                 }
             }

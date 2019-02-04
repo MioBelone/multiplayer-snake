@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import model.client.Client;
+import model.server.ClientHandler;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
@@ -22,15 +24,19 @@ public class LobbyPlayerPresenter {
     private LobbyPlayer view;
     private InitialModel initialModel;
     private Stage primaryStage;
+    private Client client;
 
     private List<String> myplayer = new ArrayList<String>();
 
-    public static final ObservableList<String> oPlayer = FXCollections.observableArrayList();
+    public static ObservableList<String> oPlayer = FXCollections.observableArrayList();
 
-    public LobbyPlayerPresenter(Stage primaryStage, InitialModel initialModel) {
+    public LobbyPlayerPresenter(Stage primaryStage, InitialModel initialModel, Client client) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
+        this.client = client;
         this.view = new LobbyPlayer();
+
+        updateList();
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
@@ -59,10 +65,17 @@ public class LobbyPlayerPresenter {
         }
     }
 
-    public ObservableList fillList() {
-        myplayer.add("Ein Thorsten Legat");
-        myplayer.add("Manfred");
-        oPlayer.addAll(myplayer);
+    public ObservableList initiateList() {
         return oPlayer;
+    }
+
+    public void updateList(){
+        client.updateClientNameList();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        oPlayer.addAll(client.getClientNameList());
     }
 }
