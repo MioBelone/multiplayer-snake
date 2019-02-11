@@ -97,6 +97,7 @@ public class LobbyHost {
 
         btnStart = new Button("Spiel starten");
         bPaneHost.setBottom(btnStart);
+        btnStart.setDefaultButton(true);
 
         lblChat = new Label("<Chat>");
         lblChat.getStyleClass().add("label-head");

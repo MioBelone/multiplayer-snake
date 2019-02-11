@@ -105,6 +105,7 @@ public class InitialViewJoin {
 
         btnHostLobby = new Button("Erstellen");
         bPaneHost.setBottom(btnHostLobby);
+        btnHostLobby.setDefaultButton(true);
 
         //Content for JoinTab
         lblJoinHead = new Label("Offener Lobby beitreten:");
@@ -125,6 +126,7 @@ public class InitialViewJoin {
 
         btnJoinLobby = new Button("Beitreten");
         bPaneJoin.setBottom(btnJoinLobby);
+        btnJoinLobby.setDefaultButton(true);
 
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
