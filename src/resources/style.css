@@ -86,15 +86,15 @@
 
 .list-view{
 -fx-border-width: 0px;
--fx-background-color: #424756;
+-fx-background-color: -fx-tertiary;
 }
 
 .list-view .list-cell:even {
--fx-background-color: #424756;
+-fx-background-color: -fx-secondary;
 -fx-text-fill: white;
 }
 
 .list-view .list-cell:odd {
--fx-background-color: #424756;
+-fx-background-color: -fx-tertiary;
 -fx-text-fill: white;
 }

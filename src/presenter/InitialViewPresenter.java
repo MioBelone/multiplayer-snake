@@ -17,14 +17,14 @@ import model.InitialModel;
  */
 public class InitialViewPresenter {
 
-    private InitialViewJoin view;
+    private InitialView view;
     private InitialModel initialModel;
     private Stage primaryStage;
 
     public InitialViewPresenter(Stage primaryStage, InitialModel initialModel) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.view = new InitialViewJoin();
+        this.view = new InitialView();
 
         //Handlers for events on view
         view.getBtnHostLobby().setOnAction(new BtnHostLobbyEventHandler());

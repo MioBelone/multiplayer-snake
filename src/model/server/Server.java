@@ -1,5 +1,8 @@
 package model.server;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,14 +16,14 @@ public class Server {
     private ServerSocket serverS;
     private DataInputStream din;
     private DataOutputStream dout;
-    private List<ClientHandler> clientList;
+    private ObservableList<ClientHandler> clientList;
 
     public Server(int port) {
         this.port = port;
-        clientList = new ArrayList<>();
+        clientList = FXCollections.observableArrayList();
     }
 
-    public List<ClientHandler> getClientList() {
+    public ObservableList<ClientHandler> getClientList() {
         return clientList;
     }
 
@@ -49,7 +52,7 @@ public class Server {
 
                 clientT.start();
 
-                sendToAllHandler("/sysCmd getClientNames");
+                updateAllClients();
 
                 if (clientList.size() >= 8) {
                     break;
@@ -78,6 +81,12 @@ public class Server {
 
         for (int i = 0; i < clientList.size(); i++) {
             clientList.get(i).sendToClient(msg);
+        }
+    }
+
+    public void updateAllClients() {
+        for (int i = 0; i < clientList.size(); i++) {
+            clientList.get(i).sendNewClientNames();
         }
     }
 }

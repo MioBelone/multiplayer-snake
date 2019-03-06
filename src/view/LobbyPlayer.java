@@ -40,7 +40,7 @@ public class LobbyPlayer {
 
     private Button btnStart;
 
-    private ListView playerList = new ListView();
+    private ListView playerList;
 
     public LobbyPlayer() {
 
@@ -110,7 +110,7 @@ public class LobbyPlayer {
         vboxBrand = new VBox();
         vboxBrand.getStyleClass().add("brand-box");
         vboxBrand.setAlignment(Pos.TOP_CENTER);
-        vboxBrand.setPadding(new Insets(20));
+        vboxBrand.setPadding(new Insets(20, 0, 20, 0));
         vboxBrand.setSpacing(40);
         grid.add(vboxBrand, 0, 0);
 
@@ -123,7 +123,7 @@ public class LobbyPlayer {
         lblBrandInfoHead.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
-        playerList.setItems(presenter.initiateList());
+        playerList = new ListView();
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
         vboxBrand.getChildren().add(playerList);
@@ -151,5 +151,9 @@ public class LobbyPlayer {
      */
     public Button getBtnStart() {
         return btnStart;
+    }
+
+    public ListView getPlayerList() {
+        return playerList;
     }
 }

@@ -112,7 +112,7 @@ public class LobbyHost {
         vboxBrand = new VBox();
         vboxBrand.getStyleClass().add("brand-box");
         vboxBrand.setAlignment(Pos.TOP_CENTER);
-        vboxBrand.setPadding(new Insets(20));
+        vboxBrand.setPadding(new Insets(20, 0, 20, 0));
         vboxBrand.setSpacing(40);
         grid.add(vboxBrand, 0, 0);
 
@@ -126,7 +126,6 @@ public class LobbyHost {
         vboxBrand.getChildren().add(lblBrandInfoHead);
 
         playerList = new ListView();
-        playerList.setItems(presenter.initiateList());
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
         playerList.setCellFactory(param -> new ListCell<ClientHandler>() {
@@ -142,7 +141,6 @@ public class LobbyHost {
             }
         });
         vboxBrand.getChildren().add(playerList);
-        //Edit cellFactory of listView
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
@@ -167,5 +165,9 @@ public class LobbyHost {
      */
     public Button getBtnStart() {
         return btnStart;
+    }
+
+    public ListView getPlayerList() {
+        return playerList;
     }
 }

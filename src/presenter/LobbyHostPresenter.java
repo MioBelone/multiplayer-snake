@@ -1,6 +1,7 @@
 package presenter;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,10 +27,7 @@ public class LobbyHostPresenter {
     private InitialModel initialModel;
     private Stage primaryStage;
     private Server server;
-
-    private List<String> myplayer = new ArrayList<String>();
-
-    public static final ObservableList<ClientHandler> oPlayer = FXCollections.observableArrayList();
+    public ObservableList<ClientHandler> clientList;
 
     public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Server server) {
 
@@ -38,7 +36,15 @@ public class LobbyHostPresenter {
         this.server = server;
         this.view = new LobbyHost();
 
-        updateList();
+        clientList = server.getClientList();
+        view.getPlayerList().setItems(clientList);
+
+        clientList.addListener(new ListChangeListener<ClientHandler>() {
+            @Override
+            public void onChanged(Change<? extends ClientHandler> c) {
+                view.getPlayerList().setItems(clientList);
+            }
+        });
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
@@ -67,16 +73,7 @@ public class LobbyHostPresenter {
         }
     }
 
-    public ObservableList initiateList() {
-        return oPlayer;
-    }
-
-    public void updateList(){
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        oPlayer.addAll(server.getClientList());
+    public ObservableList<ClientHandler> getPlayerList() {
+        return clientList;
     }
 }

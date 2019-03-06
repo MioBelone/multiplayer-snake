@@ -1,5 +1,6 @@
 package model.client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.DataInputStream;
@@ -15,11 +16,11 @@ public class Client {
     private String name;
     private DataInputStream din;
     private DataOutputStream dout;
-    private ArrayList<String> clientNames;
+    private ObservableList<String> clientNames;
 
     public Client(String name) {
         this.name = name;
-        clientNames = new ArrayList<>();
+        clientNames = FXCollections.observableArrayList();
     }
 
     public static void main(String[] args) {
@@ -63,14 +64,23 @@ public class Client {
                                         break;
                                 }
 
-                            } else if(msg.contains("/sysCmd clientNames")) {
-                                //Saves the names from the server in its list.
-                                clientNames.clear();
+                            } else if(msg.contains("/sysCmd")) {
 
-                                String nameString = msg.split("\\{")[1].split("}")[0];
+                                switch (msg.split(" ")[1]) {
+                                    case "clientNames":
+                                        //Saves the names from the server in its list.
+                                        clientNames.clear();
 
-                                for(String name:nameString.split(";")) {
-                                    clientNames.add(name);
+                                        String nameString = msg.split("\\{")[1].split("}")[0];
+
+                                        for(String name:nameString.split(";")) {
+                                            clientNames.add(name);
+                                        }
+                                        break;
+
+                                    default:
+                                        System.out.println("Command wurde nicht erkannt");
+                                        break;
                                 }
 
                             } else {
@@ -108,7 +118,7 @@ public class Client {
         sendMsgToServer("/sysCmd getClientNames");
     }
 
-    public ArrayList<String> getClientNameList() {
+    public ObservableList<String> getClientNameList() {
         return clientNames;
     }
 
