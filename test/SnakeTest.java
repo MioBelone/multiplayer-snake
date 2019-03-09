@@ -7,23 +7,23 @@ class SnakeTest {
 
     Snake snake;
 
-//    @Test
-//    void addSnakeBody() {
-//
-//        snake = new Snake();
-//        snake.addSnakeBody();
-//
-//        assertEquals(1,Snake.getSnakeBodies().size());
-//    }
-//
-//    @Test
-//    void move() {
-//
-//        snake = new Snake();
-//
-//        snake.move();
-//
-//        assertEquals(2, Snake.getSnakeHead().getX());
-//
-//    }
+    @Test
+    void addSnakeBody() {
+
+        //snake = new Snake();
+        snake.addSnakeBody();
+
+        //assertEquals(1,Snake.getSnakeBodies().size());
+    }
+
+    @Test
+    void move() {
+
+        //snake = new Snake();
+
+        snake.move();
+
+        //assertEquals(2, Snake.getSnakeHead().getX());
+
+    }
 }
