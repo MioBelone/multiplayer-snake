@@ -1,5 +1,6 @@
 package view;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,11 +22,11 @@ public class LobbyPlayer {
     LobbyPlayerPresenter presenter = new LobbyPlayerPresenter();
 
     private GridPane grid;
+    private GridPane gridChatInput;
     private TabPane tabPane;
-    private BorderPane bPaneHost;
     private BorderPane bPaneJoin;
+    private BorderPane bPaneSettings;
     private VBox vboxBrand;
-    private VBox vBoxHostContent;
     private VBox vBoxJoinContent;
 
     private Tab tabPlayer;
@@ -34,11 +35,14 @@ public class LobbyPlayer {
     private Label lblPlayerHead;
     private Label lblBrandLogo;
     private Label lblBrandInfoHead;
-    private Label lblChat;
-
     private Label lblSettingsHead;
 
+    private TextArea taChat;
+
+    private TextField tfChatInput;
+
     private Button btnStart;
+    private Button btnChatSend;
 
     private ListView playerList;
 
@@ -70,36 +74,44 @@ public class LobbyPlayer {
         tabPane.getTabs().add(tabSettings);
 
         //Main container in tabs
-        bPaneHost = new BorderPane();
-        bPaneHost.setPadding(new Insets(20));
-        tabPlayer.setContent(bPaneHost);
-
         bPaneJoin = new BorderPane();
         bPaneJoin.setPadding(new Insets(20));
-        tabSettings.setContent(bPaneJoin);
+        tabPlayer.setContent(bPaneJoin);
+
+        bPaneSettings = new BorderPane();
+        bPaneSettings.setPadding(new Insets(20));
+        tabSettings.setContent(bPaneSettings);
 
         //Container for specific content
-        vBoxHostContent = new VBox();
-        vBoxHostContent.setPadding(new Insets(40));
-        vBoxHostContent.setSpacing(40);
-        bPaneHost.setCenter(vBoxHostContent);
-
         vBoxJoinContent = new VBox();
         vBoxJoinContent.setPadding(new Insets(40));
         vBoxJoinContent.setSpacing(40);
         bPaneJoin.setCenter(vBoxJoinContent);
 
+        gridChatInput = new GridPane();
+        gridChatInput.setPadding(new Insets(20, 0, 0, 0));
+        ColumnConstraints colChat1 = new ColumnConstraints();
+        colChat1.setPercentWidth(85);
+        ColumnConstraints colChat2 = new ColumnConstraints();
+        colChat2.setPercentWidth(15);
+        colChat2.setHalignment(HPos.RIGHT);
+        gridChatInput.getColumnConstraints().addAll(colChat1, colChat2);
+        bPaneJoin.setBottom(gridChatInput);
+
         //Content for HostTab
         lblPlayerHead = new Label("Spieler");
         lblPlayerHead.getStyleClass().add("label-head");
-        bPaneHost.setTop(lblPlayerHead);
+        bPaneJoin.setTop(lblPlayerHead);
 
-        btnStart = new Button("Spiel starten");
-        bPaneHost.setBottom(btnStart);
+        tfChatInput = new TextField();
+        gridChatInput.add(tfChatInput, 0, 0);
 
-        lblChat = new Label("<Chat>");
-        lblChat.getStyleClass().add("label-head");
-        bPaneHost.setCenter(lblChat);
+        btnChatSend = new Button("Senden");
+        gridChatInput.add(btnChatSend, 1, 0);
+
+        taChat = new TextArea();
+        taChat.setEditable(false);
+        bPaneJoin.setCenter(taChat);
 
         //Content for JoinTab
         lblSettingsHead = new Label("Einstellungen");
@@ -128,6 +140,10 @@ public class LobbyPlayer {
         playerList.setFocusTraversable(false);
         vboxBrand.getChildren().add(playerList);
 
+        btnStart = new Button("Start Game");
+        btnStart.prefWidthProperty().bind(vboxBrand.widthProperty());
+        vboxBrand.getChildren().add(btnStart);
+
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
@@ -152,6 +168,12 @@ public class LobbyPlayer {
     public Button getBtnStart() {
         return btnStart;
     }
+
+    public Button getBtnSend() { return btnChatSend; }
+
+    public TextField getTfChatInput() { return tfChatInput; }
+
+    public TextArea getTaChat() { return taChat; }
 
     public ListView getPlayerList() {
         return playerList;

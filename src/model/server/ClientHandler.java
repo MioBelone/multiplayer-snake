@@ -54,6 +54,7 @@ public class ClientHandler extends Thread {
                     if(msg.contains("/sysCmd getClientNames")) {
                         sendNewClientNames();
                     }
+
                 } else {
                     server.sendToAllHandler(msg);
                 }

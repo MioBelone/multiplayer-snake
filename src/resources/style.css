@@ -68,6 +68,15 @@
     -fx-background-color: -fx-focustext, -fx-primary;
 }
 
+.text-area {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-primarytext;
+}
+
+.text-area .content {
+    -fx-background-color: -fx-primary;
+}
+
 .button {
     -fx-text-fill: -fx-primarytext;
     -fx-font-size: 16px;
@@ -85,16 +94,16 @@
 }
 
 .list-view{
--fx-border-width: 0px;
--fx-background-color: -fx-tertiary;
+    -fx-border-width: 0px;
+    -fx-background-color: -fx-tertiary;
 }
 
 .list-view .list-cell:even {
--fx-background-color: -fx-secondary;
--fx-text-fill: white;
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: white;
 }
 
 .list-view .list-cell:odd {
--fx-background-color: -fx-tertiary;
--fx-text-fill: white;
+    -fx-background-color: -fx-tertiary;
+    -fx-text-fill: white;
 }

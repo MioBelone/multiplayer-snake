@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author Fabian Haese
  */
-public class LobbyPlayerPresenter {
+public class LobbyPlayerPresenter implements LobbyPresenter {
 
     private LobbyPlayer view;
     private InitialModel initialModel;
@@ -48,9 +48,14 @@ public class LobbyPlayerPresenter {
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
+        view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
     public LobbyPlayerPresenter() {
+    }
+
+    public void writeMsg(String msg) {
+        view.getTaChat().appendText(msg);
     }
 
     /**
@@ -70,6 +75,16 @@ public class LobbyPlayerPresenter {
         public void handle(ActionEvent event) {
             PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage);
             playgroundPresenter.show();
+        }
+    }
+
+    class BtnSendEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            //Send Msg to Server
+            client.sendMsgToServer(view.getTfChatInput().getText());
+            view.getTfChatInput().setText("");
         }
     }
 

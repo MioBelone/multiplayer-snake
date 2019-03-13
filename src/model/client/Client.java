@@ -2,6 +2,7 @@ package model.client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import presenter.LobbyPresenter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +17,7 @@ public class Client {
     private String name;
     private DataInputStream din;
     private DataOutputStream dout;
+    private LobbyPresenter presenter;
     private ObservableList<String> clientNames;
 
     public Client(String name) {
@@ -27,6 +29,10 @@ public class Client {
         Client c = new Client("Testclient");
         c.connect("localhost", 5065);
         c.sendMsgToServer("Testnachricht 123");
+    }
+
+    public void setPresenter(LobbyPresenter presenter) {
+        this.presenter = presenter;
     }
 
     public void connect(String ip, int port) {
@@ -103,6 +109,11 @@ public class Client {
     }
 
     public void sendMsgToServer(String msg) {
+
+        if(!msg.substring(0, 1).equals("/")) {
+            msg = name + ": " + msg;
+        }
+
         try {
             dout.writeUTF(msg);
         } catch (IOException e) {
@@ -123,6 +134,6 @@ public class Client {
     }
 
     private void writeMsgToGUI(String msg) {
-        //TODO: Msg must be passed to the presenter
+        presenter.writeMsg(msg + "\n");
     }
 }

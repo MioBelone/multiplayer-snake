@@ -21,36 +21,41 @@ import java.util.List;
  *
  * @author Fabian Haese
  */
-public class LobbyHostPresenter {
+public class LobbyHostPresenter implements LobbyPresenter {
 
     private LobbyHost view;
     private InitialModel initialModel;
     private Stage primaryStage;
-    private Server server;
-    public ObservableList<ClientHandler> clientList;
+    private Client client;
+    public ObservableList<String> clientNameList ;
 
-    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Server server) {
+    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client) {
 
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.server = server;
+        this.client = client;
         this.view = new LobbyHost();
 
-        clientList = server.getClientList();
-        view.getPlayerList().setItems(clientList);
+        clientNameList = client.getClientNameList();
+        view.getPlayerList().setItems(clientNameList);
 
-        clientList.addListener(new ListChangeListener<ClientHandler>() {
+        clientNameList.addListener(new ListChangeListener<String>() {
             @Override
-            public void onChanged(Change<? extends ClientHandler> c) {
-                view.getPlayerList().setItems(clientList);
+            public void onChanged(Change<? extends String> c) {
+                view.getPlayerList().setItems(clientNameList);
             }
         });
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
+        view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
     public LobbyHostPresenter() {
+    }
+
+    public void writeMsg(String msg) {
+        view.getTaChat().appendText(msg);
     }
 
     /**
@@ -73,7 +78,17 @@ public class LobbyHostPresenter {
         }
     }
 
-    public ObservableList<ClientHandler> getPlayerList() {
-        return clientList;
+    class BtnSendEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            //Send Msg to Server
+            client.sendMsgToServer(view.getTfChatInput().getText());
+            view.getTfChatInput().setText("");
+        }
+    }
+
+    public ObservableList<String> getPlayerList() {
+        return clientNameList;
     }
 }

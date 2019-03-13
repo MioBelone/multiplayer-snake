@@ -2,6 +2,7 @@ package model.server;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.client.Client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +17,7 @@ public class Server {
     private ServerSocket serverS;
     private DataInputStream din;
     private DataOutputStream dout;
+    private Client hostClient;
     private ObservableList<ClientHandler> clientList;
 
     public Server(int port) {
@@ -30,6 +32,14 @@ public class Server {
     public static void main(String[] args) {
         Server s = new Server(5065);
         s.start();
+    }
+
+    public void setHostClient(Client hostClient) {
+        this.hostClient = hostClient;
+    }
+
+    public Client getHostClient() {
+        return hostClient;
     }
 
     public void start() {
