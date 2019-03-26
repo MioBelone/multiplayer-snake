@@ -9,10 +9,14 @@ public class SnakeGame {
     private static ArrayList<Food> foods = new ArrayList<>();
     private static ArrayList<Snake> snakes = new ArrayList<>();
     //private int clientSize=server.getClients.size(();
-    private int clientSize = 2;
+    private int clientSize = 7;
+    private double uClientSize;
     private int breite = 100;
     private int quotient;
     private int sidespace = breite / 4;
+    private Collision collision = new Collision();
+    private Loop loop = new Loop(this);
+
 
     /*
     public SnakeGame() {
@@ -30,26 +34,10 @@ public class SnakeGame {
             foods.add(new Food());
         }
 
-        if (clientSize % 2 == 0) {
-            quotient = breite / (clientSize / 2);
+        generateStartingPositions();
 
-            for (int i = 0; i < clientSize / 2; i++) {
-                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
-                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
-            }
-        }
 
-        if (clientSize % 2 != 0) {
-            quotient = breite / (int) ((clientSize / 2) + 0.5);
-
-            for (int i = 0; i < clientSize / 2 + 0.5; i++) {
-                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
-            }
-
-            for (int i = 0; i < clientSize / 2 - 0.5; i++) {
-                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
-            }
-        }
+        //loop.start();
     }
 
     /**
@@ -85,5 +73,98 @@ public class SnakeGame {
         }
     }
 
+    /**
+     * Inititializes the starting postions for every snake and adds them to the ArrayList
+     */
+    public void generateStartingPositions(){
+        if (clientSize % 2 == 0) {
+            quotient = breite / (clientSize / 2);
 
+            for (int i = 0; i < clientSize / 2; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
+            }
+        }
+
+        if (clientSize % 2 != 0) {
+
+
+            quotient = breite / (clientSize / 2+1);
+
+            System.out.println(quotient);
+
+            for (int i = 0; i < clientSize / 2 - 0.5; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
+            }
+
+            for (int i = clientSize / 2 ; i < clientSize / 2 +1; i++) {
+                snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+            }
+        }
+    }
+
+    public static ArrayList<Food> getFoods() {
+        return foods;
+    }
+
+    public static void setFoods(ArrayList<Food> foods) {
+        SnakeGame.foods = foods;
+    }
+
+    public static ArrayList<Snake> getSnakes() {
+        return snakes;
+    }
+
+    public static void setSnakes(ArrayList<Snake> snakes) {
+        SnakeGame.snakes = snakes;
+    }
+
+    public int getClientSize() {
+        return clientSize;
+    }
+
+    public void setClientSize(int clientSize) {
+        this.clientSize = clientSize;
+    }
+
+    public double getuClientSize() {
+        return uClientSize;
+    }
+
+    public void setuClientSize(double uClientSize) {
+        this.uClientSize = uClientSize;
+    }
+
+    public int getBreite() {
+        return breite;
+    }
+
+    public void setBreite(int breite) {
+        this.breite = breite;
+    }
+
+    public int getQuotient() {
+        return quotient;
+    }
+
+    public void setQuotient(int quotient) {
+        this.quotient = quotient;
+    }
+
+    public int getSidespace() {
+        return sidespace;
+    }
+
+    public void setSidespace(int sidespace) {
+        this.sidespace = sidespace;
+    }
+
+    public Collision getCollision() {
+        return collision;
+    }
+
+    public void setCollision(Collision collision) {
+        this.collision = collision;
+    }
 }

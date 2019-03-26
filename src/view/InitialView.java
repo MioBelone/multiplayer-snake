@@ -4,7 +4,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -13,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Maximilian Gräfe
  */
-public class InitialViewJoin {
+public class InitialView {
 
     private Scene scene;
 
@@ -24,6 +27,7 @@ public class InitialViewJoin {
     private VBox vboxBrand;
     private VBox vBoxHostContent;
     private VBox vBoxJoinContent;
+    private StackPane spImgContainer;
 
     private Tab tabHost;
     private Tab tabJoin;
@@ -43,7 +47,11 @@ public class InitialViewJoin {
     private TextField tfPortJoin;
     private TextField tfIpJoin;
 
-    public InitialViewJoin() {
+    private Image imgLogo;
+
+    private ImageView imgViewLogo;
+
+    public InitialView() {
 
         //Main container as GridPane
         grid = new GridPane();
@@ -132,14 +140,20 @@ public class InitialViewJoin {
         vboxBrand = new VBox();
         vboxBrand.getStyleClass().add("brand-box");
         vboxBrand.setAlignment(Pos.TOP_CENTER);
-        vboxBrand.setPadding(new Insets(20));
         vboxBrand.setSpacing(40);
+        vboxBrand.setPadding(new Insets(0, 10, 0, 10));
         grid.add(vboxBrand, 0, 0);
 
         //Content for BrandBox
-        lblBrandLogo = new Label("<Ihr Logo>");
-        lblBrandLogo.getStyleClass().add("label-head");
-        vboxBrand.getChildren().add(lblBrandLogo);
+        imgLogo = new Image("resources/images/SnakeBasketLogo.png", true);
+        imgViewLogo = new ImageView();
+        imgViewLogo.setImage(imgLogo);
+        spImgContainer = new StackPane(imgViewLogo);
+        spImgContainer.setMinHeight(0);
+        spImgContainer.setMinWidth(0);
+        imgViewLogo.fitWidthProperty().bind(spImgContainer.widthProperty());
+        imgViewLogo.fitHeightProperty().bind(spImgContainer.widthProperty());
+        vboxBrand.getChildren().add(spImgContainer);
 
         lblBrandText = new Label("SnakeBasket");
         lblBrandText.getStyleClass().add("label-head");

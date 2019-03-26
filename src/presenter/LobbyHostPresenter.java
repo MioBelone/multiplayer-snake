@@ -1,6 +1,7 @@
 package presenter;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,31 +21,41 @@ import java.util.List;
  *
  * @author Fabian Haese
  */
-public class LobbyHostPresenter {
+public class LobbyHostPresenter implements LobbyPresenter {
 
     private LobbyHost view;
     private InitialModel initialModel;
     private Stage primaryStage;
-    private Server server;
+    private Client client;
+    public ObservableList<String> clientNameList ;
 
-    private List<String> myplayer = new ArrayList<String>();
-
-    public static final ObservableList<ClientHandler> oPlayer = FXCollections.observableArrayList();
-
-    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Server server) {
+    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client) {
 
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
-        this.server = server;
+        this.client = client;
         this.view = new LobbyHost();
 
-        updateList();
+        clientNameList = client.getClientNameList();
+        view.getPlayerList().setItems(clientNameList);
+
+        clientNameList.addListener(new ListChangeListener<String>() {
+            @Override
+            public void onChanged(Change<? extends String> c) {
+                view.getPlayerList().setItems(clientNameList);
+            }
+        });
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
+        view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
     public LobbyHostPresenter() {
+    }
+
+    public void writeMsg(String msg) {
+        view.getTaChat().appendText(msg);
     }
 
     /**
@@ -67,16 +78,17 @@ public class LobbyHostPresenter {
         }
     }
 
-    public ObservableList initiateList() {
-        return oPlayer;
+    class BtnSendEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            //Send Msg to Server
+            client.sendMsgToServer(view.getTfChatInput().getText());
+            view.getTfChatInput().setText("");
+        }
     }
 
-    public void updateList(){
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        oPlayer.addAll(server.getClientList());
+    public ObservableList<String> getPlayerList() {
+        return clientNameList;
     }
 }

@@ -52,18 +52,9 @@ public class ClientHandler extends Thread {
                     }
 
                     if(msg.contains("/sysCmd getClientNames")) {
-                        String clientNames = "";
-
-                        List<ClientHandler> clientList = server.getClientList();
-
-                        for(ClientHandler client:clientList) {
-                            clientNames += client.getNameOfClient() + ";";
-                        }
-
-                        clientNames = "/sysCmd clientNames names:{" + clientNames + "}";
-
-                        sendToClient(clientNames);
+                        sendNewClientNames();
                     }
+
                 } else {
                     server.sendToAllHandler(msg);
                 }
@@ -83,5 +74,25 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendNewClientNames() {
+        String clientNames = "";
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<ClientHandler> clientList = server.getClientList();
+
+        for(ClientHandler client:clientList) {
+            clientNames += client.getNameOfClient() + ";";
+        }
+
+        clientNames = "/sysCmd clientNames names:{" + clientNames + "}";
+
+        sendToClient(clientNames);
     }
 }

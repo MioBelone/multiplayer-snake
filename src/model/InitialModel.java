@@ -35,6 +35,8 @@ public class InitialModel {
         Client client = new Client(username);
         client.connect("localhost", port);
 
+        server.setHostClient(client);
+
         return server;
     }
 
