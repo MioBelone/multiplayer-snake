@@ -1,24 +1,34 @@
-package model.game;
+package model.game.SnakeContents;
+
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * This class combines SnakeHead and SnakeBody stores the current score and color of the player.
+ *
+ * @author Alexander Schleiter
+ */
 public class Snake {
 
     private SnakeHead snakeHead;
+
     private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
+    private Color color;
+    private int score;
+    private String playername;
 
-    public Snake(int x,int y){
+    public Snake(int x, int y) {
 
-        this.snakeHead = new SnakeHead(x,y);
+        this.snakeHead = new SnakeHead(x, y);
+        this.score = 0;
     }
-
-
 
 
     /**
      * Methode, um der Snake einen Body hinzuzufügen
      * Sollte noch kein Body vorhanden sein, wird der erste auf die Koordinaten des Head gesetzt,
-     *  ansonsten auf die des letzten Body
+     * ansonsten auf die des letzten Body
      */
     public void addSnakeBody() {
         if (snakeBodies.size() < 1) {
@@ -57,7 +67,7 @@ public class Snake {
         //Move Head
         switch (snakeHead.getDir()) {
             case RIGHT:
-                snakeHead.setX(snakeHead.getX() +1);
+                snakeHead.setX(snakeHead.getX() + 1);
                 break;
             case UP:
                 snakeHead.setY(snakeHead.getY() - 1);
@@ -71,20 +81,48 @@ public class Snake {
         }
     }
 
+    public void increaseScore() {
+        this.score += 10;
+    }
 
-    public  SnakeHead getSnakeHead() {
+
+    public SnakeHead getSnakeHead() {
         return snakeHead;
     }
 
-    public  void setSnakeHead(SnakeHead snakeHead) {
+    public void setSnakeHead(SnakeHead snakeHead) {
         snakeHead = snakeHead;
     }
 
-    public  ArrayList<SnakeBody> getSnakeBodies() {
+    public ArrayList<SnakeBody> getSnakeBodies() {
         return snakeBodies;
     }
 
-    public  void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
+    public void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
         snakeBodies = snakeBodies;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getPlayername() {
+        return playername;
+    }
+
+    public void setPlayername(String playername) {
+        this.playername = playername;
     }
 }

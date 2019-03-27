@@ -1,43 +1,54 @@
 package model.game;
 
-import java.util.ArrayList;
+import javafx.scene.paint.Color;
+import model.game.SnakeContents.Snake;
+import model.server.Server;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * This class is the main class of the game and stores most of the important variables.
+ *
+ * @author Alexander Schleiter
+ */
 public class SnakeGame {
 
-    //private Server server = new Server();
-    //private Food allFoods[] = new Food[server.getClients.size()];
-    private static ArrayList<Food> foods = new ArrayList<>();
-    private static ArrayList<Snake> snakes = new ArrayList<>();
-    //private int clientSize=server.getClients.size(();
-    private int clientSize = 7;
+    private Server server;
+    private ArrayList<Food> foods = new ArrayList<>();
+    private ArrayList<Snake> snakes = new ArrayList<>();
+    private int clientSize;
+    //private int clientSize = 7;
     private double uClientSize;
     private int breite = 100;
     private int quotient;
     private int sidespace = breite / 4;
     private Collision collision = new Collision();
     private Loop loop = new Loop(this);
+    private Color[] playerColors = {Color.RED,Color.GREEN,Color.BLUE,Color.PURPLE,Color.BROWN,Color.ORANGE,Color.PINK,Color.CYAN};
+    //private ArrayList<String> playerList = new ArrayList<>();
+    private HashMap<Snake,Integer> scores= new HashMap<Snake, Integer>();
+    private Snake winner;
 
 
-    /*
-    public SnakeGame() {
-
-        for (int i = 0; i < server.getClients().size(); i++) {
-            foods.set(i, new Food());
 
 
-        }
-    }*/
+    public SnakeGame(Server server) {
 
-    public SnakeGame() {
-
-        for (int i = 0; i < clientSize; i++) {
-            foods.add(new Food());
-        }
-
+        this.server=server;
+        this.clientSize=server.getClientList().size();
         generateStartingPositions();
 
 
-        //loop.start();
+        for (int i = 0; i < clientSize; i++) {
+            //this.playerList.add(server.getClientList().get(i).getName());
+            foods.add(new Food());
+            snakes.get(i).setColor(playerColors[i]);
+            snakes.get(i).setPlayername(server.getClientList().get(i).getName());
+            scores.put(snakes.get(i),snakes.get(i).getScore());
+        }
+
+        loop.start();
     }
 
     /**
@@ -104,20 +115,20 @@ public class SnakeGame {
         }
     }
 
-    public static ArrayList<Food> getFoods() {
+    public ArrayList<Food> getFoods() {
         return foods;
     }
 
-    public static void setFoods(ArrayList<Food> foods) {
-        SnakeGame.foods = foods;
+    public void setFoods(ArrayList<Food> foods) {
+        this.foods = foods;
     }
 
-    public static ArrayList<Snake> getSnakes() {
+    public ArrayList<Snake> getSnakes() {
         return snakes;
     }
 
-    public static void setSnakes(ArrayList<Snake> snakes) {
-        SnakeGame.snakes = snakes;
+    public void setSnakes(ArrayList<Snake> snakes) {
+        this.snakes = snakes;
     }
 
     public int getClientSize() {
@@ -166,5 +177,21 @@ public class SnakeGame {
 
     public void setCollision(Collision collision) {
         this.collision = collision;
+    }
+
+    public HashMap<Snake, Integer> getScores() {
+        return scores;
+    }
+
+    public void setScores(HashMap<Snake, Integer> scores) {
+        this.scores = scores;
+    }
+
+    public Snake getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Snake winner) {
+        this.winner = winner;
     }
 }

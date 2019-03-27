@@ -1,5 +1,10 @@
 package model.game;
 
+/**
+ * This class checks for every snake all types of possible collisions: 1. Wall 2. Self 3. Food 4.Other snakes
+ *
+ * @author Alexander Schleiter
+ */
 public class Collision {
 
     public void checkCollision(SnakeGame sg) {
@@ -7,70 +12,89 @@ public class Collision {
 
         //check for every player
         for (int i = 0; i < sg.getSnakes().size(); i++) {
-            System.out.println(i+"current");
-            //System.out.println(sg.getSnakes().size()+"size");
-            //wall
-            if (sg.getSnakes().get(i).getSnakeHead().getX() >= sg.getBreite() || sg.getSnakes().get(i).getSnakeHead().getY() >= sg.getBreite() || sg.getSnakes().get(i).getSnakeHead().getX() < 0 || sg.getSnakes().get(i).getSnakeHead().getY() < 0) {
-                //System.out.println(sg.getSnakes().get(i).getSnakeHead().getX());
-                //System.out.println(i+"remove");
-                sg.getSnakes().remove(i);
+            int size = sg.getSnakes().size();
+
+            //check for wall collision
+            wallCollision(sg, i);
+
+            //check for collision with self
+            selfCollision(sg, i);
+
+            //check for collision with food
+            foodCollision(sg, i);
+
+            //check for collision with other player
+            playerCollision(sg, i);
+
+            //check if a snake has been removed
+            if(size<sg.getSnakes().size()){
                 i--;
-                System.out.println(sg.getSnakes().size()+"size after remove");
+            }
+        }
+    }
 
-                //remove ein food
+    private void wallCollision(SnakeGame sg, int i) {
+        //check for wall collision
+        if (sg.getSnakes().get(i).getSnakeHead().getX() >= sg.getBreite() || sg.getSnakes().get(i).getSnakeHead().getY() >= sg.getBreite() || sg.getSnakes().get(i).getSnakeHead().getX() < 0 || sg.getSnakes().get(i).getSnakeHead().getY() < 0) {
+            sg.getSnakes().remove(i);
+            //i--;
 
-                /*
-                Main.getL().kill();
-                Main.setL(null);
-                Main.setL(new Loop());
-                System.out.println(Main.getL().getS().getSnakeHead().getCurrentX());
-                Main.getL().start();
-*/
+        }
+    }
+
+    private void foodCollision(SnakeGame sg, int i) {
+        //check all foods
+        for (int j = 0; j < sg.getFoods().size(); j++) {
+            if (sg.getSnakes().get(i).getSnakeHead().getX() == sg.getFoods().get(j).getX() && sg.getSnakes().get(i).getSnakeHead().getY() == sg.getFoods().get(j).getY()) {
+
+                sg.getSnakes().get(i).addSnakeBody();
+                sg.getSnakes().get(i).increaseScore();
+
+                //ckecks if players are missing and lets food respawn or diappear
+                if (sg.getFoods().size() == sg.getSnakes().size()) {
+                    sg.getFoods().get(j).reset();
+                    sg.checkForFoodPositions(sg.getFoods(), sg.getFoods().size());
+                } else {
+                    sg.getFoods().remove(j);
+                }
+            }
+        }
+    }
+
+    private void selfCollision(SnakeGame sg, int i) {
+        for (int j = 0; j < sg.getSnakes().get(j).getSnakeBodies().size(); j++) {
+            if (sg.getSnakes().get(j).getSnakeHead().getX() == sg.getSnakes().get(j).getSnakeBodies().get(j).getX() && sg.getSnakes().get(j).getSnakeHead().getY() == sg.getSnakes().get(j).getSnakeBodies().get(j).getY()) {
+
+                sg.getSnakes().remove(i);
+                //i--;
+                break;
 
             }
+        }
+    }
 
-            //self
-            for (int j = 0; j < sg.getSnakes().get(j).getSnakeBodies().size(); j++) {
-                if (sg.getSnakes().get(j).getSnakeHead().getX() == sg.getSnakes().get(j).getSnakeBodies().get(j).getX() && sg.getSnakes().get(j).getSnakeHead().getY() == sg.getSnakes().get(j).getSnakeBodies().get(j).getY()) {
+    private void playerCollision(SnakeGame sg, int i) {
+        //check all other players
+        for (int j = 0; j < sg.getSnakes().size(); j++) {
 
+            //check that player i won't be compared with himself
+            if (i != j) {
+                //check for head of other player
+                if (sg.getSnakes().get(i).getSnakeHead().getX() == sg.getSnakes().get(j).getSnakeHead().getX() && sg.getSnakes().get(i).getSnakeHead().getY() == sg.getSnakes().get(j).getSnakeHead().getY()) {
+                    //if a collision with two snakes occurs, both will be deleted
                     sg.getSnakes().remove(i);
-
-                    //remove ein food
-
-                    /*Main.getL().kill();
-                    Main.getL().setS(null);
-                    Main.getL().getS().setSnakeHead(null);
-                    Main.setL(null);
-                    Main.setL(new Loop());
-
-                    Main.getL().setS(new Snake());
-                    Main.getL().setSh(Main.getL().getSh());
-                    d.paintGrid();
-
-                    d.spawnSnakeHead(Main.getL().getS().getSnakeHead().getCurrentX(), (Main.getL().getS().getSnakeHead().getCurrentY()));
-                    Main.setFood(new Food());
-                    d.spawnFood(f);
-                    Main.getL().start();*/
-
+                    sg.getSnakes().remove(j);
+                    break;
                 }
-            }
-
-            //essen
-            for (int j = 0; j < sg.getFoods().size(); j++) {
-                if (sg.getSnakes().get(i).getSnakeHead().getX() == sg.getFoods().get(j).getX() && sg.getSnakes().get(i).getSnakeHead().getY() ==sg.getFoods().get(j).getY()) {
-
-                    sg.getSnakes().get(i).addSnakeBody();
-                    if(sg.getFoods().size()==sg.getSnakes().size()){
-                        sg.getFoods().get(j).reset();
-                        sg.checkForFoodPositions(sg.getFoods(),sg.getFoods().size());
-                    }
-                    else{
-                        sg.getFoods().remove(j);
+                //check for every body part of current other player
+                for (int k = 0; k < sg.getSnakes().get(j).getSnakeBodies().size(); k++) {
+                    if (sg.getSnakes().get(i).getSnakeHead().getX() == sg.getSnakes().get(j).getSnakeBodies().get(k).getX() && sg.getSnakes().get(i).getSnakeHead().getY() == sg.getSnakes().get(j).getSnakeBodies().get(k).getY()) {
+                        sg.getSnakes().remove(i);
+                        //i--;
+                        break;
                     }
                 }
             }
-
-
         }
     }
 }

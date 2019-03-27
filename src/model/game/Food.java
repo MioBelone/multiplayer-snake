@@ -1,10 +1,11 @@
 package model.game;
-
-import javafx.scene.paint.Color;
-
-import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * This class defines the foods that can be consumed by snakes.
+ *
+ * @author Alexander Schleiter
+ */
 public class Food {
 
     private int x;
