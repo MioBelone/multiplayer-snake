@@ -3,6 +3,7 @@ package model.server;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.client.Client;
+import model.game.SnakeGame;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -98,5 +99,9 @@ public class Server {
         for (int i = 0; i < clientList.size(); i++) {
             clientList.get(i).sendNewClientNames();
         }
+    }
+
+    public SnakeGame getSnakeGame() {
+        return null;
     }
 }
