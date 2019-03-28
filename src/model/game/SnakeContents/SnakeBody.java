@@ -1,10 +1,14 @@
-package model.game;
+package model.game.SnakeContents;
 
+/**
+ * This class is added to a snake after a food has been consumed.
+ *
+ * @author Alexander Schleiter
+ */
 public class SnakeBody {
 
     private int x;
     private int y;
-    //private Color color = Color.GREEN;
 
     public SnakeBody(int x, int y) {
         this.x = x;

@@ -1,12 +1,16 @@
-package model.game;
+package model.game.SnakeContents;
 
-import javafx.scene.paint.Color;
+import model.game.Direction;
 
+/**
+ * This class stores the direction where the snake is heading and is essential for collision checks.
+ *
+ * @author Alexander Schleiter
+ */
 public class SnakeHead {
 
     private int x;
     private int y;
-    //private Color color = Color.BLUE;
     private Direction dir;
 
 

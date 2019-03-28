@@ -109,6 +109,7 @@ public class LobbyHost {
         gridChatInput.add(tfChatInput, 0, 0);
 
         btnChatSend = new Button("Senden");
+        btnChatSend.setDefaultButton(true);
         gridChatInput.add(btnChatSend, 1, 0);
 
         taChat = new TextArea();

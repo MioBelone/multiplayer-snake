@@ -1,7 +1,8 @@
 import model.game.Collision;
 import model.game.Food;
-import model.game.Snake;
+import model.game.SnakeContents.Snake;
 import model.game.SnakeGame;
+import model.server.Server;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,10 +17,11 @@ public class SnakeGameTest {
     Snake snake;
     SnakeGame snakeGame;
     Collision collision = new Collision();
+    Server s = new Server(333);
 
     @Test
     public void generateStartingPositionsEqualNumber() {
-        snakeGame = new SnakeGame();
+        snakeGame = new SnakeGame(s);
 
         for(int i =0;i<100;i++){
             System.out.println(snakeGame.getSnakes().get(i).getSnakeHead().getX()+" "+snakeGame.getSnakes().get(i).getSnakeHead().getY());
@@ -30,7 +32,7 @@ public class SnakeGameTest {
     @Test
     public void generateStartingPositionUnequalNumber() {
 
-        snakeGame = new SnakeGame();
+        snakeGame = new SnakeGame(s);
 
         for(int i =0;i<100;i++){
             System.out.println(snakeGame.getSnakes().get(i).getSnakeHead().getX()+" "+snakeGame.getSnakes().get(i).getSnakeHead().getY());
@@ -42,7 +44,7 @@ public class SnakeGameTest {
     @Test
     public void checkForFoodPositions() {
 
-        snakeGame = new SnakeGame();
+        snakeGame = new SnakeGame(s);
 
         f = new Food();
         f1 = new Food();
@@ -65,7 +67,7 @@ public class SnakeGameTest {
 
     @Test
     public void checkCollision(){
-        snakeGame = new SnakeGame();
+        snakeGame = new SnakeGame(s);
         snakeGame.getSnakes().get(1).getSnakeHead().setX(101);
         snakeGame.getSnakes().get(1).getSnakeHead().setY(101);
         //snakeGame.getSnakes().get(1).getSnakeHead().setX(3);
@@ -74,6 +76,9 @@ public class SnakeGameTest {
         snakeGame.getCollision().checkCollision(snakeGame);
         assertEquals(snakeGame.getClientSize()-1,snakeGame.getSnakes().size());
     }
+
+    //@Test
+
 
 
 }
