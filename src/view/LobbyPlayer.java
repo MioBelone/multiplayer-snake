@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.server.ClientHandler;
 import presenter.LobbyPlayerPresenter;
 
 /**
@@ -26,14 +25,15 @@ public class LobbyPlayer {
     private TabPane tabPane;
     private BorderPane bPaneJoin;
     private BorderPane bPaneSettings;
-    private VBox vboxBrand;
+    private VBox vboxPlayerList;
     private VBox vBoxJoinContent;
+    private VBox vboxButtons;
+    private AnchorPane apBrand;
 
     private Tab tabPlayer;
     private Tab tabSettings;
 
     private Label lblPlayerHead;
-    private Label lblBrandLogo;
     private Label lblBrandInfoHead;
     private Label lblSettingsHead;
 
@@ -41,7 +41,8 @@ public class LobbyPlayer {
 
     private TextField tfChatInput;
 
-    private Button btnStart;
+    private Button btnReady;
+    private Button btnLeave;
     private Button btnChatSend;
 
     private ListView playerList;
@@ -120,30 +121,40 @@ public class LobbyPlayer {
         bPaneSettings.setTop(lblSettingsHead);
 
         //BrandBox for logo and short info text
-        vboxBrand = new VBox();
-        vboxBrand.getStyleClass().add("brand-box");
-        vboxBrand.setAlignment(Pos.TOP_CENTER);
-        vboxBrand.setPadding(new Insets(20, 0, 20, 0));
-        vboxBrand.setSpacing(40);
-        grid.add(vboxBrand, 0, 0);
+        apBrand = new AnchorPane();
+        apBrand.getStyleClass().add("brand-box");
+        apBrand.setMinWidth(0);
+        grid.add(apBrand, 0, 0);
 
         //Content for BrandBox
-        lblBrandLogo = new Label("<Ihr Logo>");
-        lblBrandLogo.getStyleClass().add("label-head");
-        vboxBrand.getChildren().add(lblBrandLogo);
+        vboxPlayerList = new VBox();
+        vboxPlayerList.setAlignment(Pos.TOP_CENTER);
+        vboxPlayerList.setSpacing(40);
+        vboxPlayerList.prefWidthProperty().bind(apBrand.widthProperty());
+        apBrand.getChildren().add(vboxPlayerList);
+        apBrand.setTopAnchor(vboxPlayerList, 10.0);
 
         lblBrandInfoHead = new Label("Spieler");
         lblBrandInfoHead.getStyleClass().add("label-head");
-        vboxBrand.getChildren().add(lblBrandInfoHead);
+        vboxPlayerList.getChildren().add(lblBrandInfoHead);
 
         playerList = new ListView();
         playerList.setMouseTransparent(true);
         playerList.setFocusTraversable(false);
-        vboxBrand.getChildren().add(playerList);
+        vboxPlayerList.getChildren().add(playerList);
 
-        btnStart = new Button("Start Game");
-        btnStart.prefWidthProperty().bind(vboxBrand.widthProperty());
-        vboxBrand.getChildren().add(btnStart);
+        vboxButtons = new VBox();
+        vboxButtons.prefWidthProperty().bind(apBrand.widthProperty());
+        apBrand.getChildren().add(vboxButtons);
+        apBrand.setBottomAnchor(vboxButtons, 0.0);
+
+        btnReady = new Button("Get Ready");
+        btnReady.prefWidthProperty().bind(vboxPlayerList.widthProperty());
+        vboxButtons.getChildren().add(btnReady);
+
+        btnLeave = new Button("Leave Lobby");
+        btnLeave.prefWidthProperty().bind(vboxPlayerList.widthProperty());
+        vboxButtons.getChildren().add(btnLeave);
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
@@ -166,8 +177,8 @@ public class LobbyPlayer {
      *
      * @return the button in the methods name.
      */
-    public Button getBtnStart() {
-        return btnStart;
+    public Button getBtnReady() {
+        return btnReady;
     }
 
     public Button getBtnSend() { return btnChatSend; }
