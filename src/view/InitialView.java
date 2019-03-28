@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -112,6 +114,7 @@ public class InitialView {
         vBoxHostContent.getChildren().add(tfPortHost);
 
         btnHostLobby = new Button("Erstellen");
+        btnHostLobby.setDefaultButton(true);
         bPaneHost.setBottom(btnHostLobby);
 
         //Content for JoinTab
@@ -139,18 +142,19 @@ public class InitialView {
         vboxBrand.getStyleClass().add("brand-box");
         vboxBrand.setAlignment(Pos.TOP_CENTER);
         vboxBrand.setSpacing(40);
-        vboxBrand.setPadding(new Insets(0, 10, 0, 10));
+        vboxBrand.setPadding(new Insets(30, 10, 0, 10));
         grid.add(vboxBrand, 0, 0);
 
         //Content for BrandBox
         imgLogo = new Image("resources/images/SnakeBasketLogo.png", true);
         imgViewLogo = new ImageView();
         imgViewLogo.setImage(imgLogo);
+        imgViewLogo.setPreserveRatio(true);
         spImgContainer = new StackPane(imgViewLogo);
         spImgContainer.setMinHeight(0);
         spImgContainer.setMinWidth(0);
-        imgViewLogo.fitWidthProperty().bind(spImgContainer.widthProperty());
-        imgViewLogo.fitHeightProperty().bind(spImgContainer.widthProperty());
+        imgViewLogo.fitWidthProperty().bind(spImgContainer.widthProperty().add(-50));
+        imgViewLogo.fitHeightProperty().bind(spImgContainer.widthProperty().add(-50));
         vboxBrand.getChildren().add(spImgContainer);
 
         lblBrandText = new Label("SnakeBasket");
@@ -162,6 +166,20 @@ public class InitialView {
         lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
         lblBrandInfo.setWrapText(true);
         vboxBrand.getChildren().add(lblBrandInfo);
+
+        //Add Listener
+        tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                if(newValue.getText().equals("Lobby erstellen")) {
+                    btnJoinLobby.setDefaultButton(false);
+                    btnHostLobby.setDefaultButton(true);
+                } else {
+                    btnHostLobby.setDefaultButton(false);
+                    btnJoinLobby.setDefaultButton(true);
+                }
+            }
+        });
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);

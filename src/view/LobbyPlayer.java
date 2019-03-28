@@ -107,6 +107,7 @@ public class LobbyPlayer {
         gridChatInput.add(tfChatInput, 0, 0);
 
         btnChatSend = new Button("Senden");
+        btnChatSend.setDefaultButton(true);
         gridChatInput.add(btnChatSend, 1, 0);
 
         taChat = new TextArea();
@@ -116,7 +117,7 @@ public class LobbyPlayer {
         //Content for JoinTab
         lblSettingsHead = new Label("Einstellungen");
         lblSettingsHead.getStyleClass().add("label-head");
-        bPaneJoin.setTop(lblSettingsHead);
+        bPaneSettings.setTop(lblSettingsHead);
 
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
