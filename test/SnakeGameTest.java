@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import presenter.PlaygroundPresenter;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class SnakeGameTest {
     Snake snake;
     SnakeGame snakeGame;
     Collision collision = new Collision();
+    PlaygroundPresenter pp = new PlaygroundPresenter();
 
     Server server;
     Thread serverRunning;
@@ -51,12 +53,20 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void generateStartingPositionsEqualNumber() {
-        //snakeGame = new SnakeGame(server);
+    public void randomFood(){
+        snakeGame = new SnakeGame(server, pp);
 
-        for(Snake s : snakeGame.getSnakes()){
+        System.out.println("jebem" + snakeGame.getFoods().get(0).getX());
+        System.out.println("jebem" + snakeGame.getFoods().get(0).getY());
+    }
+
+    @Test
+    public void generateStartingPositionsEqualNumber() {
+        snakeGame = new SnakeGame(server, pp);
+
+        for (Snake s : snakeGame.getSnakes()) {
             System.out.println(snakeGame.getSnakes().size());
-            System.out.println(s.getSnakeHead().getX()+" "+s.getSnakeHead().getY());
+            System.out.println(s.getSnakeHead().getX() + " " + s.getSnakeHead().getY());
         }
         //assertEquals(true,());
     }
@@ -68,10 +78,10 @@ public class SnakeGameTest {
         client3.connect("localhost", port);
         client3.sendMsgToServer("dritter Client");
 
-        //snakeGame = new SnakeGame(server);
+        snakeGame = new SnakeGame(server, pp);
 
-        for(Snake s : snakeGame.getSnakes()){
-            System.out.println(s.getSnakeHead().getX()+" "+s.getSnakeHead().getY());
+        for (Snake s : snakeGame.getSnakes()) {
+            System.out.println(s.getSnakeHead().getX() + " " + s.getSnakeHead().getY());
         }
 
         System.out.println("roflcopter");
@@ -82,7 +92,7 @@ public class SnakeGameTest {
     @Test
     public void checkForFoodPositions() {
 
-        //snakeGame = new SnakeGame(server);
+        snakeGame = new SnakeGame(server, pp);
 
         f = new Food();
         f1 = new Food();
@@ -104,22 +114,22 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void checkCollision(){
-        //snakeGame = new SnakeGame(server);
+    public void checkCollision() {
+        snakeGame = new SnakeGame(server, pp);
         snakeGame.getSnakes().get(1).getSnakeHead().setX(101);
         snakeGame.getSnakes().get(1).getSnakeHead().setY(101);
         //snakeGame.getSnakes().get(1).getSnakeHead().setX(3);
         //snakeGame.getSnakes().get(1).getSnakeHead().setY(3);
 
         //snakeGame.getCollision().checkCollision(snakeGame);
-        assertEquals(snakeGame.getClientSize()-1,snakeGame.getSnakes().size());
+        assertEquals(snakeGame.getClientSize() - 1, snakeGame.getSnakes().size());
     }
 
     @Test
-    public void checkColor(){
+    public void checkColor() {
 
 
-        //snakeGame = new SnakeGame(server);
+        snakeGame = new SnakeGame(server, pp);
         assertEquals(snakeGame.getSnakes().get(0).getColor(), Color.RED);
         //assertEquals(snakeGame.getSnakes().get(1).getColor(), Color.GREEN);
 
@@ -130,7 +140,6 @@ public class SnakeGameTest {
         server.close();
         serverRunning.stop();
     }
-
 
 
 }
