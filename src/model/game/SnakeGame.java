@@ -3,6 +3,7 @@ package model.game;
 import javafx.scene.paint.Color;
 import model.game.SnakeContents.Snake;
 import model.server.Server;
+import presenter.PlaygroundPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,21 +24,21 @@ public class SnakeGame {
     private int breite = 100;
     private int quotient;
     private int sidespace = breite / 4;
-    private Collision collision = new Collision();
-    private Loop loop = new Loop(this);
-    private Color[] playerColors = {Color.RED,Color.GREEN,Color.BLUE,Color.PURPLE,Color.BROWN,Color.ORANGE,Color.PINK,Color.CYAN};
+
+    private Color[] playerColors = {Color.RED, Color.GREEN, Color.BLUE, Color.PURPLE, Color.BROWN, Color.ORANGE, Color.PINK, Color.CYAN};
     //private ArrayList<String> playerList = new ArrayList<>();
-    private HashMap<Snake,Integer> scores= new HashMap<Snake, Integer>();
+    private HashMap<Snake, Integer> scores = new HashMap<Snake, Integer>();
     private Snake winner;
+    private PlaygroundPresenter playgroundPresenter;
+    private Loop loop;
 
 
+    public SnakeGame(Server server, PlaygroundPresenter playgroundPresenter) {
 
-
-    public SnakeGame(Server server) {
-
-        this.server=server;
-        this.clientSize=server.getClientList().size();
-        generateStartingPositions();
+        this.server = server;
+        this.clientSize = server.getClientList().size();
+        this.playgroundPresenter = playgroundPresenter;
+        generateStartingPositions(clientSize);
 
 
         for (int i = 0; i < clientSize; i++) {
@@ -45,9 +46,10 @@ public class SnakeGame {
             foods.add(new Food());
             snakes.get(i).setColor(playerColors[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getName());
-            scores.put(snakes.get(i),snakes.get(i).getScore());
+            scores.put(snakes.get(i), snakes.get(i).getScore());
         }
 
+        loop = new Loop(this, playgroundPresenter);
         loop.start();
     }
 
@@ -55,28 +57,25 @@ public class SnakeGame {
      * Checks if the foods in a list have the same coordinates
      *
      * @param foods
-     * @param length
      */
-    public void checkForFoodPositions(ArrayList<Food> foods, int length) {
+    public void checkForFoodPositions(ArrayList<Food> foods) {
 
-        for (int i = 0; i < length; i++) {
-            //Take food from list to compare it to other foods
-            Food f = foods.get(i);
+        for (Food f : foods) {
 
             //Compare taken food to other foods in list
-            for (int j = 0; j < length; j++) {
+            for (Food otherFood : foods) {
 
                 //if it is the same food object, skip it (because the values are obviously equal)
-                if (i == j) {
+                if (f.equals(otherFood)) {
                     break;
                 } else {
 
                     //if the coordinates of the selected food are equal to another one, reset the selected food's coordinates
-                    if (f.getX() == foods.get(j).getX() && f.getY() == foods.get(j).getY()) {
+                    if (f.getX() == otherFood.getX() && f.getY() == otherFood.getY()) {
                         //Generate new coordinates
                         f.reset();
                         //If there is even one reset, coordinates have to be checked again to make sure the random numbers aren't equal.
-                        checkForFoodPositions(foods, length);
+                        checkForFoodPositions(foods);
                     }
 
                 }
@@ -87,7 +86,7 @@ public class SnakeGame {
     /**
      * Inititializes the starting postions for every snake and adds them to the ArrayList
      */
-    public void generateStartingPositions(){
+    public void generateStartingPositions(int clientSize) {
         if (clientSize % 2 == 0) {
             quotient = breite / (clientSize / 2);
 
@@ -100,7 +99,7 @@ public class SnakeGame {
         if (clientSize % 2 != 0) {
 
 
-            quotient = breite / (clientSize / 2+1);
+            quotient = breite / (clientSize / 2 + 1);
 
             System.out.println(quotient);
 
@@ -109,7 +108,7 @@ public class SnakeGame {
                 snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
             }
 
-            for (int i = clientSize / 2 ; i < clientSize / 2 +1; i++) {
+            for (int i = clientSize / 2; i < clientSize / 2 + 1; i++) {
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
             }
         }
@@ -171,14 +170,6 @@ public class SnakeGame {
         this.sidespace = sidespace;
     }
 
-    public Collision getCollision() {
-        return collision;
-    }
-
-    public void setCollision(Collision collision) {
-        this.collision = collision;
-    }
-
     public HashMap<Snake, Integer> getScores() {
         return scores;
     }
@@ -193,5 +184,9 @@ public class SnakeGame {
 
     public void setWinner(Snake winner) {
         this.winner = winner;
+    }
+
+    public PlaygroundPresenter getPlaygroundPresenter() {
+        return playgroundPresenter;
     }
 }

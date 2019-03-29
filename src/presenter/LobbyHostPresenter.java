@@ -76,9 +76,8 @@ public class LobbyHostPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage);
+            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, server);
             playgroundPresenter.show();
-
 
             server.startSnakeGame(playgroundPresenter);
         }
