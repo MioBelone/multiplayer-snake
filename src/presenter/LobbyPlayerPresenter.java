@@ -47,7 +47,7 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         });
 
         //Handlers for events on view
-        view.getBtnStart().setOnAction(new BtnStartEventHandler());
+        view.getBtnReady().setOnAction(new BtnReadyEventHandler());
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
@@ -69,12 +69,11 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
     // Events
     //**********************************************************************
 
-    class BtnStartEventHandler implements EventHandler<ActionEvent> {
+    class BtnReadyEventHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage);
-            playgroundPresenter.show();
+            //TODO: Ready-Function einbauen
         }
     }
 
