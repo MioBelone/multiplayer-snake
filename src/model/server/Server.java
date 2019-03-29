@@ -123,8 +123,8 @@ public class Server {
         }
     }
 
-    public void startSnakeGame(PlaygroundPresenter pp) {
-        snakeGame = new SnakeGame(this, pp);
+    public void startSnakeGame(PlaygroundPresenter playgroundPresenter) {
+        snakeGame = new SnakeGame(this, playgroundPresenter);
         System.out.println("New SnakeGame started");
     }
 
