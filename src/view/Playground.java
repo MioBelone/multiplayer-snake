@@ -25,15 +25,10 @@ public class Playground {
     private Scene scene;
 
     private Server server;
-    private GraphicsContext gc;
+    private GraphicsContext graphicsContext;
 
-    private static final int SQUARE_SIZE = 20;
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 1000;
-    private int faktorY;
-    private int faktorX;
-
-    PlaygroundPresenter presenter = new PlaygroundPresenter();
 
     public Playground() {
 
@@ -41,7 +36,7 @@ public class Playground {
         grid.getStyleClass().add("grid-pane-root");
 
         Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
-        gc = canvas.getGraphicsContext2D();
+        graphicsContext = canvas.getGraphicsContext2D();
         grid.getChildren().add(canvas);
 
         grid.prefWidthProperty().bind(canvas.widthProperty());
@@ -54,83 +49,9 @@ public class Playground {
 
     }
 
-    private void umrechnung() {
-        faktorY = (int) gc.getCanvas().getHeight() / 100;
-
-        faktorX = (int) gc.getCanvas().getWidth() / 100;
+    public GraphicsContext getGraphicsContext() {
+        return graphicsContext;
     }
-
-
-    private void drawFirstPart() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            gc.setFill(snake.getColor());
-            for (SnakeBody body : snake.getSnakeBodies()) {
-                gc.fillRect(body.getX() * faktorX, body.getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-            }
-        }
-
-       /* if (server.getSnakeGame().getSnakes().size() > 0) {
-            for (int i = server.getSnakeGame().getSnakes().size(); i >= 0; i--) {
-                gc.setFill(server.getSnakeGame().getSnakes().get(i).getColor());
-                gc.fillRect(server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(0).getX() * faktorX, server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(0).getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-            }
-        }*/
-    }
-
-    private void clearLastPart() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            for (SnakeBody body : snake.getSnakeBodies()) {
-                gc.clearRect(body.getX() * faktorX, body.getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-            }
-        }
-
-        /*for (int i = server.getSnakeGame().getSnakes().size(); i >= 0; i--) {
-            if (server.getSnakeGame().getSnakes().get(i).getSnakeBodies().size() > 0) {
-                gc.clearRect(server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(server.getSnakeGame().getSnakes().get(i).getSnakeBodies().size()).getX() * faktorX, server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(server.getSnakeGame().getSnakes().get(i).getSnakeBodies().size()).getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-            }
-        }*/
-
-    }
-
-    private void drawHead() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            gc.setFill(snake.getColor());
-            gc.fillRect(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-        }
-
-      /*  for (int i = server.getSnakeGame().getSnakes().size(); i >= 0; i--) {
-            gc.setFill(server.getSnakeGame().getSnakes().get(i).getColor());
-            gc.fillRect(server.getSnakeGame().getSnakes().get(i).getSnakeHead().getX() * faktorX, server.getSnakeGame().getSnakes().get(i).getSnakeHead().getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-        }*/
-    }
-
-    /*private void drawParts() {
-      if (server.getSnakeGame().getSnakes().size() > 0) {
-          for (int i = server.getSnakeGame().getSnakes().size(); i >= 0; i--) {
-              for (int j = server.getSnakeGame().getSnakes().get(i).getSnakeBodies().size(); j >= 0; j--) {
-                  gc.setFill(server.getSnakeGame().getSnakes().get(i).getColor());
-                  gc.fillRect(server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(j).getX() * faktorX, server.getSnakeGame().getSnakes().get(i).getSnakeBodies().get(j).getX() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-              }
-          }
-      }
-
-  }*/
-
-    public void drawSnake() {
-        umrechnung();
-        drawHead();
-        clearLastPart();
-        drawFirstPart();
-    }
-
-    public void drawFood() {
-        gc.setFill(Color.RED);
-        for (Food food : server.getSnakeGame().getFoods()) {
-            gc.fillRect(food.getX() * faktorX, food.getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-
-        }
-    }
-
 
     /**
      * In this method the title is set and the stage is displayed to the user.
