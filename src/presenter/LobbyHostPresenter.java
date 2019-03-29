@@ -27,13 +27,15 @@ public class LobbyHostPresenter implements LobbyPresenter {
     private InitialModel initialModel;
     private Stage primaryStage;
     private Client client;
+    private Server server;
     public ObservableList<String> clientNameList ;
 
-    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client) {
+    public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client, Server server) {
 
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
         this.client = client;
+        this.server = server;
         this.view = new LobbyHost();
 
         clientNameList = client.getClientNameList();
@@ -48,6 +50,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
+        view.getBtnLeave().setOnAction(new BtnLeaveEventHandler());
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
@@ -75,6 +78,22 @@ public class LobbyHostPresenter implements LobbyPresenter {
         public void handle(ActionEvent event) {
             PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage);
             playgroundPresenter.show();
+
+
+            server.startSnakeGame(playgroundPresenter);
+        }
+    }
+
+    class BtnLeaveEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            server.close();
+
+            InitialModel initialModel = new InitialModel();
+
+            InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
+            initialViewPresenter.show();
         }
     }
 

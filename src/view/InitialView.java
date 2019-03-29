@@ -36,7 +36,6 @@ public class InitialView {
 
     private Label lblHostHead;
     private Label lblJoinHead;
-    private Label lblBrandLogo;
     private Label lblBrandText;
     private Label lblBrandInfo;
 

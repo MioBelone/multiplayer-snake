@@ -181,6 +181,8 @@ public class LobbyPlayer {
         return btnReady;
     }
 
+    public Button getBtnLeave() { return btnLeave; }
+
     public Button getBtnSend() { return btnChatSend; }
 
     public TextField getTfChatInput() { return tfChatInput; }

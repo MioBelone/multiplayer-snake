@@ -48,6 +48,7 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
 
         //Handlers for events on view
         view.getBtnReady().setOnAction(new BtnReadyEventHandler());
+        view.getBtnLeave().setOnAction(new BtnLeaveEventHandler());
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
@@ -74,6 +75,19 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         @Override
         public void handle(ActionEvent event) {
             //TODO: Ready-Function einbauen
+        }
+    }
+
+    class BtnLeaveEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            client.close();
+
+            InitialModel initialModel = new InitialModel();
+
+            InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
+            initialViewPresenter.show();
         }
     }
 

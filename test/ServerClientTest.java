@@ -58,7 +58,7 @@ public class ServerClientTest {
         }
 
         List<ClientHandler> clientList = server.getClientList();
-        String name = clientList.get(3).getNameOfClient();
+        String name = clientList.get(0).getNameOfClient();
 
         Assertions.assertEquals("MioBelone", name);
     }

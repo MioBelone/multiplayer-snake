@@ -53,7 +53,7 @@ public class InitialViewPresenter {
             Client client = server.getHostClient();
 
             //Initialising the LobbyHost presenter which handles the view and the model
-            LobbyHostPresenter lobbyHostPresenter = new LobbyHostPresenter(primaryStage, initialModel, client);
+            LobbyHostPresenter lobbyHostPresenter = new LobbyHostPresenter(primaryStage, initialModel, client, server);
             client.setPresenter(lobbyHostPresenter);
             lobbyHostPresenter.show();
         }

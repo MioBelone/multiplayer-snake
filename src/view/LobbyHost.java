@@ -154,7 +154,7 @@ public class LobbyHost {
         btnStart.prefWidthProperty().bind(vboxButtons.widthProperty());
         vboxButtons.getChildren().add(btnStart);
 
-        btnLeave = new Button("Close Lobbby");
+        btnLeave = new Button("Close Lobby");
         btnLeave.prefWidthProperty().bind(vboxButtons.widthProperty());
         vboxButtons.getChildren().add(btnLeave);
 

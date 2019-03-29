@@ -37,6 +37,7 @@ public class ClientHandler extends Thread {
 
                 if(msg.substring(0, 1).equals("/")) {
                     if(msg.equals("/disconnect")) {
+                        server.removeClientHander(this);
                         clientS.close();
                         System.out.println("Client " + clientS + " is disconnected!");
                         break;

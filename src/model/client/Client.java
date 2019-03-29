@@ -6,8 +6,10 @@ import presenter.LobbyPresenter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class Client {
                                         break;
                                 }
 
-                            } else if(msg.contains("/sysCmd")) {
+                            } else if (msg.contains("/sysCmd")) {
 
                                 switch (msg.split(" ")[1]) {
                                     case "clientNames":
@@ -79,7 +81,7 @@ public class Client {
 
                                         String nameString = msg.split("\\{")[1].split("}")[0];
 
-                                        for(String name:nameString.split(";")) {
+                                        for (String name : nameString.split(";")) {
                                             clientNames.add(name);
                                         }
                                         break;
@@ -93,6 +95,14 @@ public class Client {
                                 //If the message isn't a systemcommand it will be displayed in the chat
                                 writeMsgToGUI(msg);
                             }
+                        } catch (SocketException se) {
+                            if(se.getMessage().equals("Socket closed")) {
+                                break;
+                            }
+                        } catch (EOFException eofe) {
+                            System.out.println("Connection interrupted");
+                            this.stop();
+                            //TODO: Client muss aus der Lobby geworfen werden.
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -103,6 +113,16 @@ public class Client {
 
             //Send name of Client to Server
             sendMsgToServer("/clientInf clientName:" + name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close() {
+        try {
+            sendMsgToServer("/disconnect");
+            clientS.close();
+            System.out.println("Connection closed");
         } catch (IOException e) {
             e.printStackTrace();
         }

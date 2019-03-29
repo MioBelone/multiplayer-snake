@@ -2,14 +2,17 @@ package model.server;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.print.PageLayout;
 import model.client.Client;
 import model.game.SnakeGame;
+import presenter.PlaygroundPresenter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.*;
 
 public class Server {
@@ -20,6 +23,7 @@ public class Server {
     private DataOutputStream dout;
     private Client hostClient;
     private ObservableList<ClientHandler> clientList;
+    private SnakeGame snakeGame;
 
     public Server(int port) {
         this.port = port;
@@ -69,13 +73,31 @@ public class Server {
                     break;
                 }
             }
+        } catch (SocketException se) {
+            if(!se.getMessage().equals("socket closed")) {
+                se.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Server starting failed!");
         }
     }
 
+    public void removeClientHander(ClientHandler clientT) {
+        clientList.remove(clientT);
+        System.out.println("ClientHandler removed!");
+    }
+
     public void close() {
+        for (ClientHandler ch:clientList) {
+            try {
+                ch.stop();
+                ch.clientS.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         System.out.println("Server closing...");
         try {
             serverS.close();
@@ -101,7 +123,12 @@ public class Server {
         }
     }
 
+    public void startSnakeGame(PlaygroundPresenter pp) {
+        snakeGame = new SnakeGame(this, pp);
+        System.out.println("New SnakeGame started");
+    }
+
     public SnakeGame getSnakeGame() {
-        return null;
+        return snakeGame;
     }
 }
