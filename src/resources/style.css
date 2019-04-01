@@ -13,7 +13,7 @@
     -fx-focustext : #9BD9FD;
 }
 
-.grid-pane-root {
+.anchor-pane-root {
     -fx-background-color: -fx-primary;
 }
 

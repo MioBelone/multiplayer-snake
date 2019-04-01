@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -21,36 +22,30 @@ import presenter.PlaygroundPresenter;
  */
 public class Playground {
 
-    private GridPane grid;
+    private AnchorPane anchor;
     private Scene scene;
-
-    private Server server;
-    private GraphicsContext graphicsContext;
 
     private static final int WINDOW_HEIGHT = 700;
     private static final int WINDOW_WIDTH = 1000;
 
     public Playground() {
 
-        grid = new GridPane();
-        grid.getStyleClass().add("grid-pane-root");
-
-        Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
-        grid.getChildren().add(canvas);
-
-        grid.prefWidthProperty().bind(canvas.widthProperty());
-        grid.prefHeightProperty().bind(canvas.heightProperty());
+        anchor = new AnchorPane();
+        anchor.getStyleClass().add("anchor-pane-root");
 
 
         //Inititalising scene
-        scene = new Scene(grid, WINDOW_WIDTH, WINDOW_HEIGHT);
+        scene = new Scene(anchor, WINDOW_WIDTH, WINDOW_HEIGHT);
         scene.getStylesheets().add("/resources/style.css");
 
     }
 
-    public GraphicsContext getGraphicsContext() {
-        return graphicsContext;
+    public Scene getScene() {
+        return scene;
+    }
+
+    public AnchorPane getAnchor() {
+        return anchor;
     }
 
     /**
