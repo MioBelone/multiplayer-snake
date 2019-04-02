@@ -44,13 +44,12 @@ public class SnakeGame {
         for (int i = 0; i < clientSize; i++) {
             //this.playerList.add(server.getClientList().get(i).getName());
             foods.add(new Food());
+            playgroundPresenter.addFood(foods.get(i).getX(),foods.get(i).getY());
             snakes.get(i).setColor(playerColors[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getName());
+            snakes.get(i).setId(i);
             scores.put(snakes.get(i), snakes.get(i).getScore());
         }
-
-        loop = new Loop(this, playgroundPresenter);
-        loop.start();
     }
 
     /**

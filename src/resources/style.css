@@ -13,7 +13,11 @@
     -fx-focustext : #9BD9FD;
 }
 
-.anchor-pane-root {
+.grid-pane-root {
+    -fx-background-color: -fx-primary;
+}
+
+.anchor-pane-game {
     -fx-background-color: -fx-primary;
 }
 

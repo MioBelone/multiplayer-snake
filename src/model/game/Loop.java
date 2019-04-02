@@ -1,5 +1,6 @@
 package model.game;
 
+import javafx.application.Platform;
 import model.game.SnakeContents.Snake;
 import presenter.PlaygroundPresenter;
 import view.Playground;
@@ -20,13 +21,16 @@ public class Loop extends Thread {
     public Loop(SnakeGame sg, PlaygroundPresenter playgroundPresenter) {
         this.sg = sg;
         this.collision = new Collision();
-        this.p=playgroundPresenter;
+        this.p = playgroundPresenter;
+        p.initializeSnakes();
+        p.drawFood();
     }
 
 
     /**
      * Defines how fast the game plays and keeps track of the steps to be taken.
      */
+    @Override
     public void run() {
         while (running) {
             try {
@@ -44,18 +48,23 @@ public class Loop extends Thread {
 
 
                 //check if only one player left
-                if (sg.getSnakes().size() == 1) {
+             /*   if (sg.getSnakes().size() == 1) {
 
                     //set last remaining player as winner
                     sg.setWinner(sg.getSnakes().get(0));
 
                     //stop game
                     kill();
-                }
+                }*/
 
                 //mach in presenter
-                p.drawFood();
-                p.drawSnake();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        p.drawSnake();
+                    }
+                });
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

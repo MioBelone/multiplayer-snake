@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
-import model.game.SnakeContents.SnakeBody;
 import model.server.Server;
 import view.Playground;
 
@@ -25,7 +24,6 @@ public class PlaygroundPresenter {
     private Playground view;
     private Stage primaryStage;
     private Server server;
-    SnakePresenter snakePresenter;
 
     private int faktorY;
     private int faktorX;
@@ -33,10 +31,6 @@ public class PlaygroundPresenter {
     private List<Rectangle> snakeBodiesShape;
     private List<SnakePresenter> snakePresenterList;
     FoodPresenter foodPresenter;
-
-    private static final int SQUARE_SIZE = 20;
-    private static final int WINDOW_HEIGHT = 700;
-    private static final int WINDOW_WIDTH = 1000;
 
 
     public PlaygroundPresenter(Stage primaryStage, Server server) {
@@ -57,72 +51,62 @@ public class PlaygroundPresenter {
         view.show(primaryStage);
     }
 
-    public Playground getView() {
-        return view;
-    }
-
     private void umrechnung() {
-        faktorY = (int) view.getScene().getHeight() / 100;
+        faktorY = (int) view.getAnchor().getHeight() / 100;
 
-        faktorX = (int) view.getScene().getWidth() / 100;
+        faktorX = (int) view.getAnchor().getWidth() / 100;
     }
 
     public void initializeSnakes() {
         umrechnung();
         for (Snake snake : server.getSnakeGame().getSnakes()) {
             snakeBodiesShape = new ArrayList<>();
-            Rectangle snakeHead = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY);
-            SnakePresenter snakePresenter = new SnakePresenter(snakeHead, snakeBodiesShape);
+            Rectangle snakeHead = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY,faktorX,faktorY);
+            SnakePresenter snakePresenter = new SnakePresenter(snakeHead, snakeBodiesShape, snake.getColor(), snake);
             snakePresenterList.add(snakePresenter);
         }
     }
 
-    private void addPart(Integer x, Integer y, Integer snake) {
+    public void addPart(Integer x, Integer y, Integer snake) {
         umrechnung();
         Rectangle rect = new Rectangle(x * faktorX, y * faktorY);
         snakePresenterList.get(snake).getSnakeBodiesShape().add(rect);
     }
 
     private void drawFirstPart() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            for (SnakeBody body : snake.getSnakeBodies()) {
-                for (SnakePresenter snakeP : snakePresenterList) {
-                    snakeP.getSnakeBodiesShape().get(0).setFill(snake.getColor());
-                    view.getAnchor().getChildren().add(snakeP.getSnakeBodiesShape().get(0));
-                }
+        for (SnakePresenter snakeP : snakePresenterList) {
+            if (snakeP.getSnakeBodiesShape().size() > 0) {
+                snakeP.getSnakeBodiesShape().get(0).setFill(snakeP.getColor());
+                view.getAnchor().getChildren().add(snakeP.getSnakeBodiesShape().get(0));
             }
         }
     }
 
     private void clearLastPart() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            for (SnakeBody body : snake.getSnakeBodies()) {
-                // view.getGraphicsContext().clearRect(body.getX() * faktorX, body.getY() * faktorY, SQUARE_SIZE, SQUARE_SIZE);
-                for (SnakePresenter snakeP : snakePresenterList) {
-                    view.getAnchor().getChildren().remove(snakeP.getSnakeBodiesShape().get(0));
-                }
+        for (SnakePresenter snakeP : snakePresenterList) {
+            if (snakeP.getSnakeBodiesShape().size() > 0) {
+                view.getAnchor().getChildren().remove(snakeP.getSnakeBodiesShape().get(0));
             }
         }
     }
 
     private void drawHead() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            for (SnakePresenter snakeP : snakePresenterList) {
-                snakeP.getSnakeHeadShape().setFill(snake.getColor());
-                view.getAnchor().getChildren().add(snakeP.getSnakeHeadShape());
-            }
+        for (SnakePresenter snakeP : snakePresenterList) {
+            snakeP.getSnakeHeadShape().setX(snakeP.getSnake().getSnakeHead().getX() * faktorX);
+            snakeP.getSnakeHeadShape().setY(snakeP.getSnake().getSnakeHead().getY() * faktorY);
+            snakeP.getSnakeHeadShape().setFill(snakeP.getColor());
+            view.getAnchor().getChildren().add(snakeP.getSnakeHeadShape());
         }
     }
 
     private void clearHead() {
-        for (Snake snake : server.getSnakeGame().getSnakes()) {
-            for (SnakePresenter snakeP : snakePresenterList) {
-                view.getAnchor().getChildren().remove(snakeP.getSnakeHeadShape());
-            }
+        for (SnakePresenter snakeP : snakePresenterList) {
+            view.getAnchor().getChildren().remove(snakeP.getSnakeHeadShape());
         }
     }
 
     public void drawSnake() {
+        umrechnung();
         clearHead();
         drawHead();
         clearLastPart();
@@ -134,7 +118,7 @@ public class PlaygroundPresenter {
         Circle circle = new Circle();
         circle.setCenterX(x * faktorX);
         circle.setCenterY(y * faktorY);
-        circle.setRadius(SQUARE_SIZE / 2);
+        circle.setRadius(faktorX / 2);
         foodPresenter.getFoods().add(circle);
     }
 

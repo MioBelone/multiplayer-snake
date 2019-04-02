@@ -49,12 +49,13 @@ public class Collision {
             if (s.getSnakeHead().getX() == f.getX() && s.getSnakeHead().getY() == f.getY()) {
 
                 s.addSnakeBody();
+                sg.getPlaygroundPresenter().addPart(s.getSnakeBodies().get(s.getSnakeBodies().size()-1).getX(),s.getSnakeBodies().get(s.getSnakeBodies().size()-1).getY(),s.getId());
                 s.increaseScore();
-
                 //ckecks if players are missing and lets food respawn or diappear
                 if (sg.getFoods().size() == sg.getSnakes().size()) {
                     f.reset();
                     sg.checkForFoodPositions(sg.getFoods());
+                    sg.getPlaygroundPresenter().drawFood();
                 } else {
                     sg.getFoods().remove(f);
                 }

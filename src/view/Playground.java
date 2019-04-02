@@ -31,11 +31,11 @@ public class Playground {
     public Playground() {
 
         anchor = new AnchorPane();
-        anchor.getStyleClass().add("anchor-pane-root");
+        anchor.getStyleClass().add("anchor-pane-game");
 
 
         //Inititalising scene
-        scene = new Scene(anchor, WINDOW_WIDTH, WINDOW_HEIGHT);
+        scene = new Scene(anchor,WINDOW_WIDTH,WINDOW_HEIGHT);
         scene.getStylesheets().add("/resources/style.css");
 
     }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.client.Client;
+import model.game.Loop;
 import model.server.ClientHandler;
 import model.server.Server;
 import view.*;
@@ -29,7 +30,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
     private Client client;
     private Server server;
     public ObservableList<String> clientNameList ;
-
+private Loop loop;
     public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client, Server server) {
 
         this.primaryStage = primaryStage;
@@ -80,6 +81,8 @@ public class LobbyHostPresenter implements LobbyPresenter {
             playgroundPresenter.show();
 
             server.startSnakeGame(playgroundPresenter);
+            loop = new Loop(server.getSnakeGame(), playgroundPresenter);
+            loop.start();
         }
     }
 

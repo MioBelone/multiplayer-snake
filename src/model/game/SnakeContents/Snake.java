@@ -17,6 +17,7 @@ public class Snake {
     private Color color;
     private int score;
     private String playername;
+    private int id;
 
     public Snake(int x, int y) {
 
@@ -124,5 +125,13 @@ public class Snake {
 
     public void setPlayername(String playername) {
         this.playername = playername;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
