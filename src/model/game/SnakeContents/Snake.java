@@ -5,19 +5,19 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 /**
- * This class combines SnakeHead and SnakeBody stores the current score and color of the player.
+ * This class combines SnakeHead and SnakeBody, stores the current score and color of the player.
  *
  * @author Alexander Schleiter
  */
 public class Snake {
 
-    private SnakeHead snakeHead;
-
-    private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
-    private Color color;
-    private int score;
-    private String playername;
     private int id;
+    private String playername;
+    private int score;
+    private Color color;
+    private SnakeHead snakeHead;
+    private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
+
 
     public Snake(int x, int y) {
 
@@ -81,6 +81,38 @@ public class Snake {
                 break;
         }
     }
+
+    /*
+    @Override
+    public String toString() {
+
+        String returnString =
+                "Snake: [ID="
+                        + id
+                        + ", Score="
+                        + score
+                        + ", Playername="
+                        + playername
+                        + ", SnakeHead="
+                        + this.getSnakeHead().getX()
+                        + ";"
+                        + this.getSnakeHead().getY()
+                        + ",";
+
+        int index = 0;
+
+        for (SnakeBody sb : this.getSnakeBodies()) {
+            returnString = returnString + " SnakeBody" + index + "=" + sb.getX() + ";" + sb.getY() + ",";
+            index++;
+        }
+
+        returnString = returnString.substring(0, returnString.length() - 1);
+        returnString = returnString + "]";
+
+
+        return returnString;
+    }
+    */
 
     public void increaseScore() {
         this.score += 10;

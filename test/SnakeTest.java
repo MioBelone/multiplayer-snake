@@ -1,4 +1,6 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import model.game.SnakeContents.Snake;
+import model.game.SnakeToJson;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,10 +12,10 @@ class SnakeTest {
     @Test
     void addSnakeBody() {
 
-        //snake = new Snake();
+        snake = new Snake(2,3);
         snake.addSnakeBody();
 
-        //assertEquals(1,Snake.getSnakeBodies().size());
+        assertEquals(1,snake.getSnakeBodies().size());
     }
 
     @Test
@@ -25,5 +27,20 @@ class SnakeTest {
 
         //assertEquals(2, Snake.getSnakeHead().getX());
 
+    }
+
+    @Test
+    void stringMethode() throws JsonProcessingException {
+
+        snake = new Snake(2,3);
+        snake.addSnakeBody();
+        snake.addSnakeBody();
+        snake.addSnakeBody();
+        snake.addSnakeBody();
+
+        System.out.println(snake.toString());
+
+        SnakeToJson sj = new SnakeToJson(snake);
+        System.out.println(sj.parse());
     }
 }
