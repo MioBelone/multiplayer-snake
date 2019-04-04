@@ -115,7 +115,6 @@ public class InitialView {
         btnHostLobby = new Button("Erstellen");
         btnHostLobby.setDefaultButton(true);
         bPaneHost.setBottom(btnHostLobby);
-        btnHostLobby.setDefaultButton(true);
 
         //Content for JoinTab
         lblJoinHead = new Label("Offener Lobby beitreten:");
@@ -136,7 +135,6 @@ public class InitialView {
 
         btnJoinLobby = new Button("Beitreten");
         bPaneJoin.setBottom(btnJoinLobby);
-        btnJoinLobby.setDefaultButton(true);
 
         //BrandBox for logo and short info text
         vboxBrand = new VBox();
@@ -172,6 +170,7 @@ public class InitialView {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                //TODO: Bug für default Button
                 if(newValue.getText().equals("Lobby erstellen")) {
                     btnJoinLobby.setDefaultButton(false);
                     btnHostLobby.setDefaultButton(true);
