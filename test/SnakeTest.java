@@ -38,8 +38,6 @@ class SnakeTest {
         snake.addSnakeBody();
         snake.addSnakeBody();
 
-        System.out.println(snake.toString());
-
         SnakeToJson sj = new SnakeToJson(snake);
         System.out.println(sj.parse());
     }
