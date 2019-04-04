@@ -1,5 +1,7 @@
 package model.client;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -51,6 +53,8 @@ public class Client {
             din = new DataInputStream(clientS.getInputStream());
             dout = new DataOutputStream(clientS.getOutputStream());
 
+            ObjectMapper objectMapper = new ObjectMapper();
+
             Thread msgReading = new Thread() {
                 @Override
                 public void run() {
@@ -75,9 +79,11 @@ public class Client {
                                         break;
 
                                     case "snakes":
+                                        snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>(){});
                                         break;
 
                                     case "foods":
+                                        foods = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Food>>(){});
                                         break;
 
                                     default:
