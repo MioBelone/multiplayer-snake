@@ -2,6 +2,9 @@ package model.client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import jdk.nashorn.internal.parser.JSONParser;
+import model.game.Food;
+import model.game.SnakeContents.Snake;
 import presenter.LobbyPresenter;
 
 import java.io.DataInputStream;
@@ -21,6 +24,10 @@ public class Client {
     private DataOutputStream dout;
     private LobbyPresenter presenter;
     private ObservableList<String> clientNames;
+
+    //SnakeGame variablen
+    private List<Snake> snakes;
+    private List<Food> foods;
 
     public Client(String name) {
         this.name = name;
@@ -65,6 +72,12 @@ public class Client {
                                         String player = parts[3].split(":")[1];
 
                                         //TODO: Call method of game to do move in given direction
+                                        break;
+
+                                    case "snakes":
+                                        break;
+
+                                    case "foods":
                                         break;
 
                                     default:
@@ -139,6 +152,14 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Snake> getSnakes() {
+        return snakes;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
     }
 
     public void sendDirectionToServer(String dir) {
