@@ -1,5 +1,6 @@
 package model.game;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.scene.paint.Color;
 import model.game.SnakeContents.Snake;
 import model.server.Server;
@@ -33,7 +34,7 @@ public class SnakeGame {
     private Loop loop;
 
 
-    public SnakeGame(Server server, PlaygroundPresenter playgroundPresenter) {
+    public SnakeGame(Server server, PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
 
         this.server = server;
         this.clientSize = server.getClientList().size();
@@ -44,12 +45,20 @@ public class SnakeGame {
         for (int i = 0; i < clientSize; i++) {
             //this.playerList.add(server.getClientList().get(i).getName());
             foods.add(new Food());
-            playgroundPresenter.addFood(foods.get(i).getX(),foods.get(i).getY());
+            //playgroundPresenter.addFood(foods.get(i).getX(), foods.get(i).getY());
             snakes.get(i).setColor(playerColors[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getName());
             snakes.get(i).setId(i);
             scores.put(snakes.get(i), snakes.get(i).getScore());
+
+
         }
+
+        ObjectToJson otjSnakes = new ObjectToJson(snakes);
+        ObjectToJson otjFoods = new ObjectToJson(foods);
+
+        server.sendToAllHandler("/gameCmd snakes " + otjSnakes.parseSnakes());
+        server.sendToAllHandler("/gameCmd foods " + otjFoods.parseFoods());
     }
 
     /**

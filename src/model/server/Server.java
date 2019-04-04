@@ -1,5 +1,6 @@
 package model.server;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.print.PageLayout;
@@ -123,7 +124,7 @@ public class Server {
         }
     }
 
-    public void startSnakeGame(PlaygroundPresenter playgroundPresenter) {
+    public void startSnakeGame(PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
         snakeGame = new SnakeGame(this, playgroundPresenter);
         System.out.println("New SnakeGame started");
     }

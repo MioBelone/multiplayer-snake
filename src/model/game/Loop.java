@@ -23,7 +23,7 @@ public class Loop extends Thread {
         this.collision = new Collision();
         this.p = playgroundPresenter;
         p.initializeSnakes();
-        p.drawFood();
+        //p.drawFood();
     }
 
 
@@ -61,7 +61,9 @@ public class Loop extends Thread {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        p.drawSnake();
+
+                        //p.drawSnake();
+                        //p.drawFood();
                     }
                 });
 

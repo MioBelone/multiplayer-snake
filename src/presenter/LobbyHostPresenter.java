@@ -1,5 +1,6 @@
 package presenter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -80,7 +81,11 @@ private Loop loop;
             PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, server);
             playgroundPresenter.show();
 
-            server.startSnakeGame(playgroundPresenter);
+            try {
+                server.startSnakeGame(playgroundPresenter);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             loop = new Loop(server.getSnakeGame(), playgroundPresenter);
             loop.start();
         }
