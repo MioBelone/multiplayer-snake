@@ -1,6 +1,9 @@
 package view;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -15,6 +18,11 @@ public class Playground {
     private AnchorPane anchor;
     private GridPane grid;
     private VBox vBox;
+    private HBox hBoxA;
+    private HBox hBoxT;
+
+    Label scoreT;
+    Label scoreA;
 
     private Scene scene;
 
@@ -32,7 +40,10 @@ public class Playground {
         vBox = new VBox();
         vBox.getStyleClass().add("vBox-pane-game");
         vBox.setMinHeight(700);
-        vBox.setMinWidth(50);
+        vBox.setMinWidth(70);
+
+        hBoxA = new HBox();
+        hBoxT = new HBox();
 
         grid.setConstraints(anchor, 0, 0);
         grid.setHgrow(anchor, Priority.NEVER);
@@ -45,8 +56,20 @@ public class Playground {
         grid.setGridLinesVisible(true);
         grid.getChildren().addAll(anchor, vBox);
 
+        scoreT = new Label("Punkte");
+        scoreA = new Label("0");
+
+        hBoxT.getChildren().addAll(scoreT);
+        hBoxA.getChildren().addAll(scoreA);
+
+        hBoxT.setAlignment(Pos.CENTER);
+        hBoxA.setAlignment(Pos.CENTER);
+
+        vBox.setPadding(new Insets(15,0,15,0));
+        vBox.getChildren().addAll(hBoxT, hBoxA);
+
         //Inititalising scene
-        scene = new Scene(grid, 750, 700);
+        scene = new Scene(grid, 770, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 
@@ -67,5 +90,9 @@ public class Playground {
         stage.setTitle("SnakeBasket");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setScoreA(String scoreA) {
+        this.scoreA.setText(scoreA);
     }
 }

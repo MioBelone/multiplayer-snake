@@ -13,9 +13,6 @@ import model.game.SnakeContents.SnakeBody;
 import model.server.Server;
 import view.Playground;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * This class is the connection between the view and the model. It handles user input and prepares data to be shown
@@ -75,6 +72,7 @@ public class PlaygroundPresenter {
         clear();
         drawHead();
         drawBody();
+        setLabelText();
     }
 
     private void clear() {
@@ -110,5 +108,9 @@ public class PlaygroundPresenter {
     public void key(String msg) {
         System.out.println(msg);
         client.sendMsgToServer("/gameCmd move" + msg + "Playername");
+    }
+
+    private void setLabelText(){
+        view.setScoreA("" + client.getSnakes().get(0).getScore());
     }
 }
