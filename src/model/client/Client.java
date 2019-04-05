@@ -2,6 +2,7 @@ package model.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -67,17 +68,6 @@ public class Client {
                             if (msg.contains("/gameCmd")) {
 
                                 switch (msg.split(" ")[1]) {
-                                    case "move":
-                                        //If the message is a systemcommand it will be handled
-                                        String[] parts = msg.split(" ");
-
-                                        //Save player and its direction
-                                        String dir = parts[2].split(":")[1];
-                                        String player = parts[3].split(":")[1];
-
-                                        //TODO: Call method of game to do move in given direction
-                                        break;
-
                                     case "snakes":
                                         snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>(){});
                                         break;
@@ -95,14 +85,19 @@ public class Client {
 
                                 switch (msg.split(" ")[1]) {
                                     case "clientNames":
-                                        //Saves the names from the server in its list.
-                                        clientNames.clear();
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                //Saves the names from the server in its list.
+                                                clientNames.clear();
 
-                                        String nameString = msg.split("\\{")[1].split("}")[0];
+                                                String nameString = msg.split("\\{")[1].split("}")[0];
 
-                                        for (String name : nameString.split(";")) {
-                                            clientNames.add(name);
-                                        }
+                                                for (String name : nameString.split(";")) {
+                                                    clientNames.add(name);
+                                                }
+                                            }
+                                        });
                                         break;
 
                                     default:

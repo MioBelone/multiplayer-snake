@@ -68,8 +68,6 @@ public class Server {
 
                 clientT.start();
 
-                updateAllClients();
-
                 if (clientList.size() >= 8) {
                     break;
                 }
@@ -86,6 +84,7 @@ public class Server {
 
     public void removeClientHander(ClientHandler clientT) {
         clientList.remove(clientT);
+        updateAllClients();
         System.out.println("ClientHandler removed!");
     }
 

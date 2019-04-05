@@ -46,6 +46,7 @@ public class ClientHandler extends Thread {
                     if(msg.contains("/clientInf clientName")) {
                         String name = msg.split(":")[1];
                         this.name = name;
+                        server.updateAllClients();
                     }
 
                     if(msg.contains("/gameCmd move")) {
@@ -79,12 +80,6 @@ public class ClientHandler extends Thread {
 
     public void sendNewClientNames() {
         String clientNames = "";
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         List<ClientHandler> clientList = server.getClientList();
 

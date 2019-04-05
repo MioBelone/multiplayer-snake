@@ -19,6 +19,9 @@ public class Snake {
     private SnakeHead snakeHead;
     private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
 
+    public Snake() {
+        super();
+    }
 
     public Snake(int x, int y) {
 
