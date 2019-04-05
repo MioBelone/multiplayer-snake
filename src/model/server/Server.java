@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.print.PageLayout;
 import model.client.Client;
+import model.game.Direction;
+import model.game.SnakeContents.Snake;
 import model.game.SnakeGame;
 import presenter.PlaygroundPresenter;
 
@@ -86,6 +88,14 @@ public class Server {
         clientList.remove(clientT);
         updateAllClients();
         System.out.println("ClientHandler removed!");
+    }
+
+    public void switchDirection(Direction dir, String clientName) {
+        for (Snake snake:snakeGame.getSnakes()) {
+            if(snake.getPlayername().equals(clientName)) {
+                snake.getSnakeHead().setDir(dir);
+            }
+        }
     }
 
     public void close() {

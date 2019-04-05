@@ -1,5 +1,7 @@
 package model.server;
 
+import model.game.Direction;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -50,7 +52,26 @@ public class ClientHandler extends Thread {
                     }
 
                     if(msg.contains("/gameCmd move")) {
-                        msg = msg + " player:" + name;
+                        Direction dir;
+
+                        switch(msg.split(" ")[2]) {
+                            case "UP":
+                                dir = Direction.UP;
+                                break;
+                            case "DOWN":
+                                dir = Direction.DOWN;
+                                break;
+                            case "LEFT":
+                                dir = Direction.LEFT;
+                                break;
+                            case "RIGHT":
+                                dir = Direction.RIGHT;
+                                break;
+                            default:
+                                dir = null;
+                                break;
+                        }
+                        server.switchDirection(dir, name);
                     }
 
                     if(msg.contains("/sysCmd getClientNames")) {

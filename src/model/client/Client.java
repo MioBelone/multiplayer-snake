@@ -178,6 +178,10 @@ public class Client {
         return foods;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void sendDirectionToServer(String dir) {
         sendMsgToServer("/gameCmd move dir:" + dir);
     }

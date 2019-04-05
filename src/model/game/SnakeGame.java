@@ -51,7 +51,7 @@ public class SnakeGame {
             foods.add(new Food());
             //playgroundPresenter.addFood(foods.get(i).getX(), foods.get(i).getY());
             snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
-            snakes.get(i).setPlayername(server.getClientList().get(i).getName());
+            snakes.get(i).setPlayername(server.getClientList().get(i).getNameOfClient());
             snakes.get(i).setId(i);
             scores.put(snakes.get(i), snakes.get(i).getScore());
         }

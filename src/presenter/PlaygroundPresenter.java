@@ -43,8 +43,7 @@ public class PlaygroundPresenter {
         view.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                System.out.println("1 " + event.getCode());
-                key(event.getCode().toString());
+                keyPressed(event.getCode().toString());
             }
         });
     }
@@ -108,9 +107,8 @@ public class PlaygroundPresenter {
         }
     }
 
-    public void key(String msg) {
-        System.out.println(msg);
-        client.sendMsgToServer("/gameCmd move" + msg + "Playername");
+    public void keyPressed(String msg) {
+        client.sendMsgToServer("/gameCmd move" + msg);
     }
 
     private void setLabelText(){
