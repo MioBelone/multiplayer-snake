@@ -82,7 +82,7 @@ public class PlaygroundPresenter {
     private void drawHead() {
         for (Snake snake : client.getSnakes()) {
             Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY);
-            rect.setFill(snake.getColor());
+            rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
             view.getAnchor().getChildren().add(rect);
         }
     }
@@ -91,7 +91,7 @@ public class PlaygroundPresenter {
         for (Snake snake : client.getSnakes()) {
             for (SnakeBody body : snake.getSnakeBodies()) {
                 Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY);
-                rect.setFill(snake.getColor());
+                rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
                 view.getAnchor().getChildren().add(rect);
             }
         }

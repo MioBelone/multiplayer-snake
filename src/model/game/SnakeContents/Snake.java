@@ -1,12 +1,11 @@
 package model.game.SnakeContents;
 
-import javafx.scene.paint.Color;
 import model.game.Direction;
 
 import java.util.ArrayList;
 
 /**
- * This class combines SnakeHead and SnakeBody, stores the current score and color of the player.
+ * This class combines SnakeHead and SnakeBody, stores the current score and snakeColor of the player.
  *
  * @author Alexander Schleiter
  */
@@ -15,7 +14,7 @@ public class Snake {
     private int id;
     private String playername;
     private int score;
-    private Color color;
+    private SnakeColor snakeColor;
     private SnakeHead snakeHead;
     private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
 
@@ -29,11 +28,11 @@ public class Snake {
         this.score = 0;
     }
 
-    public Snake(int id, String playername, int score, Color color, SnakeHead snakeHead, ArrayList<SnakeBody> snakeBodies) {
+    public Snake(int id, String playername, int score, SnakeColor snakeColor, SnakeHead snakeHead, ArrayList<SnakeBody> snakeBodies) {
         this.id = id;
         this.playername = playername;
         this.score = score;
-        this.color = color;
+        this.snakeColor = this.snakeColor;
         this.snakeHead = snakeHead;
         this.snakeBodies = snakeBodies;
     }
@@ -147,12 +146,16 @@ public class Snake {
         snakeBodies = snakeBodies;
     }
 
-    public Color getColor() {
-        return color;
+    public SnakeColor getSnakeColor() {
+        return snakeColor;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public String getSnakeColorAsString() {
+        return snakeColor+"";
+    }
+
+    public void setSnakeColor(SnakeColor snakeColor) {
+        this.snakeColor = snakeColor;
     }
 
     public int getScore() {

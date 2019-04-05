@@ -1,8 +1,8 @@
 package model.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.scene.paint.Color;
 import model.game.SnakeContents.Snake;
+import model.game.SnakeContents.SnakeColor;
 import model.server.Server;
 import presenter.PlaygroundPresenter;
 
@@ -26,7 +26,7 @@ public class SnakeGame {
     private int quotient;
     private int sidespace = breite / 4;
 
-    private Color[] playerColors = {Color.RED, Color.GREEN, Color.BLUE, Color.PURPLE, Color.BROWN, Color.ORANGE, Color.PINK, Color.CYAN};
+    //private SnakeColor[] playerColors = {SnakeColor.RED, SnakeColor.GREEN, SnakeColor.BLUE, SnakeColor.PURPLE, SnakeColor.BROWN, SnakeColor.ORANGE, SnakeColor.PINK, SnakeColor.CYAN};
     //private ArrayList<String> playerList = new ArrayList<>();
     private HashMap<Snake, Integer> scores = new HashMap<Snake, Integer>();
     private Snake winner;
@@ -46,12 +46,10 @@ public class SnakeGame {
             //this.playerList.add(server.getClientList().get(i).getName());
             foods.add(new Food());
             //playgroundPresenter.addFood(foods.get(i).getX(), foods.get(i).getY());
-            snakes.get(i).setColor(playerColors[i]);
+            snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getName());
             snakes.get(i).setId(i);
             scores.put(snakes.get(i), snakes.get(i).getScore());
-
-
         }
 
         ObjectToJson otjSnakes = new ObjectToJson(snakes);

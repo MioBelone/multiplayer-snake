@@ -1,9 +1,9 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.scene.paint.Color;
 import model.client.Client;
 import model.game.Collision;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
+import model.game.SnakeContents.SnakeColor;
 import model.game.SnakeGame;
 import model.server.Server;
 import org.junit.jupiter.api.AfterAll;
@@ -133,8 +133,8 @@ public class SnakeGameTest {
 
 
         snakeGame = new SnakeGame(server, pp);
-        assertEquals(snakeGame.getSnakes().get(0).getColor(), Color.RED);
-        //assertEquals(snakeGame.getSnakes().get(1).getColor(), Color.GREEN);
+        assertEquals(snakeGame.getSnakes().get(0).getSnakeColor(), "RED");
+        //assertEquals(snakeGame.getSnakes().get(1).getSnakeColor(), SnakeColor.GREEN);
 
     }
 
