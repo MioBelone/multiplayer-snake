@@ -1,7 +1,6 @@
 package model.game.SnakeContents;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import model.game.Direction;
 
 /**
@@ -47,6 +46,31 @@ public class SnakeHead {
     }
 
     public void setDir(Direction dir) {
-        this.dir = dir;
+        if (dir != null) {
+            switch (dir) {
+                case RIGHT:
+                    if (this.dir != Direction.LEFT) {
+                        this.dir = dir;
+                    }
+                    break;
+                case LEFT:
+                    if (this.dir != Direction.RIGHT) {
+                        this.dir = dir;
+                    }
+                    break;
+                case UP:
+                    if (this.dir != Direction.DOWN) {
+                        this.dir = dir;
+                    }
+                    break;
+                case DOWN:
+                    if (this.dir != Direction.UP) {
+                        this.dir = dir;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
