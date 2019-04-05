@@ -9,6 +9,7 @@ import jdk.nashorn.internal.parser.JSONParser;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
 import presenter.LobbyPresenter;
+import presenter.PlaygroundPresenter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,6 +27,7 @@ public class Client {
     private DataInputStream din;
     private DataOutputStream dout;
     private LobbyPresenter presenter;
+    private PlaygroundPresenter playgroundPresenter;
     private ObservableList<String> clientNames;
 
     //SnakeGame variablen
@@ -69,11 +71,24 @@ public class Client {
 
                                 switch (msg.split(" ")[1]) {
                                     case "snakes":
-                                        snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>(){});
+                                        snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>() {
+                                        });
                                         break;
 
                                     case "foods":
-                                        foods = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Food>>(){});
+                                        foods = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Food>>() {
+                                        });
+                                        break;
+
+                                    case "loop":
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                playgroundPresenter.drawSnake();
+                                                playgroundPresenter.drawFood();
+                                            }
+                                        });
                                         break;
 
                                     default:
@@ -110,7 +125,7 @@ public class Client {
                                 writeMsgToGUI(msg);
                             }
                         } catch (SocketException se) {
-                            if(se.getMessage().equals("Socket closed")) {
+                            if (se.getMessage().equals("Socket closed")) {
                                 break;
                             }
                         } catch (EOFException eofe) {
@@ -144,7 +159,7 @@ public class Client {
 
     public void sendMsgToServer(String msg) {
 
-        if(!msg.substring(0, 1).equals("/")) {
+        if (!msg.substring(0, 1).equals("/")) {
             msg = name + ": " + msg;
         }
 
@@ -177,5 +192,9 @@ public class Client {
 
     private void writeMsgToGUI(String msg) {
         presenter.writeMsg(msg + "\n");
+    }
+
+    public void setPlaygroundPresenter(PlaygroundPresenter playgroundPresenter) {
+        this.playgroundPresenter = playgroundPresenter;
     }
 }

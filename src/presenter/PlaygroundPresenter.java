@@ -37,6 +37,8 @@ public class PlaygroundPresenter {
         this.client = client;
         foodPresenter = new FoodPresenter();
 
+        client.setPlaygroundPresenter(this);
+
 
         view.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -69,7 +71,6 @@ public class PlaygroundPresenter {
     }
 
     public void drawSnake() {
-        umrechnung();
         clear();
         drawHead();
         drawBody();
@@ -82,7 +83,7 @@ public class PlaygroundPresenter {
 
     private void drawHead() {
         for (Snake snake : client.getSnakes()) {
-            Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY);
+            Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY,faktorX,faktorY);
             rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
             view.getAnchor().getChildren().add(rect);
         }
@@ -91,7 +92,7 @@ public class PlaygroundPresenter {
     private void drawBody() {
         for (Snake snake : client.getSnakes()) {
             for (SnakeBody body : snake.getSnakeBodies()) {
-                Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY);
+                Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY,faktorX,faktorY);
                 rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
                 view.getAnchor().getChildren().add(rect);
             }
@@ -100,9 +101,10 @@ public class PlaygroundPresenter {
 
     public void drawFood() {
         for (Food food : client.getFoods()) {
-            Circle circle = new Circle(food.getX() + faktorX, food.getY() * faktorY, faktorX);
+            Circle circle = new Circle(food.getX() * faktorX + faktorX/2, food.getY() * faktorY + faktorY/2, faktorX/2);
             circle.setFill(Color.WHITE);
             view.getAnchor().getChildren().add(circle);
+
         }
     }
 

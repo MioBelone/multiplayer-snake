@@ -1,5 +1,6 @@
 package model.game;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import model.game.SnakeContents.Snake;
 import model.game.SnakeContents.SnakeColor;
@@ -25,6 +26,9 @@ public class SnakeGame {
     private int breite = 100;
     private int quotient;
     private int sidespace = breite / 4;
+
+    ObjectToJson otjSnakes;
+    ObjectToJson otjFoods;
 
     //private SnakeColor[] playerColors = {SnakeColor.RED, SnakeColor.GREEN, SnakeColor.BLUE, SnakeColor.PURPLE, SnakeColor.BROWN, SnakeColor.ORANGE, SnakeColor.PINK, SnakeColor.CYAN};
     //private ArrayList<String> playerList = new ArrayList<>();
@@ -52,11 +56,10 @@ public class SnakeGame {
             scores.put(snakes.get(i), snakes.get(i).getScore());
         }
 
-        ObjectToJson otjSnakes = new ObjectToJson(snakes);
-        ObjectToJson otjFoods = new ObjectToJson(foods);
+        otjSnakes = new ObjectToJson(snakes);
+        otjFoods = new ObjectToJson(foods);
 
-        server.sendToAllHandler("/gameCmd snakes " + otjSnakes.parseSnakes());
-        server.sendToAllHandler("/gameCmd foods " + otjFoods.parseFoods());
+        sendGameInfo();
     }
 
     /**
@@ -118,6 +121,12 @@ public class SnakeGame {
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
             }
         }
+    }
+
+    public void sendGameInfo() throws JsonProcessingException {
+        server.sendToAllHandler("/gameCmd snakes " + otjSnakes.parseSnakes());
+        server.sendToAllHandler("/gameCmd foods " + otjFoods.parseFoods());
+        server.sendToAllHandler("/gameCmd loop");
     }
 
     public ArrayList<Food> getFoods() {
@@ -194,5 +203,17 @@ public class SnakeGame {
 
     public PlaygroundPresenter getPlaygroundPresenter() {
         return playgroundPresenter;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public ObjectToJson getOtjSnakes() {
+        return otjSnakes;
+    }
+
+    public ObjectToJson getOtjFoods() {
+        return otjFoods;
     }
 }

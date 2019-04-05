@@ -1,5 +1,6 @@
 package model.game;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Platform;
 import model.game.SnakeContents.Snake;
 import presenter.PlaygroundPresenter;
@@ -23,7 +24,6 @@ public class Loop extends Thread {
         this.collision = new Collision();
         this.p = playgroundPresenter;
         p.initializeSnakes();
-        //p.drawFood();
     }
 
 
@@ -58,15 +58,12 @@ public class Loop extends Thread {
                 }*/
 
                 //mach in presenter
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
 
-                        p.drawSnake();
-                        p.drawFood();
-                    }
-                });
-
+                try {
+                    sg.sendGameInfo();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

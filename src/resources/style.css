@@ -18,7 +18,7 @@
 }
 
 .anchor-pane-game {
-    -fx-background-color: #008800;
+    -fx-background-color: -fx-primary;
     -fx-border-color: -fx-contrast;
 }
 

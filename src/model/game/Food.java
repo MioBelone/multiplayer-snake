@@ -23,8 +23,8 @@ public class Food {
 
     public void reset() {
 
-        this.x = (random.nextInt(100) + 1);
-        this.y = (random.nextInt(100) + 1);
+        this.x = (random.nextInt(100));
+        this.y = (random.nextInt(100));
     }
 
 
