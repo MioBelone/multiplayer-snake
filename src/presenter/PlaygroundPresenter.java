@@ -108,7 +108,7 @@ public class PlaygroundPresenter {
     }
 
     public void keyPressed(String msg) {
-        client.sendMsgToServer("/gameCmd move" + msg);
+        client.sendMsgToServer("/gameCmd move " + msg);
     }
 
     private void setLabelText(){
