@@ -1,18 +1,8 @@
 package view;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.*;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.game.Food;
-import model.game.SnakeContents.Snake;
-import model.game.SnakeContents.SnakeBody;
-import model.server.Server;
-import presenter.PlaygroundPresenter;
 
 
 /**
@@ -23,21 +13,41 @@ import presenter.PlaygroundPresenter;
 public class Playground {
 
     private AnchorPane anchor;
-    private Scene scene;
+    private GridPane grid;
+    private VBox vBox;
 
-    private static final int WINDOW_HEIGHT = 700;
-    private static final int WINDOW_WIDTH = 1000;
+    private Scene scene;
 
     public Playground() {
 
+        grid = new GridPane();
+        grid.getStyleClass().add("grid-pane-root");
+
         anchor = new AnchorPane();
         anchor.getStyleClass().add("anchor-pane-game");
+        anchor.setMinHeight(700);
+        anchor.setMinWidth(700);
+        anchor.setMaxSize(700, 700);
 
+        vBox = new VBox();
+        vBox.getStyleClass().add("vBox-pane-game");
+        vBox.setMinHeight(700);
+        vBox.setMinWidth(50);
+
+        grid.setConstraints(anchor, 0, 0);
+        grid.setHgrow(anchor, Priority.NEVER);
+        grid.setVgrow(anchor, Priority.NEVER);
+
+        grid.setConstraints(vBox, 1, 0);
+        grid.setHgrow(vBox, Priority.ALWAYS);
+        grid.setVgrow(vBox, Priority.ALWAYS);
+
+        grid.setGridLinesVisible(true);
+        grid.getChildren().addAll(anchor, vBox);
 
         //Inititalising scene
-        scene = new Scene(anchor,WINDOW_WIDTH,WINDOW_HEIGHT);
+        scene = new Scene(grid, 750, 700);
         scene.getStylesheets().add("/resources/style.css");
-
     }
 
     public Scene getScene() {
