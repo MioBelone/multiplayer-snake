@@ -15,6 +15,8 @@ public class SnakeBody {
         this.y = y;
     }
 
+
+
     public int getX() {
         return x;
     }
