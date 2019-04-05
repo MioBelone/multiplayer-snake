@@ -19,6 +19,12 @@ public class Food {
 
     }
 
+    public Food(int x, int y, Random random) {
+        this.x = x;
+        this.y = y;
+        this.random = random;
+    }
+
     public void reset() {
 
         this.x = (random.nextInt(100) + 1);

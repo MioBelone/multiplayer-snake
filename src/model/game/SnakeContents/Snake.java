@@ -1,6 +1,7 @@
 package model.game.SnakeContents;
 
 import javafx.scene.paint.Color;
+import model.game.Direction;
 
 import java.util.ArrayList;
 
@@ -21,10 +22,18 @@ public class Snake {
 
     public Snake(int x, int y) {
 
-        this.snakeHead = new SnakeHead(x, y);
+        this.snakeHead = new SnakeHead(x, y, Direction.RIGHT);
         this.score = 0;
     }
 
+    public Snake(int id, String playername, int score, Color color, SnakeHead snakeHead, ArrayList<SnakeBody> snakeBodies) {
+        this.id = id;
+        this.playername = playername;
+        this.score = score;
+        this.color = color;
+        this.snakeHead = snakeHead;
+        this.snakeBodies = snakeBodies;
+    }
 
     /**
      * Methode, um der Snake einen Body hinzuzufügen

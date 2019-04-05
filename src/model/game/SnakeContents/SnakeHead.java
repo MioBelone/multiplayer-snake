@@ -14,10 +14,10 @@ public class SnakeHead {
     private Direction dir;
 
 
-    public SnakeHead(int x, int y) {
+    public SnakeHead(int x, int y, Direction dir) {
         this.x = x;
         this.y = y;
-        this.dir = Direction.RIGHT;
+        this.dir = dir;
     }
 
     public int getX() {
