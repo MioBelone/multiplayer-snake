@@ -24,7 +24,6 @@ public class PlaygroundPresenter {
 
     private Playground view;
     private Stage primaryStage;
-    private Server server;
     private Client client;
 
     private int faktorY;
@@ -32,11 +31,12 @@ public class PlaygroundPresenter {
 
     FoodPresenter foodPresenter;
 
-    public PlaygroundPresenter(Stage primaryStage, Server server) {
+    public PlaygroundPresenter(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
         this.view = new Playground();
-        this.server = server;
+        this.client = client;
         foodPresenter = new FoodPresenter();
+
 
         view.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -69,6 +69,7 @@ public class PlaygroundPresenter {
     }
 
     public void drawSnake() {
+        umrechnung();
         clear();
         drawHead();
         drawBody();

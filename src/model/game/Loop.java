@@ -62,8 +62,8 @@ public class Loop extends Thread {
                     @Override
                     public void run() {
 
-                        //p.drawSnake();
-                        //p.drawFood();
+                        p.drawSnake();
+                        p.drawFood();
                     }
                 });
 

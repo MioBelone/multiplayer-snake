@@ -1,5 +1,7 @@
 package model.game.SnakeContents;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import model.game.Direction;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Snake {
     private SnakeHead snakeHead;
     private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
 
+    @JsonCreator
     public Snake() {
         super();
     }
@@ -26,15 +29,6 @@ public class Snake {
 
         this.snakeHead = new SnakeHead(x, y, Direction.RIGHT);
         this.score = 0;
-    }
-
-    public Snake(int id, String playername, int score, SnakeColor snakeColor, SnakeHead snakeHead, ArrayList<SnakeBody> snakeBodies) {
-        this.id = id;
-        this.playername = playername;
-        this.score = score;
-        this.snakeColor = this.snakeColor;
-        this.snakeHead = snakeHead;
-        this.snakeBodies = snakeBodies;
     }
 
     /**
@@ -135,7 +129,7 @@ public class Snake {
     }
 
     public void setSnakeHead(SnakeHead snakeHead) {
-        snakeHead = snakeHead;
+        this.snakeHead = snakeHead;
     }
 
     public ArrayList<SnakeBody> getSnakeBodies() {
@@ -143,13 +137,14 @@ public class Snake {
     }
 
     public void setSnakeBodies(ArrayList<SnakeBody> snakeBodies) {
-        snakeBodies = snakeBodies;
+        this.snakeBodies = snakeBodies;
     }
 
     public SnakeColor getSnakeColor() {
         return snakeColor;
     }
 
+    @JsonIgnore
     public String getSnakeColorAsString() {
         return snakeColor+"";
     }

@@ -1,4 +1,6 @@
 package model.game;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.util.Random;
 
 /**
@@ -12,17 +14,11 @@ public class Food {
     private int y;
     private Random random = new Random();
 
+    @JsonCreator
     public Food() {
-
-        this.x = random.nextInt(100)+1;
-        this.y = random.nextInt(100)+1;
-
-    }
-
-    public Food(int x, int y, Random random) {
-        this.x = x;
-        this.y = y;
-        this.random = random;
+        super();
+        this.x = random.nextInt(100);
+        this.y = random.nextInt(100);
     }
 
     public void reset() {

@@ -78,7 +78,7 @@ private Loop loop;
 
         @Override
         public void handle(ActionEvent event) {
-            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, server);
+            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
             playgroundPresenter.show();
 
             try {

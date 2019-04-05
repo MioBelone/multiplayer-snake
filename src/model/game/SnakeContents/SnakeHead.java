@@ -1,5 +1,7 @@
 package model.game.SnakeContents;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import model.game.Direction;
 
 /**
@@ -13,6 +15,10 @@ public class SnakeHead {
     private int y;
     private Direction dir;
 
+    @JsonCreator
+    public SnakeHead() {
+        super();
+    }
 
     public SnakeHead(int x, int y, Direction dir) {
         this.x = x;
