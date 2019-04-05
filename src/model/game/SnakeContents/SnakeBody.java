@@ -26,7 +26,7 @@ public class SnakeBody {
         return x;
     }
 
-    public void setX(int currentX) {
+    public void setX(int x) {
         this.x = x;
     }
 
@@ -34,7 +34,7 @@ public class SnakeBody {
         return y;
     }
 
-    public void setY(int currentY) {
+    public void setY(int y) {
         this.y = y;
     }
 

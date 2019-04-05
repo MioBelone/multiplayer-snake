@@ -3,7 +3,6 @@ import model.client.Client;
 import model.game.Collision;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
-import model.game.SnakeContents.SnakeColor;
 import model.game.SnakeGame;
 import model.server.Server;
 import org.junit.jupiter.api.AfterAll;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SnakeGameTest {
