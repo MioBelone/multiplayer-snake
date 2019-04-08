@@ -1,8 +1,5 @@
 package model.game.SnakeContents;
 
-
-import javafx.scene.paint.Color;
-
 /**
  * This class defines the color of a snake.
  *
@@ -13,7 +10,7 @@ public enum SnakeColor {
     GREEN,
     BLUE,
     PURPLE,
-    BROWN,
+    YELLOW,
     ORANGE,
     PINK,
     CYAN

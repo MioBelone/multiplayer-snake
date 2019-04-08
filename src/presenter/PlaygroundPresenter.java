@@ -82,7 +82,7 @@ public class PlaygroundPresenter {
 
     private void drawHead() {
         for (Snake snake : client.getSnakes()) {
-            Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY,faktorX,faktorY);
+            Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY, faktorX, faktorY);
             rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
             view.getAnchor().getChildren().add(rect);
         }
@@ -91,7 +91,7 @@ public class PlaygroundPresenter {
     private void drawBody() {
         for (Snake snake : client.getSnakes()) {
             for (SnakeBody body : snake.getSnakeBodies()) {
-                Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY,faktorX,faktorY);
+                Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY, faktorX, faktorY);
                 rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
                 view.getAnchor().getChildren().add(rect);
             }
@@ -100,7 +100,7 @@ public class PlaygroundPresenter {
 
     public void drawFood() {
         for (Food food : client.getFoods()) {
-            Circle circle = new Circle(food.getX() * faktorX + faktorX/2, food.getY() * faktorY + faktorY/2, faktorX/2);
+            Circle circle = new Circle(food.getX() * faktorX + faktorX / 2, food.getY() * faktorY + faktorY / 2, faktorX / 2);
             circle.setFill(Color.WHITE);
             view.getAnchor().getChildren().add(circle);
 
@@ -111,7 +111,12 @@ public class PlaygroundPresenter {
         client.sendMsgToServer("/gameCmd move " + msg);
     }
 
-    private void setLabelText(){
-        view.setScoreA("" + client.getSnakes().get(0).getScore());
+    private void setLabelText() {
+        for (Snake snake : client.getSnakes()) {
+            if (snake.getPlayername().equals(client.getName())) {
+                view.setScoreA("" + snake.getScore());
+
+            }
+        }
     }
 }
