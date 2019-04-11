@@ -10,7 +10,6 @@ import model.client.Client;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
 import model.game.SnakeContents.SnakeBody;
-import model.server.Server;
 import view.Playground;
 
 
@@ -29,13 +28,16 @@ public class PlaygroundPresenter {
     private int faktorY;
     private int faktorX;
 
-    FoodPresenter foodPresenter;
-
+    /**
+     * Constructor
+     *
+     * @param primaryStage = PrimaryStage
+     * @param client       = Connected Client
+     */
     public PlaygroundPresenter(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
         this.view = new Playground();
         this.client = client;
-        foodPresenter = new FoodPresenter();
 
         client.setPlaygroundPresenter(this);
 
@@ -48,26 +50,31 @@ public class PlaygroundPresenter {
         });
     }
 
+    /**
+     * Empty Constructor
+     */
     public PlaygroundPresenter() {
     }
 
     /**
-     * In this method the .show method of the view is called to display the view to the user.
+     * In this method the .show method of the view, is called to display the view to the user.
      */
     public void show() {
         view.show(primaryStage);
     }
 
+    /**
+     * Calculates the X and Y multiplier for the drawing.
+     */
     private void umrechnung() {
         faktorY = (int) view.getAnchor().getHeight() / 100;
 
         faktorX = (int) view.getAnchor().getWidth() / 100;
     }
 
-    public void initializeSnakes() {
-        SnakePresenter snakePresenter = new SnakePresenter();
-    }
-
+    /**
+     * Method which initialize the drawing of the snakes.
+     */
     public void drawSnake() {
         umrechnung();
         clear();
@@ -76,10 +83,16 @@ public class PlaygroundPresenter {
         setLabelText();
     }
 
+    /**
+     * This method clears the whole AnchorPane.
+     */
     private void clear() {
         view.getAnchor().getChildren().clear();
     }
 
+    /**
+     * This method draws the head of every snake in the game, for one client.
+     */
     private void drawHead() {
         for (Snake snake : client.getSnakes()) {
             Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY, faktorX, faktorY);
