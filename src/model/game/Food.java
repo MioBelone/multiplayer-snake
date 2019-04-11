@@ -17,6 +17,7 @@ public class Food {
     @JsonCreator
     public Food() {
         super();
+        //randomize food spawn location
         this.x = random.nextInt(100);
         this.y = random.nextInt(100);
     }

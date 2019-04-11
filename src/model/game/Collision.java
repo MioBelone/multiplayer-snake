@@ -28,10 +28,6 @@ public class Collision {
             //check for collision with other player
             playerCollision(sg, s);
 
-            //check if a snake has been removed
-            //if(size<sg.getSnakes().size()){
-            //    i--;
-            //}
         }
     }
 
@@ -46,6 +42,7 @@ public class Collision {
     private void foodCollision(SnakeGame sg, Snake s) {
         //check all foods
         for (Food f : sg.getFoods()) {
+            //if a snake collides with a food: add a snake and increase score
             if (s.getSnakeHead().getX() == f.getX() && s.getSnakeHead().getY() == f.getY()) {
 
                 s.addSnakeBody();
@@ -63,6 +60,7 @@ public class Collision {
 
     private void selfCollision(SnakeGame sg, Snake s) {
 
+        //check if snake head collides with its own body
         for (SnakeBody sb : s.getSnakeBodies()) {
             if (s.getSnakeHead().getX() == sb.getX() && s.getSnakeHead().getY() == sb.getY()) {
                 sg.getSnakes().remove(s);

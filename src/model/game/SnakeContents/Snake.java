@@ -58,7 +58,6 @@ public class Snake {
 
                 snakeBodies.get(i).setX(snakeBodies.get(i - 1).getX());
                 snakeBodies.get(i).setY(snakeBodies.get(i - 1).getY());
-                System.out.println("sb"+i+snakeBodies.get(i).getX()+"|"+snakeBodies.get(i).getY());
 
             }
         }
@@ -68,7 +67,6 @@ public class Snake {
 
             snakeBodies.get(0).setX(snakeHead.getX());
             snakeBodies.get(0).setY(snakeHead.getY());
-            System.out.println("sb"+0+snakeBodies.get(0).getX()+"|"+snakeBodies.get(0).getY());
 
         }
 

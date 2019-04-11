@@ -30,13 +30,9 @@ public class SnakeGame {
     ObjectToJson otjSnakes;
     ObjectToJson otjFoods;
 
-    //private SnakeColor[] playerColors = {SnakeColor.RED, SnakeColor.GREEN, SnakeColor.BLUE, SnakeColor.PURPLE, SnakeColor.BROWN, SnakeColor.ORANGE, SnakeColor.PINK, SnakeColor.CYAN};
-    //private ArrayList<String> playerList = new ArrayList<>();
     private HashMap<Snake, Integer> scores = new HashMap<Snake, Integer>();
     private Snake winner;
     private PlaygroundPresenter playgroundPresenter;
-    private Loop loop;
-
 
     public SnakeGame(Server server, PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
 
@@ -47,9 +43,7 @@ public class SnakeGame {
 
 
         for (int i = 0; i < clientSize; i++) {
-            //this.playerList.add(server.getClientList().get(i).getName());
             foods.add(new Food());
-            //playgroundPresenter.addFood(foods.get(i).getX(), foods.get(i).getY());
             snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getNameOfClient());
             snakes.get(i).setId(i);
@@ -109,8 +103,6 @@ public class SnakeGame {
 
 
             quotient = breite / (clientSize / 2 + 1);
-
-            System.out.println(quotient);
 
             for (int i = 0; i < clientSize / 2 - 0.5; i++) {
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));

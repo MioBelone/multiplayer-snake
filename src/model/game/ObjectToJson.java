@@ -7,6 +7,11 @@ import model.game.SnakeContents.Snake;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to parse either a list of foods or a list of snakes into a JSON string to be send to the server.
+ *
+ * @author Alexander Schleiter
+ */
 public class ObjectToJson {
 
     private List<Snake> snakes;
@@ -26,10 +31,12 @@ public class ObjectToJson {
         mapper = new ObjectMapper();
     }
 
+    //method to parse a list of snakes into a json string
     public String parseSnakes() throws JsonProcessingException {
         return mapper.writeValueAsString(snakes);
     }
 
+    //method to parse a list of foods into a json string
     public String parseFoods() throws JsonProcessingException {
         return mapper.writeValueAsString(foods);
     }

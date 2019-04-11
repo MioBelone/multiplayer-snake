@@ -1,10 +1,8 @@
 package model.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.application.Platform;
 import model.game.SnakeContents.Snake;
 import presenter.PlaygroundPresenter;
-import view.Playground;
 
 /**
  * This class defines the steps that have to be taken each tick and keeps track if the game is still going on. It also defines the winner.
@@ -46,8 +44,8 @@ public class Loop extends Thread {
                 collision.checkCollision(sg);
 
 
-                //check if only one player left
-             /*   if (sg.getSnakes().size() == 1) {
+                //check if only one or no players left
+             /*   if (sg.getSnakes().size() <= 1) {
 
                     //set last remaining player as winner
                     sg.setWinner(sg.getSnakes().get(0));
