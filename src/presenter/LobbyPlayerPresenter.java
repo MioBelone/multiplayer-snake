@@ -1,5 +1,6 @@
 package presenter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -7,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
 import model.client.Client;
+import model.game.Loop;
 import model.server.ClientHandler;
 import view.*;
 import javafx.stage.Stage;
@@ -57,6 +59,11 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
 
     public void writeMsg(String msg) {
         view.getTaChat().appendText(msg);
+    }
+
+    public void startGame() {
+        PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+        playgroundPresenter.show();
     }
 
     /**

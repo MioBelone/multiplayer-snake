@@ -56,7 +56,6 @@ public class PlaygroundPresenter {
      */
     public void show() {
         view.show(primaryStage);
-        umrechnung();
     }
 
     private void umrechnung() {
@@ -70,6 +69,7 @@ public class PlaygroundPresenter {
     }
 
     public void drawSnake() {
+        umrechnung();
         clear();
         drawHead();
         drawBody();
@@ -99,6 +99,7 @@ public class PlaygroundPresenter {
     }
 
     public void drawFood() {
+        umrechnung();
         for (Food food : client.getFoods()) {
             Circle circle = new Circle(food.getX() * faktorX + faktorX / 2, food.getY() * faktorY + faktorY / 2, faktorX / 2);
             circle.setFill(Color.WHITE);

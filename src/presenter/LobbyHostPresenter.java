@@ -31,7 +31,9 @@ public class LobbyHostPresenter implements LobbyPresenter {
     private Client client;
     private Server server;
     public ObservableList<String> clientNameList ;
-private Loop loop;
+    private Loop loop;
+    private PlaygroundPresenter playgroundPresenter;
+
     public LobbyHostPresenter(Stage primaryStage, InitialModel initialModel, Client client, Server server) {
 
         this.primaryStage = primaryStage;
@@ -63,6 +65,23 @@ private Loop loop;
         view.getTaChat().appendText(msg);
     }
 
+    public void hostGame() {
+        playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+
+        try {
+            server.sendToAllHandler("/gameCmd start");
+            server.startSnakeGame(playgroundPresenter);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        loop = new Loop(server.getSnakeGame(), playgroundPresenter);
+        loop.start();
+    }
+
+    public void startGame() {
+        playgroundPresenter.show();
+    }
+
     /**
      * In this method the .show method of the view is called to display the view to the user.
      */
@@ -78,16 +97,7 @@ private Loop loop;
 
         @Override
         public void handle(ActionEvent event) {
-            PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
-            playgroundPresenter.show();
-
-            try {
-                server.startSnakeGame(playgroundPresenter);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-            loop = new Loop(server.getSnakeGame(), playgroundPresenter);
-            loop.start();
+            hostGame();
         }
     }
 

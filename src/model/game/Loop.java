@@ -23,7 +23,6 @@ public class Loop extends Thread {
         this.sg = sg;
         this.collision = new Collision();
         this.p = playgroundPresenter;
-        p.initializeSnakes();
     }
 
 

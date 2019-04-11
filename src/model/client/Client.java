@@ -20,6 +20,8 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static presenter.LobbyPresenter.*;
+
 public class Client {
 
     private Socket clientS;
@@ -84,11 +86,14 @@ public class Client {
                                         Platform.runLater(new Runnable() {
                                             @Override
                                             public void run() {
-
                                                 playgroundPresenter.drawSnake();
                                                 playgroundPresenter.drawFood();
                                             }
                                         });
+                                        break;
+
+                                    case "start":
+                                        presenter.startGame();
                                         break;
 
                                     default:

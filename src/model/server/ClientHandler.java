@@ -74,6 +74,10 @@ public class ClientHandler extends Thread {
                         server.switchDirection(dir, name);
                     }
 
+                    if(msg.contains("/gameCmd start")) {
+                        sendToClient(msg);
+                    }
+
                     if(msg.contains("/sysCmd getClientNames")) {
                         sendNewClientNames();
                     }

@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -88,8 +89,13 @@ public class Playground {
      */
     public void show(Stage stage) {
         stage.setTitle("SnakeBasket");
-        stage.setScene(scene);
-        stage.show();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
     }
 
     public void setScoreA(String scoreA) {
