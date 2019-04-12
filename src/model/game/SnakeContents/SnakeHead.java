@@ -13,6 +13,7 @@ public class SnakeHead {
     private int x;
     private int y;
     private Direction dir;
+    private boolean lockDirection;
 
     @JsonCreator
     public SnakeHead() {
@@ -23,6 +24,7 @@ public class SnakeHead {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        lockDirection = false;
     }
 
     public int getX() {
@@ -46,31 +48,45 @@ public class SnakeHead {
     }
 
     public void setDir(Direction dir) {
-        if (dir != null) {
-            switch (dir) {
-                case RIGHT:
-                    if (this.dir != Direction.LEFT) {
-                        this.dir = dir;
-                    }
-                    break;
-                case LEFT:
-                    if (this.dir != Direction.RIGHT) {
-                        this.dir = dir;
-                    }
-                    break;
-                case UP:
-                    if (this.dir != Direction.DOWN) {
-                        this.dir = dir;
-                    }
-                    break;
-                case DOWN:
-                    if (this.dir != Direction.UP) {
-                        this.dir = dir;
-                    }
-                    break;
-                default:
-                    break;
+        if (!isLockDirection()) {
+            if (dir != null) {
+                switch (dir) {
+                    case RIGHT:
+                        if (this.dir != Direction.LEFT) {
+                            this.dir = dir;
+                            lockDirection=true;
+                        }
+                        break;
+                    case LEFT:
+                        if (this.dir != Direction.RIGHT) {
+                            this.dir = dir;
+                            lockDirection=true;
+                        }
+                        break;
+                    case UP:
+                        if (this.dir != Direction.DOWN) {
+                            this.dir = dir;
+                            lockDirection=true;
+                        }
+                        break;
+                    case DOWN:
+                        if (this.dir != Direction.UP) {
+                            this.dir = dir;
+                            lockDirection=true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+    }
+
+    public boolean isLockDirection() {
+        return lockDirection;
+    }
+
+    public void setLockDirection(boolean lockDirection) {
+        this.lockDirection = lockDirection;
     }
 }

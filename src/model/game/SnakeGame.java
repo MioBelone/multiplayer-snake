@@ -1,9 +1,9 @@
 package model.game;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import model.game.SnakeContents.Snake;
 import model.game.SnakeContents.SnakeColor;
+import model.game.SnakeContents.SnakeHead;
 import model.server.Server;
 import presenter.PlaygroundPresenter;
 
@@ -21,9 +21,7 @@ public class SnakeGame {
     private ArrayList<Food> foods = new ArrayList<>();
     private ArrayList<Snake> snakes = new ArrayList<>();
     private int clientSize;
-    //private int clientSize = 7;
-    private double uClientSize;
-    private int breite = 100;
+    private int breite = 50;
     private int quotient;
     private int sidespace = breite / 4;
 
@@ -121,6 +119,12 @@ public class SnakeGame {
         server.sendToAllHandler("/gameCmd loop");
     }
 
+    public void lockSnakes(){
+        for (Snake s : snakes){
+            s.getSnakeHead().setLockDirection(false);
+        }
+    }
+
     public ArrayList<Food> getFoods() {
         return foods;
     }
@@ -143,14 +147,6 @@ public class SnakeGame {
 
     public void setClientSize(int clientSize) {
         this.clientSize = clientSize;
-    }
-
-    public double getuClientSize() {
-        return uClientSize;
-    }
-
-    public void setuClientSize(double uClientSize) {
-        this.uClientSize = uClientSize;
     }
 
     public int getBreite() {

@@ -17,6 +17,9 @@ public class Loop extends Thread {
     private Collision collision;
     private PlaygroundPresenter p;
 
+    private Snake lastSnake1;
+    private Snake lastSnake2;
+
     public Loop(SnakeGame sg, PlaygroundPresenter playgroundPresenter) {
         this.sg = sg;
         this.collision = new Collision();
@@ -32,6 +35,7 @@ public class Loop extends Thread {
         while (running) {
             try {
                 sleep(200);
+                sg.lockSnakes();
                 for (Snake s : sg.getSnakes()) {
                     //move snakes
                     s.move();
@@ -43,16 +47,34 @@ public class Loop extends Thread {
                 //check for collision
                 collision.checkCollision(sg);
 
+                //assign last snakes for the case they both collide with their head (because they get deleted)
+                if (sg.getSnakes().size() == 2) {
+                    lastSnake1 = sg.getSnakes().get(0);
+                    lastSnake2 = sg.getSnakes().get(1);
+                }
+
 
                 //check if only one or no players left
-             /*   if (sg.getSnakes().size() <= 1) {
 
-                    //set last remaining player as winner
-                    sg.setWinner(sg.getSnakes().get(0));
+                if (sg.getSnakes().size() <= 1) {
 
+                    //checks for the rare case the last snakes collide with their heads,
+                    //the snake with the higher score wins, if they're equal there is a draw
+                    if (sg.getSnakes().size() == 0) {
+                        if (lastSnake1.getScore() > lastSnake2.getScore()) {
+                            sg.setWinner(lastSnake1);
+                        } else if (lastSnake1.getScore() == lastSnake2.getScore()) {
+                            sg.setWinner(null);
+                        } else {
+                            sg.setWinner(lastSnake2);
+                        }
+                    } else {
+                        //set last remaining player as winner
+                        sg.setWinner(sg.getSnakes().get(0));
+                    }
                     //stop game
                     kill();
-                }*/
+                }
 
                 //mach in presenter
 
