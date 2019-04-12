@@ -230,4 +230,6 @@ public class InitialView {
     public TextField getTfPortJoin() {
         return tfPortJoin;
     }
+
+    public TextField getTfIpJoin() { return tfIpJoin; }
 }

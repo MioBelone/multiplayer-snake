@@ -38,6 +38,7 @@ public class ClientHandler extends Thread {
                 msg = din.readUTF();
 
                 if(msg.substring(0, 1).equals("/")) {
+
                     if(msg.equals("/disconnect")) {
                         server.removeClientHander(this);
                         clientS.close();

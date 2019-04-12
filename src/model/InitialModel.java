@@ -50,7 +50,7 @@ public class InitialModel {
      */
     public Client joinGame(String username, int port, String ip) {
         Client client = new Client(username);
-        client.connect("localhost", port);
+        client.connect(ip, port);
 
         return client;
     }
