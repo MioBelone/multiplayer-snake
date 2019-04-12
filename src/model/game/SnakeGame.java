@@ -41,7 +41,7 @@ public class SnakeGame {
 
 
         for (int i = 0; i < clientSize; i++) {
-            foods.add(new Food());
+            foods.add(new Food(breite));
             snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getNameOfClient());
             snakes.get(i).setId(i);

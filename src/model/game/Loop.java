@@ -56,6 +56,7 @@ public class Loop extends Thread {
 
                 //check if only one or no players left
 
+                /*
                 if (sg.getSnakes().size() <= 1) {
 
                     //checks for the rare case the last snakes collide with their heads,
@@ -74,7 +75,7 @@ public class Loop extends Thread {
                     }
                     //stop game
                     kill();
-                }
+                }*/
 
                 //mach in presenter
 

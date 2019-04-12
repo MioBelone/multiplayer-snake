@@ -67,9 +67,9 @@ public class PlaygroundPresenter {
      * Calculates the X and Y multiplier for the drawing.
      */
     private void umrechnung() {
-        faktorY = (int) view.getAnchor().getHeight() / 100;
+        faktorY = (int) view.getAnchor().getHeight() / 50;
 
-        faktorX = (int) view.getAnchor().getWidth() / 100;
+        faktorX = (int) view.getAnchor().getWidth() / 50;
     }
 
     /**

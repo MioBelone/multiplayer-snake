@@ -1,5 +1,7 @@
 package model.game;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Random;
 
@@ -13,19 +15,24 @@ public class Food {
     private int x;
     private int y;
     private Random random = new Random();
+    private int breite;
+
+    public Food(int breite) {
+        //randomize food spawn location
+        this.breite=breite;
+        this.x = random.nextInt(breite);
+        this.y = random.nextInt(breite);
+    }
 
     @JsonCreator
     public Food() {
         super();
-        //randomize food spawn location
-        this.x = random.nextInt(100);
-        this.y = random.nextInt(100);
     }
 
     public void reset() {
 
-        this.x = (random.nextInt(100));
-        this.y = (random.nextInt(100));
+        this.x = (random.nextInt(breite));
+        this.y = (random.nextInt(breite));
     }
 
 
@@ -44,5 +51,6 @@ public class Food {
     public void setY(int y) {
         this.y = y;
     }
+
 
 }

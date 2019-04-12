@@ -97,8 +97,8 @@ public class SnakeGameTest {
 
         snakeGame = new SnakeGame(server, pp);
 
-        f = new Food();
-        f1 = new Food();
+        f = new Food(snakeGame.getBreite());
+        f1 = new Food(snakeGame.getBreite());
 
         f.setX(1);
         f.setY(1);
