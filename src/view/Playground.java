@@ -30,13 +30,14 @@ public class Playground {
     public Playground() {
 
         grid = new GridPane();
-        grid.getStyleClass().add("grid-pane-root");
+        grid.getStyleClass().add("grid-pane-game");
 
         anchor = new AnchorPane();
         anchor.getStyleClass().add("anchor-pane-game");
-        anchor.setMinHeight(700);
-        anchor.setMinWidth(700);
-        anchor.setMaxSize(700, 700);
+        anchor.setMinHeight(690);
+        anchor.setMinWidth(690);
+        anchor.setMaxSize(690, 690);
+
 
         vBox = new VBox();
         vBox.getStyleClass().add("vBox-pane-game");
@@ -54,11 +55,13 @@ public class Playground {
         grid.setHgrow(vBox, Priority.ALWAYS);
         grid.setVgrow(vBox, Priority.ALWAYS);
 
-        grid.setGridLinesVisible(true);
         grid.getChildren().addAll(anchor, vBox);
+        grid.setPadding(new Insets(0,0,10,5));
 
         scoreT = new Label("Punkte");
+        scoreT.getStyleClass().add("label-score");
         scoreA = new Label("0");
+        scoreA.getStyleClass().add("label-score");
 
         hBoxT.getChildren().addAll(scoreT);
         hBoxA.getChildren().addAll(scoreA);
@@ -70,7 +73,7 @@ public class Playground {
         vBox.getChildren().addAll(hBoxT, hBoxA);
 
         //Inititalising scene
-        scene = new Scene(grid, 770, 700);
+        scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
     }
 

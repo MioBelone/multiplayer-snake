@@ -17,6 +17,10 @@
     -fx-background-color: -fx-primary;
 }
 
+.grid-pane-game{
+    -fx-background-color: -fx-secondary;
+}
+
 .anchor-pane-game {
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-contrast;
@@ -57,6 +61,11 @@
 .label {
     -fx-text-fill: -fx-primarytext;
     -fx-font-size: 16px;
+}
+
+.label-score{
+    -fx-font-size: 20px;
+    -fx-font-weight: BOLD;
 }
 
 .label-head {
