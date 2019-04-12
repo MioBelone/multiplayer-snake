@@ -81,7 +81,13 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            //TODO: Ready-Function einbauen
+            if(view.getBtnReady().getText().equals("Get Ready")) {
+                client.sendMsgToServer("/clientInf readyInformaton:true");
+                view.getBtnReady().setText("Not Ready");
+            } else if(view.getBtnReady().getText().equals("Not Ready")) {
+                client.sendMsgToServer("/clientInf readyInformaton:false");
+                view.getBtnReady().setText("Get Ready");
+            }
         }
     }
 

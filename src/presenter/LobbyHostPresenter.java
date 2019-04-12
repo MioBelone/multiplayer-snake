@@ -66,16 +66,29 @@ public class LobbyHostPresenter implements LobbyPresenter {
     }
 
     public void hostGame() {
-        playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+        boolean isEveryoneRdy = true;
 
-        try {
-            server.sendToAllHandler("/gameCmd start");
-            server.startSnakeGame(playgroundPresenter);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        for (ClientHandler clientH : server.getClientList()) {
+            if(!clientH.isRdy()) {
+                isEveryoneRdy = false;
+            }
         }
-        loop = new Loop(server.getSnakeGame(), playgroundPresenter);
-        loop.start();
+
+        if(isEveryoneRdy) {
+            playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+
+            try {
+                server.sendToAllHandler("/gameCmd start");
+                server.startSnakeGame(playgroundPresenter);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            loop = new Loop(server.getSnakeGame(), playgroundPresenter);
+            loop.start();
+        } else {
+            //TODO: Fehlermeldung ausgeben
+        }
+
     }
 
     public void startGame() {

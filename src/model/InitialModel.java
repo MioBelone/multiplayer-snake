@@ -34,6 +34,7 @@ public class InitialModel {
         //Create client
         Client client = new Client(username);
         client.connect("localhost", port);
+        client.sendMsgToServer("/clientInf readyInformaton:true");
 
         server.setHostClient(client);
 

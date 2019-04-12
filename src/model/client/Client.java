@@ -26,6 +26,7 @@ public class Client {
 
     private Socket clientS;
     private String name;
+    private boolean isRdy;
     private DataInputStream din;
     private DataOutputStream dout;
     private LobbyPresenter presenter;
@@ -38,6 +39,7 @@ public class Client {
 
     public Client(String name) {
         this.name = name;
+        this.isRdy = false;
         clientNames = FXCollections.observableArrayList();
     }
 
@@ -118,6 +120,14 @@ public class Client {
                                                 }
                                             }
                                         });
+                                        break;
+
+                                    case "rdyConfirmed":
+                                        isRdy = true;
+                                        break;
+
+                                    case "rdyCancelled":
+                                        isRdy = false;
                                         break;
 
                                     default:

@@ -16,6 +16,7 @@ public class ClientHandler extends Thread {
     final Server server;
 
     private String name;
+    private boolean isRdy;
 
     public ClientHandler(Socket clientS, DataInputStream din, DataOutputStream dout, Server server) {
         this.clientS = clientS;
@@ -26,6 +27,10 @@ public class ClientHandler extends Thread {
 
     public String getNameOfClient() {
         return name;
+    }
+
+    public boolean isRdy() {
+        return isRdy;
     }
 
     @Override
@@ -50,6 +55,20 @@ public class ClientHandler extends Thread {
                         String name = msg.split(":")[1];
                         this.name = name;
                         server.updateAllClients();
+                    }
+
+                    if(msg.contains("/clientInf readyInformaton")) {
+                        String rdy = msg.split(":")[1];
+
+                        if(rdy.equals("true")) {
+                            isRdy = true;
+                            System.out.println("Client " + name + " is ready!");
+                            sendToClient("/sysCmd rdyConfirmed");
+                        } else {
+                            isRdy = false;
+                            System.out.println("Client " + name + " is not ready!");
+                            sendToClient("/sysCmd rdyCancelled");
+                        }
                     }
 
                     if(msg.contains("/gameCmd move")) {
