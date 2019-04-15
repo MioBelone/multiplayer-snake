@@ -72,8 +72,8 @@ public class Client {
                             System.out.println(msg);
 
                             if (msg.contains("/gameCmd")) {
-
                                 switch (msg.split(" ")[1]) {
+
                                     case "snakes":
                                         snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>() {
                                         });
@@ -104,8 +104,8 @@ public class Client {
                                 }
 
                             } else if (msg.contains("/sysCmd")) {
-
                                 switch (msg.split(" ")[1]) {
+
                                     case "clientNames":
                                         Platform.runLater(new Runnable() {
                                             @Override
@@ -156,7 +156,7 @@ public class Client {
             msgReading.start();
 
             //Send name of Client to Server
-            sendMsgToServer("/clientInf clientName:" + name);
+            sendMsgToServer("/clientInf clientName name:" + name);
         } catch (IOException e) {
             e.printStackTrace();
         }

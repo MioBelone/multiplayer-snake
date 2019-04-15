@@ -82,10 +82,10 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         @Override
         public void handle(ActionEvent event) {
             if(view.getBtnReady().getText().equals("Get Ready")) {
-                client.sendMsgToServer("/clientInf readyInformaton:true");
+                client.sendMsgToServer("/clientInf readyInformaton value:true");
                 view.getBtnReady().setText("Not Ready");
             } else if(view.getBtnReady().getText().equals("Not Ready")) {
-                client.sendMsgToServer("/clientInf readyInformaton:false");
+                client.sendMsgToServer("/clientInf readyInformaton value:false");
                 view.getBtnReady().setText("Get Ready");
             }
         }
