@@ -17,6 +17,10 @@ public class Food {
     private Random random = new Random();
     private int breite;
 
+    /**
+     * Constructor to generate a food, relative to the size of the coordinate grid of the game
+     * @param breite width of the whole game
+     */
     public Food(int breite) {
         //randomize food spawn location
         this.breite=breite;
@@ -29,6 +33,9 @@ public class Food {
         super();
     }
 
+    /**
+     * Respawn a food by assigning new coordinates.
+     */
     public void reset() {
 
         this.x = (random.nextInt(breite));

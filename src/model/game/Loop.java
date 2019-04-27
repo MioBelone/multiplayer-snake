@@ -35,6 +35,7 @@ public class Loop extends Thread {
         while (running) {
             try {
                 sleep(200);
+                //unlock all SnakeHeads, they are locked if they change the direction to prevent multiple direction changes in the same tick
                 sg.lockSnakes();
                 for (Snake s : sg.getSnakes()) {
                     //move snakes

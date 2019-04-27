@@ -10,6 +10,10 @@ import model.game.SnakeContents.SnakeBody;
  */
 public class Collision {
 
+    /**
+     * Checks for every living snake in the game if it is colliding with either itself, a food, the wall or another snake
+     * @param sg The current snake game played
+     */
     public void checkCollision(SnakeGame sg) {
 
 
@@ -31,6 +35,11 @@ public class Collision {
         }
     }
 
+    /**
+     * Checks whethter the snake collides with a wall and if it does lets it disappear.
+     * @param sg The current snake game played
+     * @param s A snake for which the collision will be checked
+     */
     private void wallCollision(SnakeGame sg, Snake s) {
         //check for wall collision
         if (s.getSnakeHead().getX() >= sg.getBreite() || s.getSnakeHead().getY() >= sg.getBreite() || s.getSnakeHead().getX() < 0 || s.getSnakeHead().getY() < 0) {
@@ -39,6 +48,12 @@ public class Collision {
         }
     }
 
+    /**
+     * Checks whether the snake collides with a food and if it does a body part will be added to the snake and the food respawns.
+     * Should the number of snakes be greater than the number of foods, the food will not respawn.
+     * @param sg The current snake game played
+     * @param s A snake for which the collision will be checked
+     */
     private void foodCollision(SnakeGame sg, Snake s) {
         //check all foods
         for (Food f : sg.getFoods()) {
@@ -58,6 +73,11 @@ public class Collision {
         }
     }
 
+    /**
+     * Checks whether a snake collides with itself and if it does lets it disappear.
+     * @param sg The current snake game played
+     * @param s A snake for which the collision will be checked
+     */
     private void selfCollision(SnakeGame sg, Snake s) {
 
         //check if snake head collides with its own body
@@ -69,6 +89,12 @@ public class Collision {
         }
     }
 
+    /**
+     * Ckecks if the snake collides with any of the other snakes. If it does it will be deleted.
+     * If a frontal collision occurs (the head coordinates of two snakes are identical) both will be deleted.
+     * @param sg The current snake game played
+     * @param s A snake for which the collision will be checked
+     */
     private void playerCollision(SnakeGame sg, Snake s) {
         //check all other players
         for (Snake otherPlayer : sg.getSnakes()) {
