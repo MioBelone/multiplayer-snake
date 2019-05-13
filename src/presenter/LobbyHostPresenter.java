@@ -15,7 +15,9 @@ import model.server.Server;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
+import java.net.InetAddress;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,13 @@ public class LobbyHostPresenter implements LobbyPresenter {
                 view.getPlayerList().setItems(clientNameList);
             }
         });
+
+        //Initialise ip-address
+        try {
+            view.getLblLobbyIP().setText("IP-Adresse:\n"+InetAddress.getLocalHost().getHostAddress()+"");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
