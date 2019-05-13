@@ -29,6 +29,11 @@ public class InitialView {
     private VBox vboxBrand;
     private VBox vBoxHostContent;
     private VBox vBoxJoinContent;
+    private VBox vBoxHostName;
+    private VBox vBoxHostPort;
+    private VBox vBoxJoinName;
+    private VBox vBoxJoinPort;
+    private VBox vBoxJoinIp;
     private StackPane spImgContainer;
 
     private Tab tabHost;
@@ -38,6 +43,11 @@ public class InitialView {
     private Label lblJoinHead;
     private Label lblBrandText;
     private Label lblBrandInfo;
+    private Label lblHostName;
+    private Label lblHostPort;
+    private Label lblJoinName;
+    private Label lblJoinPort;
+    private Label lblJoinIp;
 
     private Button btnHostLobby;
     private Button btnJoinLobby;
@@ -106,11 +116,19 @@ public class InitialView {
 
         tfUserNameHost = new TextField();
         tfUserNameHost.setPromptText("Benutzername");
-        vBoxHostContent.getChildren().add(tfUserNameHost);
+        lblHostName = new Label();
+        lblHostName.getStyleClass().add("label-error");
+        vBoxHostName = new VBox();
+        vBoxHostName.getChildren().addAll(tfUserNameHost, lblHostName);
+        vBoxHostContent.getChildren().add(vBoxHostName);
 
         tfPortHost = new TextField();
         tfPortHost.setPromptText("Port (0000-9999)");
-        vBoxHostContent.getChildren().add(tfPortHost);
+        lblHostPort = new Label();
+        lblHostPort.getStyleClass().add("label-error");
+        vBoxHostPort = new VBox();
+        vBoxHostPort.getChildren().addAll(tfPortHost, lblHostPort);
+        vBoxHostContent.getChildren().addAll(vBoxHostPort);
 
         btnHostLobby = new Button("Erstellen");
         btnHostLobby.setDefaultButton(true);
@@ -123,15 +141,27 @@ public class InitialView {
 
         tfUserNameJoin = new TextField();
         tfUserNameJoin.setPromptText("Benutzername");
-        vBoxJoinContent.getChildren().add(tfUserNameJoin);
+        lblJoinName = new Label();
+        lblJoinName.getStyleClass().add("label-error");
+        vBoxJoinName = new VBox();
+        vBoxJoinName.getChildren().addAll(tfUserNameJoin, lblJoinName);
+        vBoxJoinContent.getChildren().add(vBoxJoinName);
 
         tfPortJoin = new TextField();
         tfPortJoin.setPromptText("Port (0000-9999)");
-        vBoxJoinContent.getChildren().add(tfPortJoin);
+        lblJoinPort = new Label();
+        lblJoinPort.getStyleClass().add("label-error");
+        vBoxJoinPort = new VBox();
+        vBoxJoinPort.getChildren().addAll(tfPortJoin, lblJoinPort);
+        vBoxJoinContent.getChildren().add(vBoxJoinPort);
 
         tfIpJoin = new TextField();
         tfIpJoin.setPromptText("IP-Adresse");
-        vBoxJoinContent.getChildren().add(tfIpJoin);
+        lblJoinIp = new Label();
+        lblJoinIp.getStyleClass().add("label-error");
+        vBoxJoinIp = new VBox();
+        vBoxJoinIp.getChildren().addAll(tfIpJoin, lblJoinIp);
+        vBoxJoinContent.getChildren().add(vBoxJoinIp);
 
         btnJoinLobby = new Button("Beitreten");
         bPaneJoin.setBottom(btnJoinLobby);
@@ -170,7 +200,6 @@ public class InitialView {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-                //TODO: Bug für default Button
                 if(newValue.getText().equals("Lobby erstellen")) {
                     btnJoinLobby.setDefaultButton(false);
                     btnHostLobby.setDefaultButton(true);
@@ -232,4 +261,24 @@ public class InitialView {
     }
 
     public TextField getTfIpJoin() { return tfIpJoin; }
+
+    public Label getLblHostName() {
+        return lblHostName;
+    }
+
+    public Label getLblHostPort() {
+        return lblHostPort;
+    }
+
+    public Label getLblJoinName() {
+        return lblJoinName;
+    }
+
+    public Label getLblJoinPort() {
+        return lblJoinPort;
+    }
+
+    public Label getLblJoinIp() {
+        return lblJoinIp;
+    }
 }

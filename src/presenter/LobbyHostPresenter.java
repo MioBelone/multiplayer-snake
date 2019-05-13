@@ -6,6 +6,8 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.client.Client;
 import model.game.Loop;
 import model.server.ClientHandler;
@@ -86,7 +88,11 @@ public class LobbyHostPresenter implements LobbyPresenter {
             loop = new Loop(server.getSnakeGame(), playgroundPresenter);
             loop.start();
         } else {
-            //TODO: Fehlermeldung ausgeben
+            String alertMsg = "Sie können das Spiel erst starten, wenn alle Spieler in der Lobby bereit sind. Prüfen Sie ob alle bereit sind und versuchen Sie es anschließend erneut.";
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, alertMsg, ButtonType.OK);
+            alert.setTitle("Information");
+            alert.setHeaderText("Es sind noch nicht alle Spieler bereit!");
+            alert.showAndWait();
         }
 
     }

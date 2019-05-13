@@ -1,9 +1,12 @@
 package presenter;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.client.Client;
 import model.server.Server;
+import validation.initialViewValidator;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
@@ -49,13 +52,15 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            Server server = initialModel.hostGame(view.getTfUserNameHost().getText(), Integer.parseInt(view.getTfPortHost().getText()));
-            Client client = server.getHostClient();
+            if(initialViewValidator.validateHost(view)) {
+                Server server = initialModel.hostGame(view.getTfUserNameHost().getText(), Integer.parseInt(view.getTfPortHost().getText()));
+                Client client = server.getHostClient();
 
-            //Initialising the LobbyHost presenter which handles the view and the model
-            LobbyHostPresenter lobbyHostPresenter = new LobbyHostPresenter(primaryStage, initialModel, client, server);
-            client.setPresenter(lobbyHostPresenter);
-            lobbyHostPresenter.show();
+                //Initialising the LobbyHost presenter which handles the view and the model
+                LobbyHostPresenter lobbyHostPresenter = new LobbyHostPresenter(primaryStage, initialModel, client, server);
+                client.setPresenter(lobbyHostPresenter);
+                lobbyHostPresenter.show();
+            }
         }
     }
 
@@ -63,12 +68,14 @@ public class InitialViewPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            Client client = initialModel.joinGame(view.getTfUserNameJoin().getText(), Integer.parseInt(view.getTfPortJoin().getText()), view.getTfIpJoin().getText());
+            if(initialViewValidator.validateJoin(view)) {
+                Client client = initialModel.joinGame(view.getTfUserNameJoin().getText(), Integer.parseInt(view.getTfPortJoin().getText()), view.getTfIpJoin().getText());
 
-            //Initialising the LobbyPlayer presenter which handles the view and the model
-            LobbyPlayerPresenter lobbyPlayerPresenter = new LobbyPlayerPresenter(primaryStage, initialModel, client);
-            client.setPresenter(lobbyPlayerPresenter);
-            lobbyPlayerPresenter.show();
+                //Initialising the LobbyPlayer presenter which handles the view and the model
+                LobbyPlayerPresenter lobbyPlayerPresenter = new LobbyPlayerPresenter(primaryStage, initialModel, client);
+                client.setPresenter(lobbyPlayerPresenter);
+                lobbyPlayerPresenter.show();
+            }
         }
     }
 }
