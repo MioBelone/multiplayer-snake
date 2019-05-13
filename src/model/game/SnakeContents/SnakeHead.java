@@ -13,13 +13,23 @@ public class SnakeHead {
     private int x;
     private int y;
     private Direction dir;
+    //variable used to prevent multiple direction changes in the same tick (see Loop and setDir())
     private boolean lockDirection;
 
+    /**
+     * Constructor that is used for the creation of JSON strings
+     */
     @JsonCreator
     public SnakeHead() {
         super();
     }
 
+    /**
+     * Normal contructor
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param dir direction in which the snake will be heading
+     */
     public SnakeHead(int x, int y, Direction dir) {
         this.x = x;
         this.y = y;
@@ -47,6 +57,11 @@ public class SnakeHead {
         return dir;
     }
 
+    /**
+     * Direction changes are only allowed once per tick and are therefore the head is locked after a change.
+     * The head is unlocked at the beginning of each tick.
+     * @param dir
+     */
     public void setDir(Direction dir) {
         if (!isLockDirection()) {
             if (dir != null) {
