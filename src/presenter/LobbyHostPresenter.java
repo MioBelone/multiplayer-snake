@@ -86,7 +86,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
         }
 
         if(isEveryoneRdy) {
-            playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+            playgroundPresenter = new PlaygroundPresenter(primaryStage, client, this);
 
             try {
                 server.sendToAllHandler("/gameCmd start");
@@ -96,6 +96,10 @@ public class LobbyHostPresenter implements LobbyPresenter {
             }
             loop = new Loop(server.getSnakeGame(), playgroundPresenter);
             loop.start();
+
+            //All clients must be set to not ready
+            server.unreadyAll();
+
         } else {
             String alertMsg = "Sie können das Spiel erst starten, wenn alle Spieler in der Lobby bereit sind. Prüfen Sie ob alle bereit sind und versuchen Sie es anschließend erneut.";
             Alert alert = new Alert(Alert.AlertType.INFORMATION, alertMsg, ButtonType.OK);
@@ -109,6 +113,9 @@ public class LobbyHostPresenter implements LobbyPresenter {
     public void startGame() {
         playgroundPresenter.show();
     }
+
+    //This method must be implemented because of the interface
+    public void ready(boolean isRdy) {return;}
 
     /**
      * In this method the .show method of the view is called to display the view to the user.

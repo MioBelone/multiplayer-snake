@@ -124,10 +124,16 @@ public class Client {
 
                                     case "rdyConfirmed":
                                         isRdy = true;
+                                        if(presenter != null) {
+                                            presenter.ready(isRdy);
+                                        }
                                         break;
 
                                     case "rdyCancelled":
                                         isRdy = false;
+                                        if(presenter != null) {
+                                            presenter.ready(isRdy);
+                                        }
                                         break;
 
                                     default:
@@ -136,7 +142,7 @@ public class Client {
                                 }
 
                             } else {
-                                //If the message isn't a systemcommand it will be displayed in the chat
+                                //If the message isn't a system command it will be displayed in the chat
                                 writeMsgToGUI(msg);
                             }
                         } catch (SocketException se) {

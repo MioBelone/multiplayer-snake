@@ -4,7 +4,7 @@ import javafx.scene.control.TextField;
 
 public class textfieldValidator {
     public static boolean isTextfieldNotEmpty(TextField tf) {
-        if(!tf.getText().equals("") && !tf.getText().equals(null) && !tf.getText().isEmpty()) {
+        if(!tf.getText().equals("") && tf.getText() != null && !tf.getText().isEmpty()) {
             return true;
         } else {
             return false;

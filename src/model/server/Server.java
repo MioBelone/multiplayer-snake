@@ -138,6 +138,15 @@ public class Server {
         System.out.println("New SnakeGame started");
     }
 
+    public void unreadyAll() {
+        for(ClientHandler ch : clientList) {
+            ch.setRdy(false);
+            ch.sendToClient("/sysCmd rdyCancelled");
+        }
+
+        hostClient.sendMsgToServer("/clientInf readyInformaton value:true");
+    }
+
     public SnakeGame getSnakeGame() {
         return snakeGame;
     }

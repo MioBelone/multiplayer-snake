@@ -143,4 +143,8 @@ public class ClientHandler extends Thread {
 
         sendToClient(clientNames);
     }
+
+    public void setRdy(boolean rdy) {
+        isRdy = rdy;
+    }
 }

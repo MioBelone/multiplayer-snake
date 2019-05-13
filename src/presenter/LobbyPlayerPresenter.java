@@ -1,6 +1,7 @@
 package presenter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -54,6 +55,8 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
+    //TODO: Statusanzeige einbauen (Bereit true/false)
+
     public LobbyPlayerPresenter() {
     }
 
@@ -62,7 +65,7 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
     }
 
     public void startGame() {
-        PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+        PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client, this);
         playgroundPresenter.show();
     }
 
@@ -71,6 +74,19 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
      */
     public void show() {
         view.show(primaryStage);
+    }
+
+    public void ready(boolean isRdy) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(isRdy) {
+                    view.getBtnReady().setText("Not Ready");
+                } else {
+                    view.getBtnReady().setText("Get Ready");
+                }
+            }
+        });
     }
 
     //**********************************************************************
@@ -83,10 +99,8 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         public void handle(ActionEvent event) {
             if(view.getBtnReady().getText().equals("Get Ready")) {
                 client.sendMsgToServer("/clientInf readyInformaton value:true");
-                view.getBtnReady().setText("Not Ready");
             } else if(view.getBtnReady().getText().equals("Not Ready")) {
                 client.sendMsgToServer("/clientInf readyInformaton value:false");
-                view.getBtnReady().setText("Get Ready");
             }
         }
     }

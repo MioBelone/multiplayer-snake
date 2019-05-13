@@ -1,5 +1,6 @@
 package presenter;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -24,6 +25,7 @@ public class PlaygroundPresenter {
     private Playground view;
     private Stage primaryStage;
     private Client client;
+    private LobbyPresenter lobby;
 
     private int faktorY;
     private int faktorX;
@@ -34,10 +36,11 @@ public class PlaygroundPresenter {
      * @param primaryStage = PrimaryStage
      * @param client       = Connected Client
      */
-    public PlaygroundPresenter(Stage primaryStage, Client client) {
+    public PlaygroundPresenter(Stage primaryStage, Client client, LobbyPresenter lobby) {
         this.primaryStage = primaryStage;
         this.view = new Playground();
         this.client = client;
+        this.lobby = lobby;
 
         client.setPlaygroundPresenter(this);
 
@@ -46,6 +49,13 @@ public class PlaygroundPresenter {
             @Override
             public void handle(KeyEvent event) {
                 keyPressed(event.getCode().toString());
+            }
+        });
+
+        view.getBtnTest().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                returnToLobby();
             }
         });
     }
@@ -132,5 +142,9 @@ public class PlaygroundPresenter {
 
             }
         }
+    }
+
+    private void returnToLobby() {
+        lobby.show();
     }
 }
