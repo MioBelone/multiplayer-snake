@@ -12,11 +12,19 @@ public class SnakeBody {
     private int x;
     private int y;
 
+    /**
+     * Constructor that is used for the creation of JSON strings
+     */
     @JsonCreator
     public SnakeBody() {
         super();
     }
 
+    /**
+     * Normal cosntructor
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public SnakeBody(int x, int y) {
         this.x = x;
         this.y = y;

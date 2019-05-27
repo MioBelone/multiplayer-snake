@@ -20,11 +20,20 @@ public class Snake {
     private SnakeHead snakeHead;
     private ArrayList<SnakeBody> snakeBodies = new ArrayList<>();
 
+
+    /**
+     * Constructor that is used for the creation of JSON strings
+     */
     @JsonCreator
     public Snake() {
         super();
     }
 
+    /**
+     * Normal contructor
+     * @param x x coordinate for the SnakeHead
+     * @param y y coordinate for the SnakeHead
+     */
     public Snake(int x, int y) {
 
         this.snakeHead = new SnakeHead(x, y, Direction.RIGHT);
@@ -32,9 +41,9 @@ public class Snake {
     }
 
     /**
-     * Methode, um der Snake einen Body hinzuzufügen
-     * Sollte noch kein Body vorhanden sein, wird der erste auf die Koordinaten des Head gesetzt,
-     * ansonsten auf die des letzten Body
+     * Method to add a SnakeBody to the Snake
+     * If no body is present, the first body part will use the coords of the head,
+     * otherwise the coords of the last body part
      */
     public void addSnakeBody() {
         if (snakeBodies.size() < 1) {
@@ -46,10 +55,10 @@ public class Snake {
     }
 
     /**
-     * Methode zum Bewegen einer Snake, die bei jedem Tick aufgerufen wird.
-     * Zuerst wird jeder Body (bis auf den ersten) auf die Position des vorherigen Bodys gesetzt.
-     * Anschließend der erste Body auf die Position des Heads.
-     * Zuletzt wird der Head bewegt.
+     * Method to move a snake, it is called each tick in the loop
+     * First each body part is moved to the position of the body part in front of it (with exception of the first body part after the head)
+     * After that the first body part is moved to the position of the head
+     * At last the head is moved in the appropriate direction
      */
     public void move() {
         //Move Bodies
@@ -87,37 +96,6 @@ public class Snake {
         }
     }
 
-    /*
-    @Override
-    public String toString() {
-
-        String returnString =
-                "Snake: [ID="
-                        + id
-                        + ", Score="
-                        + score
-                        + ", Playername="
-                        + playername
-                        + ", SnakeHead="
-                        + this.getSnakeHead().getX()
-                        + ";"
-                        + this.getSnakeHead().getY()
-                        + ",";
-
-        int index = 0;
-
-        for (SnakeBody sb : this.getSnakeBodies()) {
-            returnString = returnString + " SnakeBody" + index + "=" + sb.getX() + ";" + sb.getY() + ",";
-            index++;
-        }
-
-        returnString = returnString.substring(0, returnString.length() - 1);
-        returnString = returnString + "]";
-
-
-        return returnString;
-    }
-    */
 
     public void increaseScore() {
         this.score += 10;

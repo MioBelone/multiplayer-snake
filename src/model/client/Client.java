@@ -72,8 +72,8 @@ public class Client {
                             System.out.println(msg);
 
                             if (msg.contains("/gameCmd")) {
-
                                 switch (msg.split(" ")[1]) {
+
                                     case "snakes":
                                         snakes = objectMapper.readValue(msg.split(" ")[2], new TypeReference<List<Snake>>() {
                                         });
@@ -104,8 +104,8 @@ public class Client {
                                 }
 
                             } else if (msg.contains("/sysCmd")) {
-
                                 switch (msg.split(" ")[1]) {
+
                                     case "clientNames":
                                         Platform.runLater(new Runnable() {
                                             @Override
@@ -124,10 +124,16 @@ public class Client {
 
                                     case "rdyConfirmed":
                                         isRdy = true;
+                                        if(presenter != null) {
+                                            presenter.ready(isRdy);
+                                        }
                                         break;
 
                                     case "rdyCancelled":
                                         isRdy = false;
+                                        if(presenter != null) {
+                                            presenter.ready(isRdy);
+                                        }
                                         break;
 
                                     default:
@@ -136,7 +142,7 @@ public class Client {
                                 }
 
                             } else {
-                                //If the message isn't a systemcommand it will be displayed in the chat
+                                //If the message isn't a system command it will be displayed in the chat
                                 writeMsgToGUI(msg);
                             }
                         } catch (SocketException se) {
@@ -156,7 +162,7 @@ public class Client {
             msgReading.start();
 
             //Send name of Client to Server
-            sendMsgToServer("/clientInf clientName:" + name);
+            sendMsgToServer("/clientInf clientName name:" + name);
         } catch (IOException e) {
             e.printStackTrace();
         }

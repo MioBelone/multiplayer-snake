@@ -30,8 +30,19 @@ public class SnakeGame {
 
     private HashMap<Snake, Integer> scores = new HashMap<Snake, Integer>();
     private Snake winner;
+    //TODO: check if playgroundPresenter needs to assigend in SnakeGame
     private PlaygroundPresenter playgroundPresenter;
 
+    /**
+     * Constructor that:
+     * 1. Generates starting positions for all snakes
+     * 2. Adds all foods
+     * 3. Assigns colors and names to all snakes
+     * 4. Generates the Json converters for snakes and foods
+     * @param server
+     * @param playgroundPresenter
+     * @throws JsonProcessingException
+     */
     public SnakeGame(Server server, PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
 
         this.server = server;
@@ -55,7 +66,7 @@ public class SnakeGame {
     }
 
     /**
-     * Checks if the foods in a list have the same coordinates
+     * Checks if the foods in a list have the same coordinates.
      *
      * @param foods
      */
@@ -85,40 +96,55 @@ public class SnakeGame {
     }
 
     /**
-     * Inititializes the starting postions for every snake and adds them to the ArrayList
+     * Inititializes the starting postions for every snake and adds them to the ArrayList.
      */
     public void generateStartingPositions(int clientSize) {
+        //for equal number of players
         if (clientSize % 2 == 0) {
             quotient = breite / (clientSize / 2);
 
             for (int i = 0; i < clientSize / 2; i++) {
+                //generate left snakes
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+                //generate right snakes
                 snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
             }
         }
 
+        //for unequal number of players
         if (clientSize % 2 != 0) {
 
 
             quotient = breite / (clientSize / 2 + 1);
 
             for (int i = 0; i < clientSize / 2 - 0.5; i++) {
+                //generate left snakes
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
+                //generate right snakes
                 snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
             }
 
             for (int i = clientSize / 2; i < clientSize / 2 + 1; i++) {
+                //generate the snake that has no opposite snake
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
             }
         }
     }
 
+    /**
+     * Converts the position of all snakes and foods to Json strings to be sent to all clients.
+     * @throws JsonProcessingException
+     */
     public void sendGameInfo() throws JsonProcessingException {
         server.sendToAllHandler("/gameCmd snakes " + otjSnakes.parseSnakes());
         server.sendToAllHandler("/gameCmd foods " + otjFoods.parseFoods());
         server.sendToAllHandler("/gameCmd loop");
     }
 
+    /**
+     * Unlocks all snakes. This is to handle multiple direction changes in a single snake in the same tick.
+     * (see Loop and SnakeHead.setDir() for further information)
+     */
     public void lockSnakes(){
         for (Snake s : snakes){
             s.getSnakeHead().setLockDirection(false);

@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import presenter.LobbyHostPresenter;
 
@@ -30,6 +32,7 @@ public class LobbyHost {
     private VBox vBoxHostContent;
     private VBox vboxButtons;
     private AnchorPane apBrand;
+    private StackPane spLobbyIp;
 
     private Tab tabHost;
     private Tab tabSettings;
@@ -37,6 +40,7 @@ public class LobbyHost {
     private Label lblHostHead;
     private Label lblBrandInfoHead;
     private Label lblSettingsHead;
+    private Label lblLobbyIP;
 
     private TextArea taChat;
 
@@ -150,6 +154,18 @@ public class LobbyHost {
         apBrand.getChildren().add(vboxButtons);
         apBrand.setBottomAnchor(vboxButtons, 0.0);
 
+        //Label for lobby IP-Address
+        lblLobbyIP = new Label("IP-Adresse:\n");
+        lblLobbyIP.setStyle("-fx-font-weight: bold");
+        lblLobbyIP.setPadding(new Insets(5, 5, 15, 5));
+        lblLobbyIP.setTextAlignment(TextAlignment.CENTER);
+
+        spLobbyIp = new StackPane();
+        spLobbyIp.getChildren().add(lblLobbyIP);
+        spLobbyIp.prefWidthProperty().bind(vboxButtons.widthProperty());
+        vboxButtons.getChildren().add(spLobbyIp);
+
+        //Buttons
         btnStart = new Button("Start Game");
         btnStart.prefWidthProperty().bind(vboxButtons.widthProperty());
         vboxButtons.getChildren().add(btnStart);
@@ -193,5 +209,9 @@ public class LobbyHost {
 
     public ListView getPlayerList() {
         return playerList;
+    }
+
+    public Label getLblLobbyIP() {
+        return lblLobbyIP;
     }
 }

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -24,6 +25,9 @@ public class Playground {
 
     Label scoreT;
     Label scoreA;
+
+    //TODO: Wieder entfernen
+    private Button btnTest;
 
     private Scene scene;
 
@@ -66,6 +70,11 @@ public class Playground {
         hBoxT.getChildren().addAll(scoreT);
         hBoxA.getChildren().addAll(scoreA);
 
+        //Button nur zum TEST
+        //TODO: Das Event um in die Lobby zu gehen muss aus einer anderen Quelle kommen, der Button muss wieder entfernt werden!
+        btnTest = new Button("Return");
+        hBoxA.getChildren().add(btnTest);
+
         hBoxT.setAlignment(Pos.CENTER);
         hBoxA.setAlignment(Pos.CENTER);
 
@@ -103,5 +112,10 @@ public class Playground {
 
     public void setScoreA(String scoreA) {
         this.scoreA.setText(scoreA);
+    }
+
+    //TODO: Wieder entfernen
+    public Button getBtnTest() {
+        return btnTest;
     }
 }

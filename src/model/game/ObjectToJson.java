@@ -19,24 +19,40 @@ public class ObjectToJson {
     private ObjectMapper mapper;
 
 
+    /**
+     * Initialize the class with snakes.
+     * @param snakes
+     */
     public ObjectToJson(List<Snake> snakes){
 
         this.snakes = snakes;
         mapper = new ObjectMapper();
     }
 
+    /**
+     * Initialize the class with foods.
+     * @param foods
+     */
     public ObjectToJson(ArrayList<Food> foods){
 
         this.foods = foods;
         mapper = new ObjectMapper();
     }
 
-    //method to parse a list of snakes into a json string
+    /**
+     * Method to parse a list of snakes into a json string.
+     * @return Json string containing all information about snakes.
+     * @throws JsonProcessingException
+     */
     public String parseSnakes() throws JsonProcessingException {
         return mapper.writeValueAsString(snakes);
     }
 
-    //method to parse a list of foods into a json string
+    /**
+     * Method to parse a list of foods into a json string.
+     * @return Json string containing all information about foods.
+     * @throws JsonProcessingException
+     */
     public String parseFoods() throws JsonProcessingException {
         return mapper.writeValueAsString(foods);
     }

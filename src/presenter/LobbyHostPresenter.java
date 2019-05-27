@@ -6,6 +6,8 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.client.Client;
 import model.game.Loop;
 import model.server.ClientHandler;
@@ -13,7 +15,9 @@ import model.server.Server;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
+import java.net.InetAddress;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +56,13 @@ public class LobbyHostPresenter implements LobbyPresenter {
             }
         });
 
+        //Initialise ip-address
+        try {
+            view.getLblLobbyIP().setText("IP-Adresse:\n"+InetAddress.getLocalHost().getHostAddress()+"");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
         //Handlers for events on view
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
         view.getBtnLeave().setOnAction(new BtnLeaveEventHandler());
@@ -75,7 +86,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
         }
 
         if(isEveryoneRdy) {
-            playgroundPresenter = new PlaygroundPresenter(primaryStage, client);
+            playgroundPresenter = new PlaygroundPresenter(primaryStage, client, this);
 
             try {
                 server.sendToAllHandler("/gameCmd start");
@@ -85,8 +96,16 @@ public class LobbyHostPresenter implements LobbyPresenter {
             }
             loop = new Loop(server.getSnakeGame(), playgroundPresenter);
             loop.start();
+
+            //All clients must be set to not ready
+            server.unreadyAll();
+
         } else {
-            //TODO: Fehlermeldung ausgeben
+            String alertMsg = "Sie können das Spiel erst starten, wenn alle Spieler in der Lobby bereit sind. Prüfen Sie ob alle bereit sind und versuchen Sie es anschließend erneut.";
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, alertMsg, ButtonType.OK);
+            alert.setTitle("Information");
+            alert.setHeaderText("Es sind noch nicht alle Spieler bereit!");
+            alert.showAndWait();
         }
 
     }
@@ -94,6 +113,9 @@ public class LobbyHostPresenter implements LobbyPresenter {
     public void startGame() {
         playgroundPresenter.show();
     }
+
+    //This method must be implemented because of the interface
+    public void ready(boolean isRdy) {return;}
 
     /**
      * In this method the .show method of the view is called to display the view to the user.

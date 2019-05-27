@@ -42,66 +42,73 @@ public class ClientHandler extends Thread {
             while(true) {
                 msg = din.readUTF();
 
-                if(msg.substring(0, 1).equals("/")) {
+                if(msg.equals("/disconnect")) {
 
-                    if(msg.equals("/disconnect")) {
-                        server.removeClientHander(this);
-                        clientS.close();
-                        System.out.println("Client " + clientS + " is disconnected!");
-                        break;
+                    server.removeClientHander(this);
+                    clientS.close();
+                    System.out.println("Client " + clientS + " is disconnected!");
+                    break;
+
+                } else if(msg.contains("/clientInf")) {
+                    switch(msg.split(" ")[1]) {
+
+                        case "clientName":
+                            String nameStr = msg.split(":")[1];
+                            this.name = nameStr;
+                            server.updateAllClients();
+                            break;
+
+                        case "readyInformaton":
+                            String rdy = msg.split(":")[1];
+
+                            if(rdy.equals("true")) {
+                                isRdy = true;
+                                System.out.println("Client " + name + " is ready!");
+                                sendToClient("/sysCmd rdyConfirmed");
+                            } else {
+                                isRdy = false;
+                                System.out.println("Client " + name + " is not ready!");
+                                sendToClient("/sysCmd rdyCancelled");
+                            }
+                            break;
                     }
+                } else if(msg.contains("/gameCmd")) {
+                    switch (msg.split(" ")[1]) {
 
-                    if(msg.contains("/clientInf clientName")) {
-                        String name = msg.split(":")[1];
-                        this.name = name;
-                        server.updateAllClients();
+                        case "move":
+                            Direction dir;
+
+                            switch(msg.split(" ")[2]) {
+                                case "UP":
+                                    dir = Direction.UP;
+                                    break;
+                                case "DOWN":
+                                    dir = Direction.DOWN;
+                                    break;
+                                case "LEFT":
+                                    dir = Direction.LEFT;
+                                    break;
+                                case "RIGHT":
+                                    dir = Direction.RIGHT;
+                                    break;
+                                default:
+                                    dir = null;
+                                    break;
+                            }
+                            server.switchDirection(dir, name);
+                            break;
+
+                        case "start":
+                            sendToClient(msg);
+                            break;
                     }
+                } else if(msg.contains("/sysCmd")) {
+                    switch (msg.split(" ")[1]) {
 
-                    if(msg.contains("/clientInf readyInformaton")) {
-                        String rdy = msg.split(":")[1];
-
-                        if(rdy.equals("true")) {
-                            isRdy = true;
-                            System.out.println("Client " + name + " is ready!");
-                            sendToClient("/sysCmd rdyConfirmed");
-                        } else {
-                            isRdy = false;
-                            System.out.println("Client " + name + " is not ready!");
-                            sendToClient("/sysCmd rdyCancelled");
-                        }
+                        case "getClientNames":
+                            sendNewClientNames();
+                            break;
                     }
-
-                    if(msg.contains("/gameCmd move")) {
-                        Direction dir;
-
-                        switch(msg.split(" ")[2]) {
-                            case "UP":
-                                dir = Direction.UP;
-                                break;
-                            case "DOWN":
-                                dir = Direction.DOWN;
-                                break;
-                            case "LEFT":
-                                dir = Direction.LEFT;
-                                break;
-                            case "RIGHT":
-                                dir = Direction.RIGHT;
-                                break;
-                            default:
-                                dir = null;
-                                break;
-                        }
-                        server.switchDirection(dir, name);
-                    }
-
-                    if(msg.contains("/gameCmd start")) {
-                        sendToClient(msg);
-                    }
-
-                    if(msg.contains("/sysCmd getClientNames")) {
-                        sendNewClientNames();
-                    }
-
                 } else {
                     server.sendToAllHandler(msg);
                 }
@@ -135,5 +142,9 @@ public class ClientHandler extends Thread {
         clientNames = "/sysCmd clientNames names:{" + clientNames + "}";
 
         sendToClient(clientNames);
+    }
+
+    public void setRdy(boolean rdy) {
+        isRdy = rdy;
     }
 }
