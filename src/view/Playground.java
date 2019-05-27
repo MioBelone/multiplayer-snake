@@ -34,9 +34,9 @@ public class Playground {
 
         anchor = new AnchorPane();
         anchor.getStyleClass().add("anchor-pane-game");
-        anchor.setMinHeight(690);
-        anchor.setMinWidth(690);
-        anchor.setMaxSize(690, 690);
+        anchor.setMinHeight(650);
+        anchor.setMinWidth(650);
+        anchor.setMaxSize(650, 650);
 
 
         vBox = new VBox();
@@ -56,7 +56,7 @@ public class Playground {
         grid.setVgrow(vBox, Priority.ALWAYS);
 
         grid.getChildren().addAll(anchor, vBox);
-        grid.setPadding(new Insets(0,0,10,5));
+        grid.setPadding(new Insets(0,0,50,25));
 
         scoreT = new Label("Punkte");
         scoreT.getStyleClass().add("label-score");
