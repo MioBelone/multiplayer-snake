@@ -114,7 +114,7 @@ public class ClientHandler extends Thread {
                 }
             }
 
-            //Closing input-/outputstream after disconnecting
+            //Closing input/output stream after disconnecting
             din.close();
             dout.close();
         } catch (IOException e) {
