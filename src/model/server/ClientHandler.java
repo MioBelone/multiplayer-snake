@@ -58,7 +58,7 @@ public class ClientHandler extends Thread {
                             server.updateAllClients();
                             break;
 
-                        case "readyInformaton":
+                        case "readyInformation":
                             String rdy = msg.split(":")[1];
 
                             if(rdy.equals("true")) {

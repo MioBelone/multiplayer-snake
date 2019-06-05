@@ -144,7 +144,7 @@ public class Server {
             ch.sendToClient("/sysCmd rdyCancelled");
         }
 
-        hostClient.sendMsgToServer("/clientInf readyInformaton value:true");
+        hostClient.sendMsgToServer("/clientInf readyInformation value:true");
     }
 
     public SnakeGame getSnakeGame() {
