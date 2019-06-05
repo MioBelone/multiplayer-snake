@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import presenter.LobbyPlayerPresenter;
 
@@ -28,7 +29,9 @@ public class LobbyPlayer {
     private VBox vboxPlayerList;
     private VBox vBoxJoinContent;
     private VBox vboxButtons;
+    private VBox vbStatus;
     private AnchorPane apBrand;
+    private StackPane spStatus;
 
     private Tab tabPlayer;
     private Tab tabSettings;
@@ -36,6 +39,8 @@ public class LobbyPlayer {
     private Label lblPlayerHead;
     private Label lblBrandInfoHead;
     private Label lblSettingsHead;
+    private Label lblStatus;
+    private Label lblCurrStatus;
 
     private TextArea taChat;
 
@@ -148,6 +153,24 @@ public class LobbyPlayer {
         apBrand.getChildren().add(vboxButtons);
         apBrand.setBottomAnchor(vboxButtons, 0.0);
 
+        //Statusanzeige
+        spStatus = new StackPane();
+        spStatus.prefWidthProperty().bind(vboxButtons.widthProperty());
+        vboxButtons.getChildren().add(spStatus);
+
+        vbStatus = new VBox();
+        vbStatus.setPadding(new Insets(5, 5, 15, 5));
+        vbStatus.setAlignment(Pos.CENTER);
+        vbStatus.prefWidthProperty().bind(spStatus.widthProperty());
+        spStatus.getChildren().add(vbStatus);
+
+        lblStatus = new Label("Status:");
+        vbStatus.getChildren().add(lblStatus);
+
+        lblCurrStatus = new Label("Nicht bereit");
+        lblCurrStatus.getStyleClass().add("label-not-ready");
+        vbStatus.getChildren().add(lblCurrStatus);
+
         btnReady = new Button("Get Ready");
         btnReady.prefWidthProperty().bind(vboxPlayerList.widthProperty());
         vboxButtons.getChildren().add(btnReady);
@@ -191,5 +214,9 @@ public class LobbyPlayer {
 
     public ListView getPlayerList() {
         return playerList;
+    }
+
+    public Label getLblCurrStatus() {
+        return lblCurrStatus;
     }
 }

@@ -79,6 +79,16 @@
     -fx-font-weight: BOLD;
 }
 
+.label-not-ready {
+    -fx-font-weight: BOLD;
+    -fx-text-fill: #FF0000;
+}
+
+.label-ready {
+    -fx-font-weight: BOLD;
+    -fx-text-fill: #01DF01;
+}
+
 .text-field {
     -fx-text-fill: -fx-primarytext;
     -fx-font-size: 16px;

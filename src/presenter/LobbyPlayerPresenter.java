@@ -55,8 +55,6 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
     }
 
-    //TODO: Statusanzeige einbauen (Bereit true/false)
-
     public LobbyPlayerPresenter() {
     }
 
@@ -76,14 +74,29 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
         view.show(primaryStage);
     }
 
+    public void closeLobby() {
+        client.close();
+
+        InitialModel initialModel = new InitialModel();
+
+        InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
+        initialViewPresenter.show();
+    }
+
     public void ready(boolean isRdy) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 if(isRdy) {
                     view.getBtnReady().setText("Not Ready");
+                    view.getLblCurrStatus().getStyleClass().clear();
+                    view.getLblCurrStatus().getStyleClass().addAll("label", "label-ready");
+                    view.getLblCurrStatus().setText("Bereit");
                 } else {
                     view.getBtnReady().setText("Get Ready");
+                    view.getLblCurrStatus().getStyleClass().clear();
+                    view.getLblCurrStatus().getStyleClass().addAll("label", "label-not-ready");
+                    view.getLblCurrStatus().setText("Nicht bereit");
                 }
             }
         });
@@ -109,12 +122,7 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            client.close();
-
-            InitialModel initialModel = new InitialModel();
-
-            InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
-            initialViewPresenter.show();
+            closeLobby();
         }
     }
 

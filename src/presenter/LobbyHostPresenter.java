@@ -124,6 +124,15 @@ public class LobbyHostPresenter implements LobbyPresenter {
         view.show(primaryStage);
     }
 
+    public void closeLobby() {
+        server.close();
+
+        InitialModel initialModel = new InitialModel();
+
+        InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
+        initialViewPresenter.show();
+    }
+
     //**********************************************************************
     // Events
     //**********************************************************************
@@ -140,12 +149,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            server.close();
-
-            InitialModel initialModel = new InitialModel();
-
-            InitialViewPresenter initialViewPresenter = new InitialViewPresenter(primaryStage, initialModel);
-            initialViewPresenter.show();
+            closeLobby();
         }
     }
 

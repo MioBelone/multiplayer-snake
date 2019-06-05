@@ -5,4 +5,5 @@ public interface LobbyPresenter {
     void startGame();
     void show();
     void ready(boolean isRdy);
+    void closeLobby();
 }
