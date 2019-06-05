@@ -7,7 +7,7 @@ import model.InitialModel;
 import java.util.Random;
 
 /**
- * This class initialises the program and displays the first view to the User.
+ * This class initialises the program and displays the first view to the user.
  *
  * @author Maximilian Gräfe
  */
@@ -17,7 +17,7 @@ public class Main extends Application {
     }
 
     /**
-     * In this method, the initial view and it's controller is declared and shown.
+     * In this method, the initial view and it's controller is declared and displayed.
      *
      * @param primaryStage
      * @throws Exception
