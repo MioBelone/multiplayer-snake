@@ -3,6 +3,12 @@ package validation;
 import view.InitialView;
 
 public class initialViewValidator {
+
+    /**
+     * This method resets the previous validation to ensure no false information.
+     *
+     * @param view the view on which the validation must be reset
+     */
     public static void resetValidation(InitialView view) {
         //Resetting error-label of hosting
         view.getLblHostPort().setText("");
@@ -28,6 +34,12 @@ public class initialViewValidator {
         view.getTfIpJoin().getStyleClass().addAll("text-field", "text-input");
     }
 
+    /**
+     * This method does all the validation for all text fields on the input view of hosting a lobby.
+     *
+     * @param view the view which must be validated
+     * @return if the validation was successful (true) or not (false) as boolean
+     */
     public static boolean validateHost(InitialView view) {
         boolean validation = true;
 
@@ -57,6 +69,12 @@ public class initialViewValidator {
         return validation;
     }
 
+    /**
+     * This method does all the validation for all text fields on the input view of joining a lobby.
+     *
+     * @param view the view which must be validated
+     * @return if the validation was successful (true) or not (false) as boolean
+     */
     public static boolean validateJoin(InitialView view) {
         boolean validation = true;
 
