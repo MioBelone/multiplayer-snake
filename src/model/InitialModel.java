@@ -18,8 +18,8 @@ public class InitialModel {
      * This method creates a new server object and a new client object which is the host of the server and displays the
      * client view.
      *
-     * @param username
-     * @param port
+     * @param username the username of the host
+     * @param port the port on which the server will be running
      */
     public Server hostGame(String username, int port) {
         //Start server
@@ -43,11 +43,11 @@ public class InitialModel {
 
     /**
      * This method creates a new client object and will connect this client to the server with the given ip and port.
-     * It also displays the cleint view after connecting.
+     * It also displays the client view after connecting.
      *
-     * @param username
-     * @param port
-     * @param ip
+     * @param username the username of the client
+     * @param port the port on which the client will connect to the server
+     * @param ip the ip address on which the client will connect to the server
      */
     public Client joinGame(String username, int port, String ip) {
         Client client = new Client(username);

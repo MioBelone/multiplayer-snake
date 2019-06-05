@@ -2,6 +2,11 @@ package validation;
 
 import view.InitialView;
 
+/**
+ * This class handles all the validation for the InitialView.
+ *
+ * @author Maximilian Gräfe
+ */
 public class initialViewValidator {
 
     /**

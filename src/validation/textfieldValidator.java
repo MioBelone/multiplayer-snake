@@ -2,6 +2,11 @@ package validation;
 
 import javafx.scene.control.TextField;
 
+/**
+ * This class contains all different types of text field validations which can be called by other classes.
+ *
+ * @author Maximilian Gräfe
+ */
 public class textfieldValidator {
 
     /**

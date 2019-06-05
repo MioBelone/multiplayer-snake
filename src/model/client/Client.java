@@ -18,6 +18,12 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
 
+/**
+ * This class will handle all the operations done by the client. It will hold the connection to the server, the
+ * input and output streams and will handle all incoming information.
+ *
+ * @author Maximilian Gräfe
+ */
 public class Client {
 
     //Client variables

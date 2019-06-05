@@ -19,7 +19,7 @@ public class Main extends Application {
     /**
      * In this method, the initial view and it's controller is declared and displayed.
      *
-     * @param primaryStage
+     * @param primaryStage the stage for the program
      * @throws Exception
      */
     @Override
