@@ -67,7 +67,7 @@ public class initialViewValidator {
             if(!textfieldValidator.textfieldContainsPort(view.getTfPortHost())) {
                 validation = false;
                 view.getTfPortHost().getStyleClass().add("text-field-error");
-                view.getLblHostPort().setText("Der Port ist nicht gültig (0000-9999)");
+                view.getLblHostPort().setText("Der Port ist nicht gültig (1024-61000)");
             }
         }
 

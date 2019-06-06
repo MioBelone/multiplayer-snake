@@ -30,8 +30,13 @@ public class textfieldValidator {
      * @return if the text field value matches a port as boolean
      */
     public static boolean textfieldContainsPort( TextField tf) {
-        if(tf.getText().matches("[0-9]{1,4}")) {
-            return true;
+        if(tf.getText().matches("[0-9]{1,5}")) {
+            int port = Integer.parseInt(tf.getText());
+            if(port > 1024 && port <= 61000) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

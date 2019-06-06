@@ -123,7 +123,7 @@ public class InitialView {
         vBoxHostContent.getChildren().add(vBoxHostName);
 
         tfPortHost = new TextField();
-        tfPortHost.setPromptText("Port (0000-9999)");
+        tfPortHost.setPromptText("Port (1024-61000)");
         lblHostPort = new Label();
         lblHostPort.getStyleClass().add("label-error");
         vBoxHostPort = new VBox();
@@ -148,7 +148,7 @@ public class InitialView {
         vBoxJoinContent.getChildren().add(vBoxJoinName);
 
         tfPortJoin = new TextField();
-        tfPortJoin.setPromptText("Port (0000-9999)");
+        tfPortJoin.setPromptText("Port (1024-61000)");
         lblJoinPort = new Label();
         lblJoinPort.getStyleClass().add("label-error");
         vBoxJoinPort = new VBox();
