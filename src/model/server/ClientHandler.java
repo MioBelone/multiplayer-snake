@@ -46,7 +46,7 @@ public class ClientHandler extends Thread {
 
                     server.removeClientHander(this);
                     clientS.close();
-                    System.out.println("Client " + clientS + " is disconnected!");
+                    server.writeLog("Client " + clientS + " is disconnected!");
                     break;
 
                 } else if(msg.contains("/clientInf")) {
@@ -63,11 +63,11 @@ public class ClientHandler extends Thread {
 
                             if(rdy.equals("true")) {
                                 isRdy = true;
-                                System.out.println("Client " + name + " is ready!");
+                                server.writeLog("Client " + name + " is ready!");
                                 sendToClient("/sysCmd rdyConfirmed");
                             } else {
                                 isRdy = false;
-                                System.out.println("Client " + name + " is not ready!");
+                                server.writeLog("Client " + name + " is not ready!");
                                 sendToClient("/sysCmd rdyCancelled");
                             }
                             break;

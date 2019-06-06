@@ -98,7 +98,6 @@ public class Client {
                         try {
                             String msg;
                             msg = din.readUTF();
-                            System.out.println(msg);
 
                             if (msg.contains("/gameCmd")) {
 

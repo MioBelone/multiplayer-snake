@@ -17,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.*;
+import java.util.logging.*;
 
 public class Server {
 
@@ -28,9 +29,31 @@ public class Server {
     private ObservableList<ClientHandler> clientList;
     private SnakeGame snakeGame;
 
+    //Logging
+    private Logger logger;
+    private FileHandler fHandler;
+    private SimpleFormatter simpleFormatter;
+
     public Server(int port) {
         this.port = port;
         clientList = FXCollections.observableArrayList();
+
+        try {
+            //Initialise Logger
+            logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+            logger.setLevel(Level.ALL);
+
+            fHandler = new FileHandler("server.log");
+            fHandler.setLevel(Level.ALL);
+            logger.addHandler(fHandler);
+
+            simpleFormatter = new SimpleFormatter();
+            fHandler.setFormatter(simpleFormatter);
+
+            logger.config("Logger initialised.");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ObservableList<ClientHandler> getClientList() {
@@ -51,16 +74,16 @@ public class Server {
     }
 
     public void start() {
-        System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°START°°°°°°°°°°°°°°°°°°°°°°°°°°°");
-        System.out.println("Server starting...");
+        logger.info("°°°°°°°°°°°°°°°°°°°°°°°°°°°START°°°°°°°°°°°°°°°°°°°°°°°°°°°");
+        logger.info("Server starting...");
         try {
             //Initialise serversocket
             serverS = new ServerSocket(port);
-            System.out.println("Server started!");
+            logger.info("Server started!");
             //Allow clients to connect and handle them in their own thread
             while (true) {
                 Socket clientS = serverS.accept();
-                System.out.println("A new client is connected: " + clientS);
+                logger.info("A new client is connected: " + clientS);
 
                 din = new DataInputStream(clientS.getInputStream());
                 dout = new DataOutputStream(clientS.getOutputStream());
@@ -80,14 +103,14 @@ public class Server {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Server starting failed!");
+            logger.warning("Server starting failed!");
         }
     }
 
     public void removeClientHander(ClientHandler clientT) {
         clientList.remove(clientT);
         updateAllClients();
-        System.out.println("ClientHandler removed!");
+        logger.info("ClientHandler removed!");
     }
 
     public void switchDirection(Direction dir, String clientName) {
@@ -99,28 +122,25 @@ public class Server {
     }
 
     public void close() {
+        //Stop all ClientHandler
         for (ClientHandler ch:clientList) {
-            try {
-                ch.stop();
-                ch.clientS.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ch.stop();
         }
 
-        System.out.println("Server closing...");
+        //Close Server
+        logger.info("Server closing...");
         try {
             serverS.close();
-            System.out.println("Server closed!");
-            System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°END°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
+            logger.info("Server closed!");
+            logger.info("°°°°°°°°°°°°°°°°°°°°°°°°°°°END°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Server closing failed!");
+            logger.warning("Server closing failed!");
         }
     }
 
     public void sendToAllHandler(String msg) {
-        System.out.println("Received message: " + msg);
+        logger.info("Received message: " + msg);
 
         for (int i = 0; i < clientList.size(); i++) {
             clientList.get(i).sendToClient(msg);
@@ -135,7 +155,7 @@ public class Server {
 
     public void startSnakeGame(PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
         snakeGame = new SnakeGame(this, playgroundPresenter);
-        System.out.println("New SnakeGame started");
+        logger.info("New SnakeGame started");
     }
 
     public void unreadyAll() {
@@ -145,6 +165,10 @@ public class Server {
         }
 
         hostClient.sendMsgToServer("/clientInf readyInformation value:true");
+    }
+
+    public void writeLog(String msg) {
+        logger.info(msg);
     }
 
     public SnakeGame getSnakeGame() {
