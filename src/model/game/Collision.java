@@ -3,12 +3,17 @@ package model.game;
 import model.game.SnakeContents.Snake;
 import model.game.SnakeContents.SnakeBody;
 
+import java.util.ArrayList;
+
 /**
  * This class checks for every snake all types of possible collisions: 1. Wall 2. Self 3. Food 4.Other snakes
  *
  * @author Alexander Schleiter
  */
 public class Collision {
+
+    private ArrayList<Snake> deletedSnakes = new ArrayList<>();
+
 
     /**
      * Checks for every living snake in the game if it is colliding with either itself, a food, the wall or another snake
@@ -33,6 +38,12 @@ public class Collision {
             playerCollision(sg, s);
 
         }
+
+        for (Snake s : deletedSnakes) {
+            sg.getSnakes().remove(s);
+        }
+
+        deletedSnakes.clear();
     }
 
     /**
@@ -43,7 +54,7 @@ public class Collision {
     private void wallCollision(SnakeGame sg, Snake s) {
         //check for wall collision
         if (s.getSnakeHead().getX() >= sg.getBreite() || s.getSnakeHead().getY() >= sg.getBreite() || s.getSnakeHead().getX() < 0 || s.getSnakeHead().getY() < 0) {
-            sg.getSnakes().remove(s);
+            deletedSnakes.add(s);
 
         }
     }
@@ -83,7 +94,7 @@ public class Collision {
         //check if snake head collides with its own body
         for (SnakeBody sb : s.getSnakeBodies()) {
             if (s.getSnakeHead().getX() == sb.getX() && s.getSnakeHead().getY() == sb.getY()) {
-                sg.getSnakes().remove(s);
+                deletedSnakes.add(s);
                 break;
             }
         }
@@ -104,14 +115,14 @@ public class Collision {
                 //check for head of other player
                 if (s.getSnakeHead().getX() == otherPlayer.getSnakeHead().getX() && s.getSnakeHead().getY() == otherPlayer.getSnakeHead().getY()) {
                     //if a collision with two snakes occurs, both will be deleted
-                    sg.getSnakes().remove(s);
-                    sg.getSnakes().remove(otherPlayer);
+                    deletedSnakes.add(s);
+                    deletedSnakes.add(otherPlayer);
                     break;
                 }
                 //check for every body part of current other player
                 for (SnakeBody otherBody : otherPlayer.getSnakeBodies()) {
                     if (s.getSnakeHead().getX() == otherBody.getX() && s.getSnakeHead().getY() == otherBody.getY()) {
-                        sg.getSnakes().remove(s);
+                        deletedSnakes.add(s);
                         break;
                     }
                 }

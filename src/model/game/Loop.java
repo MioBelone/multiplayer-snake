@@ -54,8 +54,17 @@ public class Loop extends Thread {
                     lastSnake2 = sg.getSnakes().get(1);
                 }
 
+                //System.out.println(sg.getSnakes().get(0).getSnakeHead().getX());
+                System.out.println(sg.getSnakes().size());
+
+                for (Snake s : sg.getSnakes()) {
+                    System.out.println(s.getSnakeHead().getX());
+                    System.out.println(s.getSnakeHead().getY());
+                }
+
 
                 //check if only one or no players left
+
 
                 if (sg.getSnakes().size() <= 1) {
 
