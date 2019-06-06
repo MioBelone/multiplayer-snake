@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
+/**
+ * This class handles the input of one client as a thread. It holds the input and output streams of the client. Furthermore this
+ * this class knows the clients name and if the client is ready or not.
+ *
+ * @author Maximilian Gräfe
+ */
 public class ClientHandler extends Thread {
 
     final Socket clientS;
@@ -15,9 +21,19 @@ public class ClientHandler extends Thread {
     final DataOutputStream dout;
     final Server server;
 
+    //Client variables
     private String name;
     private boolean isRdy;
 
+    /**
+     * Constructor of the ClientHandler Class. In this method the ClientHandler will be initialised. The method must be
+     * called with the client, its input and output streams und the server on which the client connected.
+     *
+     * @param clientS the client which connected to the server
+     * @param din the input szream of the client
+     * @param dout the output stream of the client
+     * @param server the server on which the client connected
+     */
     public ClientHandler(Socket clientS, DataInputStream din, DataOutputStream dout, Server server) {
         this.clientS = clientS;
         this.din = din;
@@ -25,14 +41,27 @@ public class ClientHandler extends Thread {
         this.server = server;
     }
 
+    /**
+     * Getter
+     *
+     * @return the name of the client
+     */
     public String getNameOfClient() {
         return name;
     }
 
+    /**
+     * Getter
+     *
+     * @return if the client is ready or not
+     */
     public boolean isRdy() {
         return isRdy;
     }
 
+    /**
+     * This method contains the logic of the thread and handles all the input and output of the client.
+     */
     @Override
     public void run() {
 
@@ -122,6 +151,11 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * This method sends a message to the the client of this handler object
+     *
+     * @param msg
+     */
     public void sendToClient(String msg) {
         try {
             dout.writeUTF(msg);
@@ -130,6 +164,9 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * This method prepares a list of all client names, to send it to the client of this handler object.
+     */
     public void sendNewClientNames() {
         String clientNames = "";
 
@@ -144,6 +181,11 @@ public class ClientHandler extends Thread {
         sendToClient(clientNames);
     }
 
+    /**
+     * Setter
+     *
+     * @param rdy if the client is ready or not as boolean
+     */
     public void setRdy(boolean rdy) {
         isRdy = rdy;
     }

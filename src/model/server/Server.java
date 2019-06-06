@@ -19,6 +19,13 @@ import java.net.SocketException;
 import java.util.*;
 import java.util.logging.*;
 
+/**
+ * This class accepts all clients who are trying to connect to the server and passes them to a new ClientHandler thread.
+ * It also got a logging function to keep track of all the actions that happen within the class.
+ * Another task of this class is to handle a snake game when its started.
+ *
+ * @author Maximilian Gräfe
+ */
 public class Server {
 
     private int port;
@@ -34,6 +41,12 @@ public class Server {
     private FileHandler fHandler;
     private SimpleFormatter simpleFormatter;
 
+    /**
+     * Contructor of the Server class. In this method the list of all ClientHandlers and its connected clients and the
+     * logger will be initialised.
+     *
+     * @param port the port on which the server will run
+     */
     public Server(int port) {
         this.port = port;
         clientList = FXCollections.observableArrayList();
@@ -56,23 +69,46 @@ public class Server {
         }
     }
 
+    /**
+     * Getter
+     *
+     * @return a list of all ClientHandlers with all clients
+     */
     public ObservableList<ClientHandler> getClientList() {
         return clientList;
     }
 
+    /**
+     * This method allows us to start just this class. This method is only relevant for testing.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Server s = new Server(5065);
         s.start();
     }
 
+    /**
+     * Setter
+     *
+     * @param hostClient the client which hosts the game and has control of the server
+     */
     public void setHostClient(Client hostClient) {
         this.hostClient = hostClient;
     }
 
+    /**
+     * Getter
+     *
+     * @return the client which hosts the game and has control of the server
+     */
     public Client getHostClient() {
         return hostClient;
     }
 
+    /**
+     * This method allows the server to accept all clients and passes them directly to a ClientHandler.
+     */
     public void start() {
         logger.info("°°°°°°°°°°°°°°°°°°°°°°°°°°°START°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         logger.info("Server starting...");
@@ -107,12 +143,24 @@ public class Server {
         }
     }
 
+    /**
+     * This method handles all disconnected clients and removes the ClientHandler of the disconnected client.
+     *
+     * @param clientT
+     */
     public void removeClientHander(ClientHandler clientT) {
         clientList.remove(clientT);
         updateAllClients();
         logger.info("ClientHandler removed!");
     }
 
+    /**
+     * This method handles the direction change of a client while a snake game is running.
+     * It passes the desired direction to the snake game.
+     *
+     * @param dir desired direction for the snake
+     * @param clientName the client who changed the direction
+     */
     public void switchDirection(Direction dir, String clientName) {
         for (Snake snake:snakeGame.getSnakes()) {
             if(snake.getPlayername().equals(clientName)) {
@@ -121,6 +169,9 @@ public class Server {
         }
     }
 
+    /**
+     * This method will close the server and stop all the ClientHandlers.
+     */
     public void close() {
         //Stop all ClientHandler
         for (ClientHandler ch:clientList) {
@@ -139,6 +190,11 @@ public class Server {
         }
     }
 
+    /**
+     * This method sends a message to all ClientHandler which then will pass it to their clients.
+     *
+     * @param msg the message to send to all clients
+     */
     public void sendToAllHandler(String msg) {
         logger.info("Received message: " + msg);
 
@@ -147,17 +203,29 @@ public class Server {
         }
     }
 
+    /**
+     * This method will refresh the name lists of the clients for each client connected to the server.
+     */
     public void updateAllClients() {
         for (int i = 0; i < clientList.size(); i++) {
             clientList.get(i).sendNewClientNames();
         }
     }
 
+    /**
+     * This method declares a new snake game.
+     *
+     * @param playgroundPresenter the presenter on which the game will be shown
+     * @throws JsonProcessingException
+     */
     public void startSnakeGame(PlaygroundPresenter playgroundPresenter) throws JsonProcessingException {
         snakeGame = new SnakeGame(this, playgroundPresenter);
         logger.info("New SnakeGame started");
     }
 
+    /**
+     * This method sets all clients to not ready after a snake game is finished.
+     */
     public void unreadyAll() {
         for(ClientHandler ch : clientList) {
             ch.setRdy(false);
@@ -167,10 +235,21 @@ public class Server {
         hostClient.sendMsgToServer("/clientInf readyInformation value:true");
     }
 
+    /**
+     * This method allows to call the logger from other classes. It is used in the ClientHandler to log if a client
+     * is ready or not or if a client disconnected.
+     *
+     * @param msg the message which will be written in the log
+     */
     public void writeLog(String msg) {
         logger.info(msg);
     }
 
+    /**
+     * Getter
+     *
+     * @return the current snake game
+     */
     public SnakeGame getSnakeGame() {
         return snakeGame;
     }

@@ -43,7 +43,6 @@ public class Client {
     /**
      * Constructor for Client class. Initialises the class with a name and automatically sets the client to not ready.
      *
-     *
      * @param name a name for the client which will be visible in the lobby
      */
     public Client(String name) {
