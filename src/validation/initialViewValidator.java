@@ -103,7 +103,7 @@ public class initialViewValidator {
             if(!textfieldValidator.textfieldContainsPort(view.getTfPortJoin())) {
                 validation = false;
                 view.getTfPortJoin().getStyleClass().add("text-field-error");
-                view.getLblJoinPort().setText("Der Port ist nicht gültig (0000-9999)");
+                view.getLblJoinPort().setText("Der Port ist nicht gültig (1024-61000)");
             }
         }
 

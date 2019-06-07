@@ -11,7 +11,7 @@ import presenter.PlaygroundPresenter;
  */
 public class Loop extends Thread {
 
-    public static boolean running = true;
+    public boolean running = true;
 
     private SnakeGame sg;
     private Collision collision;
