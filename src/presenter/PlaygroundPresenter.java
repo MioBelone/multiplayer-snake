@@ -52,7 +52,7 @@ public class PlaygroundPresenter {
             }
         });
 
-        view.getBtnTest().setOnAction(new EventHandler<ActionEvent>() {
+        view.getBtnReturn().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 returnToLobby();
@@ -77,9 +77,9 @@ public class PlaygroundPresenter {
      * Calculates the X and Y multiplier for the drawing.
      */
     private void umrechnung() {
-        faktorY = (int) view.getAnchor().getHeight() / 50;
+        faktorY = (int) view.getAnchorGame().getHeight() / 50;
 
-        faktorX = (int) view.getAnchor().getWidth() / 50;
+        faktorX = (int) view.getAnchorGame().getWidth() / 50;
     }
 
     /**
@@ -97,7 +97,7 @@ public class PlaygroundPresenter {
      * This method clears the whole AnchorPane.
      */
     private void clear() {
-        view.getAnchor().getChildren().clear();
+        view.getAnchorGame().getChildren().clear();
     }
 
     /**
@@ -107,7 +107,7 @@ public class PlaygroundPresenter {
         for (Snake snake : client.getSnakes()) {
             Rectangle rect = new Rectangle(snake.getSnakeHead().getX() * faktorX, snake.getSnakeHead().getY() * faktorY, faktorX, faktorY);
             rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
-            view.getAnchor().getChildren().add(rect);
+            view.getAnchorGame().getChildren().add(rect);
         }
     }
 
@@ -116,7 +116,7 @@ public class PlaygroundPresenter {
             for (SnakeBody body : snake.getSnakeBodies()) {
                 Rectangle rect = new Rectangle(body.getX() * faktorX, body.getY() * faktorY, faktorX, faktorY);
                 rect.setFill(Color.valueOf(snake.getSnakeColorAsString()));
-                view.getAnchor().getChildren().add(rect);
+                view.getAnchorGame().getChildren().add(rect);
             }
         }
     }
@@ -126,7 +126,7 @@ public class PlaygroundPresenter {
         for (Food food : client.getFoods()) {
             Circle circle = new Circle(food.getX() * faktorX + faktorX / 2, food.getY() * faktorY + faktorY / 2, faktorX / 2);
             circle.setFill(Color.WHITE);
-            view.getAnchor().getChildren().add(circle);
+            view.getAnchorGame().getChildren().add(circle);
 
         }
     }

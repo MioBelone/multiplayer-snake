@@ -27,10 +27,6 @@
     -fx-border-color: -fx-contrast;
 }
 
-.vBox-pane-game {
-    -fx-background-color: -fx-secondary;
-}
-
 .brand-box {
     -fx-background-color: -fx-tertiary;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0)

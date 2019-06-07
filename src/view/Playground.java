@@ -1,8 +1,10 @@
 package view;
 
 import javafx.application.Platform;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,69 +19,77 @@ import javafx.stage.Stage;
  */
 public class Playground {
 
-    private AnchorPane anchor;
+    private AnchorPane anchorGame;
+    private AnchorPane anchorInfo;
     private GridPane grid;
     private VBox vBox;
     private HBox hBoxA;
     private HBox hBoxT;
 
-    Label scoreT;
-    Label scoreA;
+    private Label scoreT;
+    private Label scoreA;
 
-    //TODO: Wieder entfernen
-    private Button btnTest;
+    private Button btnReturn;
 
     private Scene scene;
 
+    private double gameSize;
+
     public Playground() {
+
+        //This value describes the width and height of the snake field
+        gameSize = 650;
 
         grid = new GridPane();
         grid.getStyleClass().add("grid-pane-game");
 
-        anchor = new AnchorPane();
-        anchor.getStyleClass().add("anchor-pane-game");
-        anchor.setMinHeight(650);
-        anchor.setMinWidth(650);
-        anchor.setMaxSize(650, 650);
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(80);
+        col1.setHalignment(HPos.CENTER);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(20);
+        grid.getColumnConstraints().addAll(col1, col2);
 
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(100);
+        row1.setValignment(VPos.CENTER);
+        grid.getRowConstraints().add(row1);
+
+        //Game area
+        anchorGame = new AnchorPane();
+        anchorGame.getStyleClass().add("anchor-pane-game");
+        anchorGame.setMinSize(0, 0);
+        anchorGame.setMinHeight(gameSize);
+        anchorGame.setMinWidth(gameSize);
+        anchorGame.setMaxSize(gameSize, gameSize);
+        grid.setMargin(anchorGame, new Insets(20));
+        grid.add(anchorGame, 0, 0);
+
+        //Info area
+        anchorInfo = new AnchorPane();
+        anchorInfo.getStyleClass().add("brand-box");
+        anchorInfo.setMinWidth(0);
+        grid.add(anchorInfo, 1, 0);
 
         vBox = new VBox();
-        vBox.getStyleClass().add("vBox-pane-game");
-        vBox.setMinHeight(700);
-        vBox.setMinWidth(70);
-
-        hBoxA = new HBox();
-        hBoxT = new HBox();
-
-        grid.setConstraints(anchor, 0, 0);
-        grid.setHgrow(anchor, Priority.NEVER);
-        grid.setVgrow(anchor, Priority.NEVER);
-
-        grid.setConstraints(vBox, 1, 0);
-        grid.setHgrow(vBox, Priority.ALWAYS);
-        grid.setVgrow(vBox, Priority.ALWAYS);
-
-        grid.getChildren().addAll(anchor, vBox);
-        grid.setPadding(new Insets(0,0,50,25));
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setPadding(new Insets(10));
+        vBox.prefWidthProperty().bind(anchorInfo.widthProperty());
+        anchorInfo.getChildren().add(vBox);
+        anchorInfo.setTopAnchor(vBox, 0.0);
 
         scoreT = new Label("Punkte");
         scoreT.getStyleClass().add("label-score");
+        vBox.getChildren().addAll(scoreT);
+
         scoreA = new Label("0");
         scoreA.getStyleClass().add("label-score");
+        vBox.getChildren().addAll(scoreA);
 
-        hBoxT.getChildren().addAll(scoreT);
-        hBoxA.getChildren().addAll(scoreA);
-
-        //Button nur zum TEST
-        //TODO: Das Event um in die Lobby zu gehen muss aus einer anderen Quelle kommen, der Button muss wieder entfernt werden!
-        btnTest = new Button("Return");
-        hBoxA.getChildren().add(btnTest);
-
-        hBoxT.setAlignment(Pos.CENTER);
-        hBoxA.setAlignment(Pos.CENTER);
-
-        vBox.setPadding(new Insets(15,0,15,0));
-        vBox.getChildren().addAll(hBoxT, hBoxA);
+        btnReturn = new Button("Return to lobby");
+        btnReturn.prefWidthProperty().bind(anchorInfo.widthProperty());
+        anchorInfo.getChildren().add(btnReturn);
+        anchorInfo.setBottomAnchor(btnReturn, 0.0);
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
@@ -90,8 +100,8 @@ public class Playground {
         return scene;
     }
 
-    public AnchorPane getAnchor() {
-        return anchor;
+    public AnchorPane getAnchorGame() {
+        return anchorGame;
     }
 
     /**
@@ -115,7 +125,7 @@ public class Playground {
     }
 
     //TODO: Wieder entfernen
-    public Button getBtnTest() {
-        return btnTest;
+    public Button getBtnReturn() {
+        return btnReturn;
     }
 }
