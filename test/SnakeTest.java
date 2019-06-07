@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SnakeTest {
 
-    Snake snake;
-    Snake snake2;
-    ArrayList<Snake> snakes=new ArrayList<>();
+    private Snake snake;
+    private Snake snake2;
+    private ArrayList<Snake> snakes=new ArrayList<>();
 
     @Test
     void addSnakeBody() {

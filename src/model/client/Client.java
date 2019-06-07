@@ -16,6 +16,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -146,9 +147,7 @@ public class Client {
 
                                                 String nameString = msg.split("\\{")[1].split("}")[0];
 
-                                                for (String name : nameString.split(";")) {
-                                                    clientNames.add(name);
-                                                }
+                                                Collections.addAll(clientNames, nameString.split(";"));
                                             }
                                         });
                                         break;
@@ -156,14 +155,14 @@ public class Client {
                                     case "rdyConfirmed":
                                         isRdy = true;
                                         if(presenter != null) {
-                                            presenter.ready(isRdy);
+                                            presenter.ready(true);
                                         }
                                         break;
 
                                     case "rdyCancelled":
                                         isRdy = false;
                                         if(presenter != null) {
-                                            presenter.ready(isRdy);
+                                            presenter.ready(false);
                                         }
                                         break;
 
@@ -223,7 +222,7 @@ public class Client {
      */
     public void sendMsgToServer(String msg) {
 
-        if(!msg.equals("") && !msg.isEmpty() && msg != null) {
+        if(!msg.equals("") && !msg.isEmpty()) {
             if (!msg.substring(0, 1).equals("/")) {
                 msg = name + ": " + msg;
             }

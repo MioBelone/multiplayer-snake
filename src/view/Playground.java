@@ -17,6 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Fabian Haese
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class Playground {
 
     private AnchorPane anchorGame;
@@ -62,7 +63,7 @@ public class Playground {
         anchorGame.setMinHeight(gameSize);
         anchorGame.setMinWidth(gameSize);
         anchorGame.setMaxSize(gameSize, gameSize);
-        grid.setMargin(anchorGame, new Insets(20));
+        GridPane.setMargin(anchorGame, new Insets(20));
         grid.add(anchorGame, 0, 0);
 
         //Info area
@@ -76,7 +77,7 @@ public class Playground {
         vBox.setPadding(new Insets(10));
         vBox.prefWidthProperty().bind(anchorInfo.widthProperty());
         anchorInfo.getChildren().add(vBox);
-        anchorInfo.setTopAnchor(vBox, 0.0);
+        AnchorPane.setTopAnchor(vBox, 0.0);
 
         scoreT = new Label("Punkte");
         scoreT.getStyleClass().add("label-score");
@@ -89,7 +90,7 @@ public class Playground {
         btnReturn = new Button("Zurück zur Lobby");
         btnReturn.prefWidthProperty().bind(anchorInfo.widthProperty());
         anchorInfo.getChildren().add(btnReturn);
-        anchorInfo.setBottomAnchor(btnReturn, 0.0);
+        AnchorPane.setBottomAnchor(btnReturn, 0.0);
 
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);

@@ -3,7 +3,6 @@ package model.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.print.PageLayout;
 import model.client.Client;
 import model.game.Direction;
 import model.game.SnakeContents.Snake;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.*;
 import java.util.logging.*;
 
 /**

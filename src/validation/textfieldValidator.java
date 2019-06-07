@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
  *
  * @author Maximilian Gräfe
  */
-public class textfieldValidator {
+class textfieldValidator {
 
     /**
      * This method checks if the input text field is empty or not.
@@ -16,11 +16,7 @@ public class textfieldValidator {
      * @return if the text field is empty (false) or not (true) as boolean
      */
     public static boolean isTextfieldNotEmpty(TextField tf) {
-        if(!tf.getText().equals("") && tf.getText() != null && !tf.getText().isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !tf.getText().equals("") && tf.getText() != null && !tf.getText().isEmpty();
     }
 
     /**
@@ -32,11 +28,7 @@ public class textfieldValidator {
     public static boolean textfieldContainsPort( TextField tf) {
         if(tf.getText().matches("[0-9]{1,5}")) {
             int port = Integer.parseInt(tf.getText());
-            if(port >= 1024 && port <= 61000) {
-                return true;
-            } else {
-                return false;
-            }
+            return port >= 1024 && port <= 61000;
         } else {
             return false;
         }
@@ -49,10 +41,6 @@ public class textfieldValidator {
      * @return if the text field value matches an ip address as boolean
      */
     public static boolean textfieldContainsIP (TextField tf) {
-        if(tf.getText().matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") || tf.getText().equals("localhost")) {
-            return true;
-        } else {
-            return false;
-        }
+        return tf.getText().matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") || tf.getText().equals("localhost");
     }
 }

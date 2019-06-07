@@ -1,7 +1,6 @@
 package presenter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +17,6 @@ import model.InitialModel;
 import java.net.InetAddress;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is the connection between the view and the model. It handles user input and prepares data to be shown
@@ -27,6 +24,7 @@ import java.util.List;
  *
  * @author Fabian Haese
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class LobbyHostPresenter implements LobbyPresenter {
 
     private LobbyHost view;
@@ -34,7 +32,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
     private Stage primaryStage;
     private Client client;
     private Server server;
-    public ObservableList<String> clientNameList ;
+    private ObservableList<String> clientNameList ;
     private Loop loop;
     private PlaygroundPresenter playgroundPresenter;
 
@@ -76,7 +74,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
         view.getTaChat().appendText(msg);
     }
 
-    public void hostGame() {
+    private void hostGame() {
         boolean isEveryoneRdy = true;
 
         for (ClientHandler clientH : server.getClientList()) {
@@ -115,7 +113,8 @@ public class LobbyHostPresenter implements LobbyPresenter {
     }
 
     //This method must be implemented because of the interface
-    public void ready(boolean isRdy) {return;}
+    public void ready(boolean isRdy) {
+    }
 
     /**
      * In this method the .show method of the view is called to display the view to the user.

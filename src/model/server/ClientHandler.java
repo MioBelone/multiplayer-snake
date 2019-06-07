@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class ClientHandler extends Thread {
 
-    final Socket clientS;
-    final DataInputStream din;
-    final DataOutputStream dout;
-    final Server server;
+    private final Socket clientS;
+    private final DataInputStream din;
+    private final DataOutputStream dout;
+    private final Server server;
 
     //Client variables
     private String name;
@@ -82,8 +82,7 @@ public class ClientHandler extends Thread {
                     switch(msg.split(" ")[1]) {
 
                         case "clientName":
-                            String nameStr = msg.split(":")[1];
-                            this.name = nameStr;
+                            this.name = msg.split(":")[1];
                             server.updateAllClients();
                             break;
 
@@ -168,17 +167,17 @@ public class ClientHandler extends Thread {
      * This method prepares a list of all client names, to send it to the client of this handler object.
      */
     public void sendNewClientNames() {
-        String clientNames = "";
+        StringBuilder clientNames = new StringBuilder();
 
         List<ClientHandler> clientList = server.getClientList();
 
         for(ClientHandler client:clientList) {
-            clientNames += client.getNameOfClient() + ";";
+            clientNames.append(client.getNameOfClient()).append(";");
         }
 
-        clientNames = "/sysCmd clientNames names:{" + clientNames + "}";
+        clientNames = new StringBuilder("/sysCmd clientNames names:{" + clientNames + "}");
 
-        sendToClient(clientNames);
+        sendToClient(clientNames.toString());
     }
 
     /**

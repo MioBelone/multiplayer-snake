@@ -6,8 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import presenter.LobbyHostPresenter;
@@ -17,6 +15,7 @@ import presenter.LobbyHostPresenter;
  *
  * @author Fabian Haese
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class LobbyHost {
 
     private Scene scene;
@@ -26,6 +25,7 @@ public class LobbyHost {
     private GridPane grid;
     private GridPane gridChatInput;
     private TabPane tabPane;
+    @SuppressWarnings("FieldCanBeLocal")
     private BorderPane bPaneHost;
     private BorderPane bPaneSettings;
     private VBox vboxPlayerList;
@@ -138,7 +138,7 @@ public class LobbyHost {
         vboxPlayerList.setSpacing(40);
         vboxPlayerList.prefWidthProperty().bind(apBrand.widthProperty());
         apBrand.getChildren().add(vboxPlayerList);
-        apBrand.setTopAnchor(vboxPlayerList, 10.0);
+        AnchorPane.setTopAnchor(vboxPlayerList, 10.0);
 
         lblBrandInfoHead = new Label("Spieler");
         lblBrandInfoHead.getStyleClass().add("label-head");
@@ -152,7 +152,7 @@ public class LobbyHost {
         vboxButtons = new VBox();
         vboxButtons.prefWidthProperty().bind(apBrand.widthProperty());
         apBrand.getChildren().add(vboxButtons);
-        apBrand.setBottomAnchor(vboxButtons, 0.0);
+        AnchorPane.setBottomAnchor(vboxButtons, 0.0);
 
         //Label for lobby IP-Address
         lblLobbyIP = new Label("IP-Adresse:\n");

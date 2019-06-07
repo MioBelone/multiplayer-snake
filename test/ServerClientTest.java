@@ -4,18 +4,17 @@ import org.junit.jupiter.api.*;
 
 import model.server.Server;
 
-import java.io.IOException;
 import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ServerClientTest {
+class ServerClientTest {
 
-    Server server;
-    Thread serverRunning;
-    int port = 5065;
+    private Server server;
+    private Thread serverRunning;
+    private int port = 5065;
 
     @BeforeAll
-    public void initServer() {
+    void initServer() {
         server = new Server(port);
 
         serverRunning = new Thread() {
@@ -28,13 +27,13 @@ public class ServerClientTest {
     }
 
     @Test
-    public void testSingleClientDisconnect() {
+    void testSingleClientDisconnect() {
         Client client = new Client("Client");
         client.connect("localhost", port);
     }
 
     @Test
-    public void testMultipleClientSendMsg() {
+    void testMultipleClientSendMsg() {
         Client client1 = new Client("Client1");
         client1.connect("localhost", port);
         client1.sendMsgToServer("erster Client");
@@ -45,7 +44,7 @@ public class ServerClientTest {
     }
 
     @Test
-    public void testGetNameOfClient() {
+    void testGetNameOfClient() {
         Client client = new Client("MioBelone");
         client.connect("localhost", port);
         client.sendMsgToServer("Testnachricht");
@@ -64,7 +63,7 @@ public class ServerClientTest {
     }
 
     @Test
-    public void testSendDirOfClient() {
+    void testSendDirOfClient() {
         Client client = new Client("Klaus");
         client.connect("localhost", port);
 
@@ -79,7 +78,7 @@ public class ServerClientTest {
     }
 
     @AfterAll
-    public void endServer() {
+    void endServer() {
         server.close();
         serverRunning.stop();
     }

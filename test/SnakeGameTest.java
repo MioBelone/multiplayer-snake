@@ -18,24 +18,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SnakeGameTest {
+class SnakeGameTest {
 
-    Food f;
-    Food f1;
-    ArrayList<Food> foods = new ArrayList<>();
+    private Food f;
+    private Food f1;
+    private ArrayList<Food> foods = new ArrayList<>();
     Snake snake;
-    SnakeGame snakeGame;
+    private SnakeGame snakeGame;
     Collision collision = new Collision();
-    PlaygroundPresenter pp = new PlaygroundPresenter();
+    private PlaygroundPresenter pp = new PlaygroundPresenter();
 
-    Server server;
-    Client client1;
-    Client client2;
-    Thread serverRunning;
-    int port = 5065;
+    private Server server;
+    private Client client1;
+    private Client client2;
+    private Thread serverRunning;
+    private int port = 5065;
 
     @BeforeAll
-    public void initServer() {
+    void initServer() {
         server = new Server(port);
 
         serverRunning = new Thread() {
@@ -56,7 +56,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void randomFood() throws JsonProcessingException {
+    void randomFood() throws JsonProcessingException {
         snakeGame = new SnakeGame(server, pp);
 
         System.out.println("jebem" + snakeGame.getFoods().get(0).getX());
@@ -64,7 +64,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void generateStartingPositionsEqualNumber() throws JsonProcessingException {
+    void generateStartingPositionsEqualNumber() throws JsonProcessingException {
        snakeGame = new SnakeGame(server, pp);
 
         for (Snake s : snakeGame.getSnakes()) {
@@ -75,7 +75,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void generateStartingPositionUnequalNumber() throws JsonProcessingException{
+    void generateStartingPositionUnequalNumber() throws JsonProcessingException{
 
         Client client3 = new Client("Client3");
         client3.connect("localhost", port);
@@ -93,7 +93,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void checkForFoodPositions() throws JsonProcessingException {
+    void checkForFoodPositions() throws JsonProcessingException {
 
         snakeGame = new SnakeGame(server, pp);
 
@@ -117,7 +117,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void checkCollision() throws JsonProcessingException{
+    void checkCollision() throws JsonProcessingException{
         snakeGame = new SnakeGame(server, pp);
         snakeGame.getSnakes().get(1).getSnakeHead().setX(101);
         snakeGame.getSnakes().get(1).getSnakeHead().setY(101);
@@ -129,7 +129,7 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void checkColor() throws JsonProcessingException {
+    void checkColor() throws JsonProcessingException {
 
 
         snakeGame = new SnakeGame(server, pp);
@@ -139,16 +139,16 @@ public class SnakeGameTest {
     }
 
     @Test
-    public void sendToAllHandlers() throws JsonProcessingException, InterruptedException {
+    void sendToAllHandlers() throws JsonProcessingException, InterruptedException {
         snakeGame = new SnakeGame(server,pp);
-        serverRunning.sleep(100);
+        Thread.sleep(100);
 
         System.out.println(client1.getSnakes());
         System.out.println(client2.getSnakes());
     }
 
     @AfterAll
-    public void endServer() {
+    void endServer() {
         server.close();
         serverRunning.stop();
     }

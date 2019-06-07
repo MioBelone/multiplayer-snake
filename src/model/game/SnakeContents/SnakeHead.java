@@ -97,7 +97,7 @@ public class SnakeHead {
         }
     }
 
-    public boolean isLockDirection() {
+    private boolean isLockDirection() {
         return lockDirection;
     }
 

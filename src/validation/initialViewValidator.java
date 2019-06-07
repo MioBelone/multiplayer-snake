@@ -14,7 +14,7 @@ public class initialViewValidator {
      *
      * @param view the view on which the validation must be reset
      */
-    public static void resetValidation(InitialView view) {
+    private static void resetValidation(InitialView view) {
         //Resetting error-label of hosting
         view.getLblHostPort().setText("");
         view.getLblHostName().setText("");

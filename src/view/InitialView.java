@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -18,6 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Maximilian Gräfe
  */
+@SuppressWarnings({"ALL", "FieldCanBeLocal"})
 public class InitialView {
 
     private Scene scene;
@@ -28,6 +28,7 @@ public class InitialView {
     private BorderPane bPaneJoin;
     private VBox vboxBrand;
     private VBox vBoxHostContent;
+    @SuppressWarnings("FieldCanBeLocal")
     private VBox vBoxJoinContent;
     private VBox vBoxHostName;
     private VBox vBoxHostPort;

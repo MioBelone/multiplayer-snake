@@ -1,23 +1,14 @@
 package presenter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
 import model.client.Client;
-import model.game.Loop;
-import model.server.ClientHandler;
 import view.*;
 import javafx.stage.Stage;
 import model.InitialModel;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is the connection between the view and the model. It handles user input and prepares data to be shown
@@ -88,12 +79,12 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
             @Override
             public void run() {
                 if(isRdy) {
-                    view.getBtnReady().setText("Not Ready");
+                    view.getBtnReady().setText("Nicht bereit");
                     view.getLblCurrStatus().getStyleClass().clear();
                     view.getLblCurrStatus().getStyleClass().addAll("label", "label-ready");
                     view.getLblCurrStatus().setText("Bereit");
                 } else {
-                    view.getBtnReady().setText("Get Ready");
+                    view.getBtnReady().setText("Bereit");
                     view.getLblCurrStatus().getStyleClass().clear();
                     view.getLblCurrStatus().getStyleClass().addAll("label", "label-not-ready");
                     view.getLblCurrStatus().setText("Nicht bereit");
@@ -110,9 +101,9 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-            if(view.getBtnReady().getText().equals("Get Ready")) {
+            if(view.getBtnReady().getText().equals("Bereit")) {
                 client.sendMsgToServer("/clientInf readyInformation value:true");
-            } else if(view.getBtnReady().getText().equals("Not Ready")) {
+            } else if(view.getBtnReady().getText().equals("Nicht bereit")) {
                 client.sendMsgToServer("/clientInf readyInformation value:false");
             }
         }

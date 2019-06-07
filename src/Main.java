@@ -1,10 +1,7 @@
-import model.game.Food;
 import presenter.InitialViewPresenter;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.InitialModel;
-
-import java.util.Random;
 
 /**
  * This class initialises the program and displays the first view to the user.
@@ -20,10 +17,9 @@ public class Main extends Application {
      * In this method, the initial view and it's controller is declared and displayed.
      *
      * @param primaryStage the stage for the program
-     * @throws Exception
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         //Initialising the first model which needs to be used for the start screen of the program
         InitialModel initialModel = new InitialModel();

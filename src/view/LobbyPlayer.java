@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import presenter.LobbyPlayerPresenter;
 
@@ -15,6 +14,7 @@ import presenter.LobbyPlayerPresenter;
  *
  * @author Fabian Haese
  */
+@SuppressWarnings({"ALL", "FieldCanBeLocal"})
 public class LobbyPlayer {
 
     private Scene scene;
@@ -137,7 +137,7 @@ public class LobbyPlayer {
         vboxPlayerList.setSpacing(40);
         vboxPlayerList.prefWidthProperty().bind(apBrand.widthProperty());
         apBrand.getChildren().add(vboxPlayerList);
-        apBrand.setTopAnchor(vboxPlayerList, 10.0);
+        AnchorPane.setTopAnchor(vboxPlayerList, 10.0);
 
         lblBrandInfoHead = new Label("Spieler");
         lblBrandInfoHead.getStyleClass().add("label-head");
@@ -151,7 +151,7 @@ public class LobbyPlayer {
         vboxButtons = new VBox();
         vboxButtons.prefWidthProperty().bind(apBrand.widthProperty());
         apBrand.getChildren().add(vboxButtons);
-        apBrand.setBottomAnchor(vboxButtons, 0.0);
+        AnchorPane.setBottomAnchor(vboxButtons, 0.0);
 
         //Statusanzeige
         spStatus = new StackPane();

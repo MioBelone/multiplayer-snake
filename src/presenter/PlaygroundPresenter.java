@@ -131,7 +131,7 @@ public class PlaygroundPresenter {
         }
     }
 
-    public void keyPressed(String msg) {
+    private void keyPressed(String msg) {
         client.sendMsgToServer("/gameCmd move " + msg);
     }
 

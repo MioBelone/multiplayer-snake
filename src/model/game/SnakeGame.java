@@ -3,7 +3,6 @@ package model.game;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import model.game.SnakeContents.Snake;
 import model.game.SnakeContents.SnakeColor;
-import model.game.SnakeContents.SnakeHead;
 import model.server.Server;
 import presenter.PlaygroundPresenter;
 
@@ -25,8 +24,8 @@ public class SnakeGame {
     private int quotient;
     private int sidespace = breite / 4;
 
-    ObjectToJson otjSnakes;
-    ObjectToJson otjFoods;
+    private ObjectToJson otjSnakes;
+    private ObjectToJson otjFoods;
 
     private HashMap<Snake, Integer> scores = new HashMap<Snake, Integer>();
     private Snake winner;
@@ -98,7 +97,7 @@ public class SnakeGame {
     /**
      * Inititializes the starting postions for every snake and adds them to the ArrayList.
      */
-    public void generateStartingPositions(int clientSize) {
+    private void generateStartingPositions(int clientSize) {
         //for equal number of players
         if (clientSize % 2 == 0) {
             quotient = breite / (clientSize / 2);
