@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.client.Client;
 import model.game.Loop;
+import model.game.SnakeGame;
 import model.server.ClientHandler;
 import model.server.Server;
 import view.*;
@@ -65,6 +66,8 @@ public class LobbyHostPresenter implements LobbyPresenter {
         view.getBtnStart().setOnAction(new BtnStartEventHandler());
         view.getBtnLeave().setOnAction(new BtnLeaveEventHandler());
         view.getBtnSend().setOnAction(new BtnSendEventHandler());
+        view.getBtnSettSave().setOnAction(new BtnSettSaveEventHandler());
+        view.getBtnSettDefault().setOnAction(new BtnSettDefaultEventHandler());
     }
 
     public LobbyHostPresenter() {
@@ -159,6 +162,35 @@ public class LobbyHostPresenter implements LobbyPresenter {
             //Send Msg to Server
             client.sendMsgToServer(view.getTfChatInput().getText());
             view.getTfChatInput().setText("");
+        }
+    }
+
+    class BtnSettSaveEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            //TODO: Validation
+
+            ///Setting custom game settings
+            SnakeGame.setFieldSize(Integer.parseInt(view.getTfFieldSize().getText()));
+            SnakeGame.setGameSpeed(Integer.parseInt(view.getTfGameSpeed().getText()));
+            SnakeGame.setFoodCount(Integer.parseInt(view.getTfFoodCount().getText()));
+        }
+    }
+
+    class BtnSettDefaultEventHandler implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            //Clearing custom setting fields
+            view.getTfFieldSize().setText("");
+            view.getTfGameSpeed().setText("");
+            view.getTfFoodCount().setText("");
+
+            //Setting standad game settings
+            SnakeGame.setSettingsToDefault();
         }
     }
 

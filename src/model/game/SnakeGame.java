@@ -16,6 +16,11 @@ import java.util.HashMap;
  */
 public class SnakeGame {
 
+    //Static game settings
+    private static int fieldSize = 100;
+    private static int gameSpeed = 200;
+    private static int foodCount = 1;
+
     private Server server;
     private ArrayList<Food> foods = new ArrayList<>();
     private ArrayList<Snake> snakes = new ArrayList<>();
@@ -150,6 +155,14 @@ public class SnakeGame {
         }
     }
 
+    public static void setSettingsToDefault() {
+
+        //Standad game settings
+        fieldSize = 100;
+        gameSpeed = 200;
+        foodCount = 1;
+    }
+
     public ArrayList<Food> getFoods() {
         return foods;
     }
@@ -228,5 +241,29 @@ public class SnakeGame {
 
     public ObjectToJson getOtjFoods() {
         return otjFoods;
+    }
+
+    public static int getFieldSize() {
+        return fieldSize;
+    }
+
+    public static void setFieldSize(int fieldSize) {
+        SnakeGame.fieldSize = fieldSize;
+    }
+
+    public static int getGameSpeed() {
+        return gameSpeed;
+    }
+
+    public static void setGameSpeed(int gameSpeed) {
+        SnakeGame.gameSpeed = gameSpeed;
+    }
+
+    public static int getFoodCount() {
+        return foodCount;
+    }
+
+    public static void setFoodCount(int foodCount) {
+        SnakeGame.foodCount = foodCount;
     }
 }

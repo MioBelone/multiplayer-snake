@@ -15,7 +15,6 @@ import presenter.LobbyHostPresenter;
  *
  * @author Fabian Haese
  */
-@SuppressWarnings("FieldCanBeLocal")
 public class LobbyHost {
 
     private Scene scene;
@@ -24,13 +23,17 @@ public class LobbyHost {
 
     private GridPane grid;
     private GridPane gridChatInput;
+    private GridPane gridSettings;
     private TabPane tabPane;
-    @SuppressWarnings("FieldCanBeLocal")
     private BorderPane bPaneHost;
     private BorderPane bPaneSettings;
     private VBox vboxPlayerList;
     private VBox vBoxHostContent;
     private VBox vboxButtons;
+    private VBox vboxFieldSize;
+    private VBox vboxGameSpeed;
+    private VBox vboxFoodCount;
+    private HBox hboxSettBtn;
     private AnchorPane apBrand;
     private StackPane spLobbyIp;
 
@@ -41,14 +44,22 @@ public class LobbyHost {
     private Label lblBrandInfoHead;
     private Label lblSettingsHead;
     private Label lblLobbyIP;
+    private Label lblFieldSize;
+    private Label lblGameSpeed;
+    private Label lblFoodCount;
 
     private TextArea taChat;
 
     private TextField tfChatInput;
+    private TextField tfFieldSize;
+    private TextField tfGameSpeed;
+    private TextField tfFoodCount;
 
     private Button btnStart;
     private Button btnLeave;
     private Button btnChatSend;
+    private Button btnSettSave;
+    private Button btnSettDefault;
 
     private ListView playerList;
 
@@ -126,6 +137,64 @@ public class LobbyHost {
         lblSettingsHead.getStyleClass().add("label-head");
         bPaneSettings.setTop(lblSettingsHead);
 
+        gridSettings = new GridPane();
+        gridSettings.setPadding(new Insets(10));
+        gridSettings.setVgap(50);
+        gridSettings.setHgap(50);
+
+        ColumnConstraints colS1 = new ColumnConstraints();
+        colS1.setPercentWidth(50);
+        ColumnConstraints colS2 = new ColumnConstraints();
+        colS2.setPercentWidth(50);
+        gridSettings.getColumnConstraints().addAll(colS1, colS2);
+
+        bPaneSettings.setCenter(gridSettings);
+
+        hboxSettBtn = new HBox();
+        hboxSettBtn.setSpacing(20);
+        bPaneSettings.setBottom(hboxSettBtn);
+
+        btnSettSave = new Button("Speichern");
+        hboxSettBtn.getChildren().add(btnSettSave);
+
+        btnSettDefault = new Button("Standart");
+        hboxSettBtn.getChildren().add(btnSettDefault);
+
+
+
+        vboxFieldSize = new VBox();
+        gridSettings.add(vboxFieldSize, 0, 0);
+
+        vboxGameSpeed = new VBox();
+        gridSettings.add(vboxGameSpeed, 1, 0);
+
+        vboxFoodCount = new VBox();
+        gridSettings.add(vboxFoodCount, 0, 1);
+
+        lblFieldSize = new Label("Feldgröße:");
+        lblFieldSize.getStyleClass().add("label-focus");
+        vboxFieldSize.getChildren().add(lblFieldSize);
+
+        tfFieldSize = new TextField();
+        tfFieldSize.setPromptText("Bsp.: 100 -> 100x100");
+        vboxFieldSize.getChildren().add(tfFieldSize);
+
+        lblGameSpeed = new Label("Spielgeschwindigkeit:");
+        lblGameSpeed.getStyleClass().add("label-focus");
+        vboxGameSpeed.getChildren().add(lblGameSpeed);
+
+        tfGameSpeed = new TextField();
+        tfGameSpeed.setPromptText("Bsp.: 200 -> 200ms pro Bewegung");
+        vboxGameSpeed.getChildren().add(tfGameSpeed);
+
+        lblFoodCount = new Label("Food pro Spieler:");
+        lblFoodCount.getStyleClass().add("label-focus");
+        vboxFoodCount.getChildren().add(lblFoodCount);
+
+        tfFoodCount = new TextField();
+        tfFoodCount.setPromptText("Bsp.: 2 -> Pro Spieler erscheinen 2 Foods");
+        vboxFoodCount.getChildren().add(tfFoodCount);
+
         //BrandBox for logo and short info text
         apBrand = new AnchorPane();
         apBrand.getStyleClass().add("brand-box");
@@ -193,7 +262,7 @@ public class LobbyHost {
     /**
      * Getter
      *
-     * @return the button in the methods name.
+     * @return the node in the methods name.
      */
     public Button getBtnStart() {
         return btnStart;
@@ -213,5 +282,25 @@ public class LobbyHost {
 
     public Label getLblLobbyIP() {
         return lblLobbyIP;
+    }
+
+    public TextField getTfFieldSize() {
+        return tfFieldSize;
+    }
+
+    public TextField getTfGameSpeed() {
+        return tfGameSpeed;
+    }
+
+    public TextField getTfFoodCount() {
+        return tfFoodCount;
+    }
+
+    public Button getBtnSettSave() {
+        return btnSettSave;
+    }
+
+    public Button getBtnSettDefault() {
+        return btnSettDefault;
     }
 }
