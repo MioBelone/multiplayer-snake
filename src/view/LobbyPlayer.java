@@ -171,11 +171,11 @@ public class LobbyPlayer {
         lblCurrStatus.getStyleClass().add("label-not-ready");
         vbStatus.getChildren().add(lblCurrStatus);
 
-        btnReady = new Button("Get Ready");
+        btnReady = new Button("Bereit");
         btnReady.prefWidthProperty().bind(vboxPlayerList.widthProperty());
         vboxButtons.getChildren().add(btnReady);
 
-        btnLeave = new Button("Leave Lobby");
+        btnLeave = new Button("Verlasse Lobby");
         btnLeave.prefWidthProperty().bind(vboxPlayerList.widthProperty());
         vboxButtons.getChildren().add(btnLeave);
 

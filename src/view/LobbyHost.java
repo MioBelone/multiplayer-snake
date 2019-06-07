@@ -166,11 +166,11 @@ public class LobbyHost {
         vboxButtons.getChildren().add(spLobbyIp);
 
         //Buttons
-        btnStart = new Button("Start Game");
+        btnStart = new Button("Starte Spiel");
         btnStart.prefWidthProperty().bind(vboxButtons.widthProperty());
         vboxButtons.getChildren().add(btnStart);
 
-        btnLeave = new Button("Close Lobby");
+        btnLeave = new Button("Schließe Lobby");
         btnLeave.prefWidthProperty().bind(vboxButtons.widthProperty());
         vboxButtons.getChildren().add(btnLeave);
 

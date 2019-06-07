@@ -86,7 +86,7 @@ public class Playground {
         scoreA.getStyleClass().add("label-score");
         vBox.getChildren().addAll(scoreA);
 
-        btnReturn = new Button("Return to lobby");
+        btnReturn = new Button("Zurück zur Lobby");
         btnReturn.prefWidthProperty().bind(anchorInfo.widthProperty());
         anchorInfo.getChildren().add(btnReturn);
         anchorInfo.setBottomAnchor(btnReturn, 0.0);
