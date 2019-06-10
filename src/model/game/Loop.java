@@ -1,7 +1,11 @@
 package model.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.stage.Stage;
+import model.InitialModel;
 import model.game.SnakeContents.Snake;
+import presenter.EndScreenPresenter;
+import presenter.LobbyPresenter;
 import presenter.PlaygroundPresenter;
 
 /**
@@ -18,13 +22,20 @@ public class Loop extends Thread {
     private PlaygroundPresenter p;
     private int speed;
 
+    private LobbyPresenter lobby;
+    private Stage primaryStage;
+    private InitialModel initialModel;
+
     private Snake lastSnake1;
     private Snake lastSnake2;
 
-    public Loop(SnakeGame sg, PlaygroundPresenter playgroundPresenter) {
+    public Loop(SnakeGame sg, PlaygroundPresenter playgroundPresenter, LobbyPresenter lobby, Stage primaryStage, InitialModel initialModel) {
         this.sg = sg;
         this.collision = new Collision();
         this.p = playgroundPresenter;
+        this.lobby = lobby;
+        this.primaryStage = primaryStage;
+        this.initialModel = initialModel;
     }
 
 
@@ -84,6 +95,8 @@ public class Loop extends Thread {
                         sg.setWinner(sg.getSnakes().get(0));
                     }
                     //stop game
+                    EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
+                    endScreenPresenter.show();
                     kill();
                 }
 

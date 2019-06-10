@@ -96,7 +96,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            loop = new Loop(server.getSnakeGame(), playgroundPresenter);
+            loop = new Loop(server.getSnakeGame(), playgroundPresenter, this, primaryStage, initialModel);
             loop.start();
 
             //All clients must be set to not ready
