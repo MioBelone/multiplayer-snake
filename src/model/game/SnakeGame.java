@@ -43,6 +43,7 @@ public class SnakeGame {
      * 2. Adds all foods
      * 3. Assigns colors and names to all snakes
      * 4. Generates the Json converters for snakes and foods
+     *
      * @param server
      * @param playgroundPresenter
      * @throws JsonProcessingException
@@ -56,7 +57,9 @@ public class SnakeGame {
 
 
         for (int i = 0; i < clientSize; i++) {
-            foods.add(new Food(breite));
+            for (int j = 0; j < foodCount; j++) {
+                foods.add(new Food(breite));
+            }
             snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getNameOfClient());
             snakes.get(i).setId(i);
@@ -137,6 +140,7 @@ public class SnakeGame {
 
     /**
      * Converts the position of all snakes and foods to Json strings to be sent to all clients.
+     *
      * @throws JsonProcessingException
      */
     public void sendGameInfo() throws JsonProcessingException {
@@ -149,8 +153,8 @@ public class SnakeGame {
      * Unlocks all snakes. This is to handle multiple direction changes in a single snake in the same tick.
      * (see Loop and SnakeHead.setDir() for further information)
      */
-    public void lockSnakes(){
-        for (Snake s : snakes){
+    public void lockSnakes() {
+        for (Snake s : snakes) {
             s.getSnakeHead().setLockDirection(false);
         }
     }
@@ -266,4 +270,6 @@ public class SnakeGame {
     public static void setFoodCount(int foodCount) {
         SnakeGame.foodCount = foodCount;
     }
+
+
 }
