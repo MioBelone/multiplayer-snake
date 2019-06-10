@@ -39,6 +39,9 @@ public class EndScreen {
         btnReturnLobby = new Button("Zurück zur Lobby");
         grid.add(btnReturnLobby,0,0);
 
+        //Inititalising scene
+        scene = new Scene(grid, 1000, 700);
+        scene.getStylesheets().add("/resources/style.css");
 
     }
 

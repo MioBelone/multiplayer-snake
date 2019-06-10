@@ -1,6 +1,7 @@
 package model.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.InitialModel;
 import model.game.SnakeContents.Snake;
@@ -95,12 +96,23 @@ public class Loop extends Thread {
                     }
                     //stop game
                     EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
-                    endScreenPresenter.show();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            endScreenPresenter.show();
+                        }
+                    });
+
                     kill();
                 }else if(sg.getSnakes().size() == 0 && sg.getServer().getClientList().size() == 1){
                     //stop game
                     EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
-                    endScreenPresenter.show();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            endScreenPresenter.show();
+                        }
+                    });
                     kill();
                 }
 
