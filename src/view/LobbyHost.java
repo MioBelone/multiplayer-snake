@@ -47,6 +47,9 @@ public class LobbyHost {
     private Label lblFieldSize;
     private Label lblGameSpeed;
     private Label lblFoodCount;
+    private Label lblErrFieldSize;
+    private Label lblErrGameSpeed;
+    private Label lblErrFoodCount;
 
     private TextArea taChat;
 
@@ -161,7 +164,6 @@ public class LobbyHost {
         hboxSettBtn.getChildren().add(btnSettDefault);
 
 
-
         vboxFieldSize = new VBox();
         gridSettings.add(vboxFieldSize, 0, 0);
 
@@ -179,6 +181,10 @@ public class LobbyHost {
         tfFieldSize.setPromptText("Bsp.: 100 -> 100x100");
         vboxFieldSize.getChildren().add(tfFieldSize);
 
+        lblErrFieldSize = new Label();
+        lblErrFieldSize.getStyleClass().add("label-error");
+        vboxFieldSize.getChildren().add(lblErrFieldSize);
+
         lblGameSpeed = new Label("Spielgeschwindigkeit:");
         lblGameSpeed.getStyleClass().add("label-focus");
         vboxGameSpeed.getChildren().add(lblGameSpeed);
@@ -187,6 +193,10 @@ public class LobbyHost {
         tfGameSpeed.setPromptText("Bsp.: 200 -> 200ms pro Bewegung");
         vboxGameSpeed.getChildren().add(tfGameSpeed);
 
+        lblErrGameSpeed = new Label();
+        lblErrGameSpeed.getStyleClass().add("label-error");
+        vboxFieldSize.getChildren().add(lblErrGameSpeed);
+
         lblFoodCount = new Label("Food pro Spieler:");
         lblFoodCount.getStyleClass().add("label-focus");
         vboxFoodCount.getChildren().add(lblFoodCount);
@@ -194,6 +204,10 @@ public class LobbyHost {
         tfFoodCount = new TextField();
         tfFoodCount.setPromptText("Bsp.: 2 -> Pro Spieler erscheinen 2 Foods");
         vboxFoodCount.getChildren().add(tfFoodCount);
+
+        lblErrFoodCount = new Label();
+        lblErrFoodCount.getStyleClass().add("label-error");
+        vboxFieldSize.getChildren().add(lblErrFoodCount);
 
         //BrandBox for logo and short info text
         apBrand = new AnchorPane();
@@ -302,5 +316,17 @@ public class LobbyHost {
 
     public Button getBtnSettDefault() {
         return btnSettDefault;
+    }
+
+    public Label getLblErrFieldSize() {
+        return lblErrFieldSize;
+    }
+
+    public Label getLblErrGameSpeed() {
+        return lblErrGameSpeed;
+    }
+
+    public Label getLblErrFoodCount() {
+        return lblErrFoodCount;
     }
 }

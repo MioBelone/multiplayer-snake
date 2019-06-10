@@ -43,4 +43,14 @@ class textfieldValidator {
     public static boolean textfieldContainsIP (TextField tf) {
         return tf.getText().matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") || tf.getText().equals("localhost");
     }
+
+    /**
+     * This method checks if the value of the input text field matches an positive integer excluding 0.
+     *
+     * @param tf the text field which must be checked
+     * @return if the text field value matches an positive integer excluding 0
+     */
+    public static boolean textfieldContainsIntAboveZero (TextField tf) {
+        return tf.getText().matches("^[1-9]\\d*$");
+    }
 }

@@ -11,6 +11,7 @@ import model.client.Client;
 import model.game.Loop;
 import model.game.SnakeGame;
 import model.server.ClientHandler;
+import validation.lobbyHostValidator;
 import model.server.Server;
 import view.*;
 import javafx.stage.Stage;
@@ -169,13 +170,12 @@ public class LobbyHostPresenter implements LobbyPresenter {
 
         @Override
         public void handle(ActionEvent event) {
-
-            //TODO: Validation
-
-            ///Setting custom game settings
-            SnakeGame.setFieldSize(Integer.parseInt(view.getTfFieldSize().getText()));
-            SnakeGame.setGameSpeed(Integer.parseInt(view.getTfGameSpeed().getText()));
-            SnakeGame.setFoodCount(Integer.parseInt(view.getTfFoodCount().getText()));
+            if(lobbyHostValidator.validateSettings(view)) {
+                //Setting custom game settings
+                SnakeGame.setFieldSize(Integer.parseInt(view.getTfFieldSize().getText()));
+                SnakeGame.setGameSpeed(Integer.parseInt(view.getTfGameSpeed().getText()));
+                SnakeGame.setFoodCount(Integer.parseInt(view.getTfFoodCount().getText()));
+            }
         }
     }
 
