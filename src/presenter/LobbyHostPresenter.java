@@ -88,7 +88,7 @@ public class LobbyHostPresenter implements LobbyPresenter {
         }
 
         if(isEveryoneRdy) {
-            playgroundPresenter = new PlaygroundPresenter(primaryStage, client, this);
+            playgroundPresenter = new PlaygroundPresenter(primaryStage, client, initialModel, this);
 
             try {
                 server.sendToAllHandler("/gameCmd start");

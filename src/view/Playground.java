@@ -28,8 +28,6 @@ public class Playground {
     private Label scoreT;
     private Label scoreA;
 
-    private Button btnReturn;
-
     private Scene scene;
 
     private double gameSize;
@@ -85,11 +83,6 @@ public class Playground {
         scoreA.getStyleClass().add("label-score");
         vBox.getChildren().addAll(scoreA);
 
-        btnReturn = new Button("Zurück zur Lobby");
-        btnReturn.prefWidthProperty().bind(anchorInfo.widthProperty());
-        anchorInfo.getChildren().add(btnReturn);
-        AnchorPane.setBottomAnchor(btnReturn, 0.0);
-
         //Inititalising scene
         scene = new Scene(grid, 1000, 700);
         scene.getStylesheets().add("/resources/style.css");
@@ -123,8 +116,4 @@ public class Playground {
         this.scoreA.setText(scoreA);
     }
 
-    //TODO: Wieder entfernen
-    public Button getBtnReturn() {
-        return btnReturn;
-    }
 }
