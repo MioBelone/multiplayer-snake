@@ -156,6 +156,7 @@ public class LobbyHost {
 
         hboxSettBtn = new HBox();
         hboxSettBtn.setSpacing(20);
+        hboxSettBtn.setAlignment(Pos.CENTER_LEFT);
         bPaneSettings.setBottom(hboxSettBtn);
 
         btnSettSave = new Button("Speichern");
