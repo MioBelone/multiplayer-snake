@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class SnakeGame {
 
     //Static game settings
-    private static int fieldSize = 100;
+    private static int fieldSize = 50;
     private static int gameSpeed = 200;
     private static int foodCount = 1;
 
@@ -25,9 +25,8 @@ public class SnakeGame {
     private ArrayList<Food> foods = new ArrayList<>();
     private ArrayList<Snake> snakes = new ArrayList<>();
     private int clientSize;
-    private int breite = 50;
     private int quotient;
-    private int sidespace = breite / 4;
+    private int sidespace = fieldSize / 4;
 
     private ObjectToJson otjSnakes;
     private ObjectToJson otjFoods;
@@ -58,7 +57,7 @@ public class SnakeGame {
 
         for (int i = 0; i < clientSize; i++) {
             for (int j = 0; j < foodCount; j++) {
-                foods.add(new Food(breite));
+                foods.add(new Food(fieldSize));
             }
             snakes.get(i).setSnakeColor(SnakeColor.values()[i]);
             snakes.get(i).setPlayername(server.getClientList().get(i).getNameOfClient());
@@ -108,13 +107,13 @@ public class SnakeGame {
     private void generateStartingPositions(int clientSize) {
         //for equal number of players
         if (clientSize % 2 == 0) {
-            quotient = breite / (clientSize / 2);
+            quotient = fieldSize / (clientSize / 2);
 
             for (int i = 0; i < clientSize / 2; i++) {
                 //generate left snakes
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
                 //generate right snakes
-                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
+                snakes.add(new Snake(fieldSize - sidespace, i * quotient + quotient / 2));
             }
         }
 
@@ -122,13 +121,13 @@ public class SnakeGame {
         if (clientSize % 2 != 0) {
 
 
-            quotient = breite / (clientSize / 2 + 1);
+            quotient = fieldSize / (clientSize / 2 + 1);
 
             for (int i = 0; i < clientSize / 2 - 0.5; i++) {
                 //generate left snakes
                 snakes.add(new Snake(sidespace, i * quotient + quotient / 2));
                 //generate right snakes
-                snakes.add(new Snake(breite - sidespace, i * quotient + quotient / 2));
+                snakes.add(new Snake(fieldSize - sidespace, i * quotient + quotient / 2));
             }
 
             for (int i = clientSize / 2; i < clientSize / 2 + 1; i++) {
@@ -189,14 +188,6 @@ public class SnakeGame {
 
     public void setClientSize(int clientSize) {
         this.clientSize = clientSize;
-    }
-
-    public int getBreite() {
-        return breite;
-    }
-
-    public void setBreite(int breite) {
-        this.breite = breite;
     }
 
     public int getQuotient() {

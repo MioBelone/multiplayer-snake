@@ -20,7 +20,6 @@ public class Loop extends Thread {
     private SnakeGame sg;
     private Collision collision;
     private PlaygroundPresenter p;
-    private int speed;
 
     private LobbyPresenter lobby;
     private Stage primaryStage;
@@ -78,7 +77,7 @@ public class Loop extends Thread {
                 //check if only one or no players left
 
 
-                if (sg.getSnakes().size() <= 1) {
+                if (sg.getSnakes().size() <= 1 && sg.getServer().getClientList().size() > 1) {
 
                     //checks for the rare case the last snakes collide with their heads,
                     //the snake with the higher score wins, if they're equal there is a draw
@@ -94,6 +93,11 @@ public class Loop extends Thread {
                         //set last remaining player as winner
                         sg.setWinner(sg.getSnakes().get(0));
                     }
+                    //stop game
+                    EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
+                    endScreenPresenter.show();
+                    kill();
+                }else if(sg.getSnakes().size() == 0 && sg.getServer().getClientList().size() == 1){
                     //stop game
                     EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
                     endScreenPresenter.show();

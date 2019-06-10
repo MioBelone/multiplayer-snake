@@ -97,8 +97,8 @@ class SnakeGameTest {
 
         snakeGame = new SnakeGame(server, pp);
 
-        f = new Food(snakeGame.getBreite());
-        f1 = new Food(snakeGame.getBreite());
+        f = new Food(snakeGame.getFieldSize());
+        f1 = new Food(snakeGame.getFieldSize());
 
         f.setX(1);
         f.setY(1);

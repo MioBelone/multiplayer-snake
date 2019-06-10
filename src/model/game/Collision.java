@@ -53,7 +53,7 @@ public class Collision {
      */
     private void wallCollision(SnakeGame sg, Snake s) {
         //check for wall collision
-        if (s.getSnakeHead().getX() >= sg.getBreite() || s.getSnakeHead().getY() >= sg.getBreite() || s.getSnakeHead().getX() < 0 || s.getSnakeHead().getY() < 0) {
+        if (s.getSnakeHead().getX() >= sg.getFieldSize() || s.getSnakeHead().getY() >= sg.getFieldSize() || s.getSnakeHead().getX() < 0 || s.getSnakeHead().getY() < 0) {
             deletedSnakes.add(s);
 
         }
