@@ -54,7 +54,7 @@ public class LobbyPlayerPresenter implements LobbyPresenter {
     }
 
     public void startGame() {
-        PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client, this);
+        PlaygroundPresenter playgroundPresenter = new PlaygroundPresenter(primaryStage, client,initialModel, this);
         playgroundPresenter.show();
     }
 

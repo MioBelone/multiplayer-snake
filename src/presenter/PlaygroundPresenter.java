@@ -1,12 +1,13 @@
 package presenter;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.InitialModel;
 import model.client.Client;
 import model.game.Food;
 import model.game.SnakeContents.Snake;
@@ -26,6 +27,7 @@ public class PlaygroundPresenter {
     private Stage primaryStage;
     private Client client;
     private LobbyPresenter lobby;
+    private InitialModel initialModel;
 
     private int faktorY;
     private int faktorX;
@@ -36,11 +38,12 @@ public class PlaygroundPresenter {
      * @param primaryStage = PrimaryStage
      * @param client       = Connected Client
      */
-    public PlaygroundPresenter(Stage primaryStage, Client client, LobbyPresenter lobby) {
+    public PlaygroundPresenter(Stage primaryStage, Client client, InitialModel initialModel, LobbyPresenter lobby) {
         this.primaryStage = primaryStage;
         this.view = new Playground();
         this.client = client;
         this.lobby = lobby;
+        this.initialModel = initialModel;
 
         client.setPlaygroundPresenter(this);
 
@@ -49,13 +52,6 @@ public class PlaygroundPresenter {
             @Override
             public void handle(KeyEvent event) {
                 keyPressed(event.getCode().toString());
-            }
-        });
-
-        view.getBtnReturn().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                returnToLobby();
             }
         });
     }
@@ -145,10 +141,12 @@ public class PlaygroundPresenter {
     }
 
     public void endGame() {
-
-    }
-
-    private void returnToLobby() {
-        lobby.show();
+        EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                endScreenPresenter.show();
+            }
+        });
     }
 }

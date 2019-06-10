@@ -95,14 +95,8 @@ public class Loop extends Thread {
                         sg.setWinner(sg.getSnakes().get(0));
                     }
                     //stop game
-                    EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            endScreenPresenter.show();
-                        }
-                    });
 
+                    sg.getServer().sendToAllHandler("/gameCmd end");
                     kill();
                 }else if(sg.getSnakes().size() == 0 && sg.getServer().getClientList().size() == 1){
                     //stop game
