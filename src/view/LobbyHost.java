@@ -161,7 +161,7 @@ public class LobbyHost {
         btnSettSave = new Button("Speichern");
         hboxSettBtn.getChildren().add(btnSettSave);
 
-        btnSettDefault = new Button("Standart");
+        btnSettDefault = new Button("Standard");
         hboxSettBtn.getChildren().add(btnSettDefault);
 
         lblNotice = new Label();
