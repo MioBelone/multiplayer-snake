@@ -50,6 +50,7 @@ public class LobbyHost {
     private Label lblErrFieldSize;
     private Label lblErrGameSpeed;
     private Label lblErrFoodCount;
+    private Label lblNotice;
 
     private TextArea taChat;
 
@@ -141,7 +142,7 @@ public class LobbyHost {
         bPaneSettings.setTop(lblSettingsHead);
 
         gridSettings = new GridPane();
-        gridSettings.setPadding(new Insets(10));
+        gridSettings.setPadding(new Insets(50, 10, 10, 10));
         gridSettings.setVgap(50);
         gridSettings.setHgap(50);
 
@@ -163,6 +164,9 @@ public class LobbyHost {
         btnSettDefault = new Button("Standart");
         hboxSettBtn.getChildren().add(btnSettDefault);
 
+        lblNotice = new Label();
+        lblNotice.getStyleClass().add("label-success");
+        hboxSettBtn.getChildren().add(lblNotice);
 
         vboxFieldSize = new VBox();
         gridSettings.add(vboxFieldSize, 0, 0);
@@ -195,7 +199,7 @@ public class LobbyHost {
 
         lblErrGameSpeed = new Label();
         lblErrGameSpeed.getStyleClass().add("label-error");
-        vboxFieldSize.getChildren().add(lblErrGameSpeed);
+        vboxGameSpeed.getChildren().add(lblErrGameSpeed);
 
         lblFoodCount = new Label("Food pro Spieler:");
         lblFoodCount.getStyleClass().add("label-focus");
@@ -207,7 +211,7 @@ public class LobbyHost {
 
         lblErrFoodCount = new Label();
         lblErrFoodCount.getStyleClass().add("label-error");
-        vboxFieldSize.getChildren().add(lblErrFoodCount);
+        vboxFoodCount.getChildren().add(lblErrFoodCount);
 
         //BrandBox for logo and short info text
         apBrand = new AnchorPane();
@@ -328,5 +332,9 @@ public class LobbyHost {
 
     public Label getLblErrFoodCount() {
         return lblErrFoodCount;
+    }
+
+    public Label getLblNotice() {
+        return lblNotice;
     }
 }

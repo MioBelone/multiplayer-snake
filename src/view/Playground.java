@@ -24,8 +24,6 @@ public class Playground {
     private AnchorPane anchorInfo;
     private GridPane grid;
     private VBox vBox;
-    private HBox hBoxA;
-    private HBox hBoxT;
 
     private Label scoreT;
     private Label scoreA;

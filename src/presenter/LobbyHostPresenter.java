@@ -175,6 +175,8 @@ public class LobbyHostPresenter implements LobbyPresenter {
                 SnakeGame.setFieldSize(Integer.parseInt(view.getTfFieldSize().getText()));
                 SnakeGame.setGameSpeed(Integer.parseInt(view.getTfGameSpeed().getText()));
                 SnakeGame.setFoodCount(Integer.parseInt(view.getTfFoodCount().getText()));
+
+                view.getLblNotice().setText("Die Einstellungen wurden erfolgreich übernommen");
             }
         }
     }
@@ -189,8 +191,10 @@ public class LobbyHostPresenter implements LobbyPresenter {
             view.getTfGameSpeed().setText("");
             view.getTfFoodCount().setText("");
 
-            //Setting standad game settings
+            //Setting standard game settings
             SnakeGame.setSettingsToDefault();
+
+            view.getLblNotice().setText("Die Einstellungen wurden erfolgreich zurückgesetzt");
         }
     }
 

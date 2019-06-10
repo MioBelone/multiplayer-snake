@@ -73,6 +73,10 @@
     -fx-text-fill: -fx-error;
 }
 
+.label-success {
+    -fx-text-fill: green;
+}
+
 .label-head {
     -fx-text-fill: -fx-primarytext;
     -fx-font-size: 22px;

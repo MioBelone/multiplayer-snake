@@ -25,8 +25,11 @@ public class lobbyHostValidator {
         view.getTfFieldSize().getStyleClass().addAll("text-field", "text-input");
         view.getTfGameSpeed().getStyleClass().clear();
         view.getTfGameSpeed().getStyleClass().addAll("text-field", "text-input");
-        view.getLblErrFoodCount().getStyleClass().clear();
-        view.getLblErrFoodCount().getStyleClass().addAll("text-field", "text-input");
+        view.getTfFoodCount().getStyleClass().clear();
+        view.getTfFoodCount().getStyleClass().addAll("text-field", "text-input");
+
+        //Resetting info label
+        view.getLblNotice().setText("");
     }
 
     /**
@@ -41,21 +44,21 @@ public class lobbyHostValidator {
         //Reset last validation
         resetValidation(view);
 
-        //Check if username is empty
+        //Check if field size is empty
         if(!textfieldValidator.textfieldContainsIntAboveZero(view.getTfFieldSize())) {
             validation = false;
             view.getTfFieldSize().getStyleClass().add("text-field-error");
             view.getLblErrFieldSize().setText("Geben sie eine positive Zahl ein!");
         }
 
-        //Check if username is empty
+        //Check if game speed is empty
         if(!textfieldValidator.textfieldContainsIntAboveZero(view.getTfGameSpeed())) {
             validation = false;
             view.getTfGameSpeed().getStyleClass().add("text-field-error");
             view.getLblErrGameSpeed().setText("Geben sie eine positive Zahl ein!");
         }
 
-        //Check if username is empty
+        //Check if food count is empty
         if(!textfieldValidator.textfieldContainsIntAboveZero(view.getTfFoodCount())) {
             validation = false;
             view.getTfFoodCount().getStyleClass().add("text-field-error");
