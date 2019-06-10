@@ -16,6 +16,7 @@ public class Loop extends Thread {
     private SnakeGame sg;
     private Collision collision;
     private PlaygroundPresenter p;
+    private int speed;
 
     private Snake lastSnake1;
     private Snake lastSnake2;
@@ -34,7 +35,7 @@ public class Loop extends Thread {
     public void run() {
         while (running) {
             try {
-                sleep(200);
+                sleep(sg.getGameSpeed());
                 //unlock all SnakeHeads, they are locked if they change the direction to prevent multiple direction changes in the same tick
                 sg.lockSnakes();
                 for (Snake s : sg.getSnakes()) {
