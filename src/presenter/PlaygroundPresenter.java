@@ -144,7 +144,7 @@ public class PlaygroundPresenter {
         }
     }
 
-    public  void endGame() {
+    public void endGame() {
 
     }
 
