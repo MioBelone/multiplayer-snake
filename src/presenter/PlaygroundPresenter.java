@@ -144,6 +144,10 @@ public class PlaygroundPresenter {
         }
     }
 
+    public  void endGame() {
+
+    }
+
     private void returnToLobby() {
         lobby.show();
     }

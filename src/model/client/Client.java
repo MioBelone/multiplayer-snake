@@ -128,6 +128,10 @@ public class Client {
                                         presenter.startGame();
                                         break;
 
+                                    case "end":
+                                        playgroundPresenter.endGame();
+                                        break;
+
                                     default:
                                         //TODO: Command wurde nicht erkannt
                                         break;
