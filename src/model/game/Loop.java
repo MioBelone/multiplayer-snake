@@ -46,7 +46,7 @@ public class Loop extends Thread {
     public void run() {
         while (running) {
             try {
-                sleep(sg.getGameSpeed());
+                sleep(SnakeGame.getGameSpeed());
                 //unlock all SnakeHeads, they are locked if they change the direction to prevent multiple direction changes in the same tick
                 sg.lockSnakes();
                 for (Snake s : sg.getSnakes()) {
@@ -66,18 +66,8 @@ public class Loop extends Thread {
                     lastSnake2 = sg.getSnakes().get(1);
                 }
 
-                //System.out.println(sg.getSnakes().get(0).getSnakeHead().getX());
-                System.out.println(sg.getSnakes().size());
-
-                for (Snake s : sg.getSnakes()) {
-                    System.out.println(s.getSnakeHead().getX());
-                    System.out.println(s.getSnakeHead().getY());
-                }
-
 
                 //check if only one or no players left
-
-
                 if (sg.getSnakes().size() <= 1 && sg.getServer().getClientList().size() > 1) {
 
                     //checks for the rare case the last snakes collide with their heads,
