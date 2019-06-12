@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -51,12 +52,13 @@ public class EndScreen {
 
         borderPaneLabel = new BorderPane();
         lWinner = new Label();
+        lWinner.setFont(new Font(35));
         borderPaneLabel.setCenter(lWinner);
         grid.add(borderPaneLabel,1,0);
 
 
         //Inititalising scene
-        scene = new Scene(grid, 1000, 700);
+        scene = new Scene(grid, 500, 400);
         scene.getStylesheets().add("/resources/style.css");
 
     }
