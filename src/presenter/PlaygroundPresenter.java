@@ -37,13 +37,15 @@ public class PlaygroundPresenter {
      *
      * @param primaryStage = PrimaryStage
      * @param client       = Connected Client
+     * @param initialModel = Initial Model
+     * @param lobby = Lobby
      */
     public PlaygroundPresenter(Stage primaryStage, Client client, InitialModel initialModel, LobbyPresenter lobby) {
         this.primaryStage = primaryStage;
         this.view = new Playground();
         this.client = client;
-        this.lobby = lobby;
         this.initialModel = initialModel;
+        this.lobby = lobby;
 
         client.setPlaygroundPresenter(this);
 
@@ -141,10 +143,11 @@ public class PlaygroundPresenter {
     }
 
     public void endGame() {
-        EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
+        EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby, client);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                endScreenPresenter.showWinningPoints();
                 endScreenPresenter.show();
             }
         });

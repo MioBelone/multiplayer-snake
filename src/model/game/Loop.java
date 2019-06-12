@@ -88,15 +88,9 @@ public class Loop extends Thread {
 
                     sg.getServer().sendToAllHandler("/gameCmd end");
                     kill();
-                }else if(sg.getSnakes().size() == 0 && sg.getServer().getClientList().size() == 1){
+                } else if (sg.getSnakes().size() == 0 && sg.getServer().getClientList().size() == 1) {
                     //stop game
-                    EndScreenPresenter endScreenPresenter = new EndScreenPresenter(primaryStage, initialModel, lobby);
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            endScreenPresenter.show();
-                        }
-                    });
+                    sg.getServer().sendToAllHandler("/gameCmd end");
                     kill();
                 }
 
@@ -105,6 +99,7 @@ public class Loop extends Thread {
                 try {
                     sg.sendGameInfo();
                 } catch (JsonProcessingException e) {
+                    sg.getServer().sendToAllHandler("/gameCmd end");
                     e.printStackTrace();
                 }
 

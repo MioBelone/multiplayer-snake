@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import model.InitialModel;
+import model.client.Client;
+import model.game.SnakeContents.Snake;
 import view.EndScreen;
 
 
@@ -18,12 +20,14 @@ public class EndScreenPresenter {
     private InitialModel initialModel;
     private Stage primaryStage;
     private LobbyPresenter lobby;
+    private Client client;
 
-    public EndScreenPresenter(Stage primaryStage, InitialModel initialModel, LobbyPresenter lobby) {
+    public EndScreenPresenter(Stage primaryStage, InitialModel initialModel, LobbyPresenter lobby, Client client) {
         this.primaryStage = primaryStage;
         this.initialModel = initialModel;
         this.view = new EndScreen();
         this.lobby = lobby;
+        this.client = client;
 
         //Handlers for events on view
         view.getBtnReturnLobby().setOnAction(new BtnReturnLobby());
@@ -49,6 +53,18 @@ public class EndScreenPresenter {
         public void handle(ActionEvent event) {
             returnToLobby();
         }
+    }
+
+    public void showWinningPoints() {
+        int points = 0;
+        String winner = "";
+        for (Snake snake : client.getSnakes()) {
+            if (snake.getScore() >= points) {
+                points = snake.getScore();
+                winner = snake.getPlayername();
+            }
+        }
+        view.getlWinner().setText("Gewonnen hat " + winner + "\nmit " + points + " Punkten");
     }
 
     private void returnToLobby() {

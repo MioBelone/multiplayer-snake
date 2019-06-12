@@ -191,10 +191,10 @@ public class InitialView {
         lblBrandText.getStyleClass().add("label-head");
         vboxBrand.getChildren().add(lblBrandText);
 
-        lblBrandInfo = new Label("Dieses Spiel ist eine eine abwandlung des bekannten Spiels 'Snake'. " +
-                "Aber dieses Spiel kann nicht nur alleine genossen werden, sondern auch mit bis zu acht " +
-                "anderen Spielern. Ihr könnt in einem lokalen Netzwerk eine Lobby auf machen und all eure " +
-                "Freunde können dieser beitreten.");
+        lblBrandInfo = new Label("Dieses Spiel ist eine Abwandlung des bekannten Spiels \"Snake\". " +
+                "Aber dieses Spiel kann nicht nur alleine genossen werden, sondern auch mit bis zu sieben " +
+                "weiteren Spielern. Man kann in einem lokalen Netzwerk eine Lobby erstellen und andere " +
+                "Spieler können dieser beitreten.");
         lblBrandInfo.setTextAlignment(TextAlignment.CENTER);
         lblBrandInfo.setWrapText(true);
         vboxBrand.getChildren().add(lblBrandInfo);
